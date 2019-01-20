@@ -2,50 +2,8 @@
  * Created by Vermaas on 1/20/2019.
  */
 import React, { Component } from 'react';
-import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme, VictoryStack, VictoryPie, VictoryZoomContainer } from 'victory';
+import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme, VictoryLabel, VictoryPie, VictoryZoomContainer } from 'victory';
 
-const data2012 = [
-    {quarter: 1, earnings: 13000},
-    {quarter: 2, earnings: 16500},
-    {quarter: 3, earnings: 14250},
-    {quarter: 4, earnings: 19000}
-];
-
-const data2013 = [
-    {quarter: 1, earnings: 15000},
-    {quarter: 2, earnings: 12500},
-    {quarter: 3, earnings: 19500},
-    {quarter: 4, earnings: 13000}
-];
-
-const data2014 = [
-    {quarter: 1, earnings: 11500},
-    {quarter: 2, earnings: 13250},
-    {quarter: 3, earnings: 20000},
-    {quarter: 4, earnings: 15500}
-];
-
-const data2015 = [
-    {quarter: 1, earnings: 18000},
-    {quarter: 2, earnings: 13250},
-    {quarter: 3, earnings: 15000},
-    {quarter: 4, earnings: 12000}
-];
-
-const months = [
-    {month: 1, value: 0},
-    {month: 2, value: 1},
-    {month: 3, value: 2},
-    {month: 4, value: 3},
-    {month: 5, value: 4},
-    {month: 6, value: 5},
-    {month: 7, value: 6},
-    {month: 8, value: 7},
-    {month: 9, value: 8},
-    {month: 10, value: 9},
-    {month: 11, value: 10},
-    {month: 12, value: 11}
-];
 
 function fillYAxis(data) {
     let items = []
@@ -73,32 +31,67 @@ class Example extends Component {
 
         return (
             <div style={{ display: "flex", flexWrap: "wrap" }}>
-                <h2>Qbox View</h2>
 
                 <VictoryChart
-                    style={{ parent: { maxWidth: "50%" } }}
-                    domainPadding={10}
+                    style={{ parent: { maxWidth: "70%" } }}
+                    domainPadding={{ x: 15 }}
                     theme={VictoryTheme.material}
-
+                    width={600}
                 >
-                    <VictoryAxis
-                        tickValues={["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]}
+                    {/* Define labels */}
+                    <VictoryLabel x={200} y={24} text="Gasverbruik 2018 per maand"
                     />
+                    <VictoryAxis
+                        tickValues={["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"]}
+                        label="Maand"
+                        style={{
+                            axis: {stroke: "#756f6a"},
+                            axisLabel: {fontSize: 10, padding: 30},
+                            grid: {stroke: (t) => t > 0.5 ? "red" : "grey"},
+                            ticks: {stroke: "grey", size: 5},
+                            tickLabels: {fontSize: 9, padding: 5}
+                        }}
+                    />
+
                     <VictoryAxis
                         dependentAxis
-                        tickFormat={(x) => (`${x}`)}
+                        tickFormat={(x) => (`${x/1000}`)}
+                        animate={{
+                            duration: 2000,
+                            easing: "bounce"
+                        }}
+                        label="Verbruik in 1000 m3"
+                        style={{
+                            axis: {stroke: "#756f6a"},
+                            axisLabel: {fontSize: 10, padding: 30},
+                            grid: {stroke: (t) => t > 0.5 ? "red" : "grey"},
+                            ticks: {stroke: "grey", size: 5},
+                            tickLabels: {fontSize: 9, padding: 5}
+                        }}
                     />
-                    <VictoryStack
-                        colorScale={"warm"}
-                    >
-                        <VictoryBar
-                            data={items}
-                            x={"month"}
-                            y={"value"}
-                        />
 
+                    <VictoryBar
+                        style={{
+                            data: {
+                                fill: "#0081C9",
+                                fillOpacity: 0.7,
+                            },
+                            labels: {
+                                fontSize: 10,
+                                fill: (d) => d.x === 3 ? "#000000" : "#c43a31"
+                            }
+                        }}
 
-                    </VictoryStack>
+                        animate={{
+                            duration: 2000,
+                            onLoad: { duration: 1000 }
+                        }}
+
+                        data={items}
+                        x={"month"}
+                        y={"value"}
+                    />
+
                 </VictoryChart>
 
             </div>
