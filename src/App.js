@@ -1,77 +1,44 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme, VictoryStack } from 'victory';
+import MainScreen from './components/MainScreen';
 
-const data2012 = [
-    {quarter: 1, earnings: 13000},
-    {quarter: 2, earnings: 16500},
-    {quarter: 3, earnings: 14250},
-    {quarter: 4, earnings: 19000}
-];
-
-const data2013 = [
-    {quarter: 1, earnings: 15000},
-    {quarter: 2, earnings: 12500},
-    {quarter: 3, earnings: 19500},
-    {quarter: 4, earnings: 13000}
-];
-
-const data2014 = [
-    {quarter: 1, earnings: 11500},
-    {quarter: 2, earnings: 13250},
-    {quarter: 3, earnings: 20000},
-    {quarter: 4, earnings: 15500}
-];
-
-const data2015 = [
-    {quarter: 1, earnings: 18000},
-    {quarter: 2, earnings: 13250},
-    {quarter: 3, earnings: 15000},
-    {quarter: 4, earnings: 12000}
-];
+//import my_data from '../assets/data.json';
+var my_data = require('./assets/data.json');
+const API_URL = "http://192.168.178.62/api/getseries?sn=15-49-002-081&from=2018-12-20&to=2018-12-21&resolution=Hour"
 
 class App extends Component {
+
+    // get the data from the api
+    fetchData = () => {
+        fetch(API_URL,{mode : 'no-cors'} )
+            .then(results => {
+                return results.json();
+            })
+            .then(data => {
+                let myData = data;
+                this.setState({fetchedData: myData})
+                alert('data loaded')
+                console.log("data loaded")
+            })
+        }
+
+     // simulating the fetch with data from the assets folder
+     readData = () => {
+         this.setState({fetchedData: my_data})
+     }
+
+    // fetch the data
+    componentWillMount() {
+        console.log("componentWillMount()")
+        // this.fetchData()
+        this.readData()
+    }
+
     render() {
         return (
             <div>
-              <h1>Qbox View</h1>
-              <VictoryChart
-                  domainPadding={10}
-                  theme={VictoryTheme.material}
-              >
-                <VictoryAxis
-                    tickValues={["Quarter 1", "Quarter 2", "Quarter 3", "Quarter 4"]}
-                />
-                <VictoryAxis
-                    dependentAxis
-                    tickFormat={(x) => (`$${x / 1000}k`)}
-                />
-                <VictoryStack
-                    colorScale={"warm"}
-                >
-                  <VictoryBar
-                      data={data2012}
-                      x={"quarter"}
-                      y={"earnings"}
-                  />
-                  <VictoryBar
-                      data={data2013}
-                      x={"quarter"}
-                      y={"earnings"}
-                  />
-                  <VictoryBar
-                      data={data2014}
-                      x={"quarter"}
-                      y={"earnings"}
-                  />
-                  <VictoryBar
-                      data={data2015}
-                      x={"quarter"}
-                      y={"earnings"}
-                  />
-                </VictoryStack>
-              </VictoryChart>
+                <MainScreen data={this.state.fetchedData} />
             </div>
         );
     }
