@@ -35,6 +35,7 @@ class MainGraph extends Component {
 
         // this is all the fetched data in a json structure
         let all_data=this.props.data
+        let tickValues = this.props.tickValues
 
         let drawGraph
 
@@ -43,7 +44,7 @@ class MainGraph extends Component {
             let data = all_data.data[energyTypes['Gas']]["data"]
             let items = fillYAxis(data)
 
-            drawGraph = <GasGraph x={"month"} y={"value"} items={items}/>
+            drawGraph = <GasGraph x={"month"} y={"value"} items={items} tickValues={tickValues}/>
         } else
 
         if (presentation=='Netto') {
@@ -53,14 +54,14 @@ class MainGraph extends Component {
             let items1 = fillYAxis(data1)
             let items2 = fillYAxis(data2)
 
-            drawGraph = <ElectricityGraph x={"month"} y={"value"} items1={items1} items2={items2}/>
+            drawGraph = <ElectricityGraph x={"month"} y={"value"} items1={items1} items2={items2} tickValues={tickValues}/>
 
         } else {
             // draw a single bar diagram
             let data = all_data.data[energyTypes[dataset]]["data"]
             let items = fillYAxis(data)
 
-            drawGraph = <ElectricityGraph x={"month"} y={"value"} items1={items}/>
+            drawGraph = <ElectricityGraph x={"month"} y={"value"} items1={items} tickValues={tickValues}/>
         }
 
 

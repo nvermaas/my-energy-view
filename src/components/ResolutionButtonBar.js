@@ -2,10 +2,9 @@
 import React, { Component } from 'react';
 import { ButtonToolbar, Button } from 'react-bootstrap';
 
-class PeriodButtonBar extends Component {
+class ResolutionButtonBar extends Component {
 
     handleChoice = (event) => {
-        // alert('ButtonBar.handleChoice:' +event)
         this.props.handleChoice(event);
     }
 
@@ -13,18 +12,20 @@ class PeriodButtonBar extends Component {
 
         return (
             <div>
-                Periode
+                Resolution
                 <ButtonToolbar>
 
                     {/* Provides extra visual weight and identifies the primary action in a set of buttons */}
-                    <Button bsStyle="info" onClick={() => this.handleChoice('2018')}>2018</Button>.
-                    <Button bsStyle="info" onClick={() => this.handleChoice('2019')}>2019</Button>.
+                    <Button bsStyle="info" onClick={() => this.handleChoice('year')}>Years</Button>.
 
                     {/* Indicates caution should be taken with this action */}
-                    <Button bsStyle="info" onClick={() => this.handleChoice('this_month')}>Deze Maand</Button>.
+                    <Button bsStyle="info" onClick={() => this.handleChoice('month')}>Months</Button>.
 
                     {/* Indicates caution should be taken with this action */}
-                    <Button bsStyle="info" onClick={() => this.handleChoice('today')}>Vandaag</Button>.
+                    <Button bsStyle="info" onClick={() => this.handleChoice('day')}>Days</Button>.
+
+                    {/* Indicates caution should be taken with this action */}
+                    <Button bsStyle="info" onClick={() => this.handleChoice('hour')}>Hours</Button>.
 
                 </ButtonToolbar>
             </div>
@@ -32,4 +33,4 @@ class PeriodButtonBar extends Component {
         );
     }
 }
-export default PeriodButtonBar;
+export default ResolutionButtonBar;

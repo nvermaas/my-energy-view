@@ -22,7 +22,7 @@ class GasGraph extends Component {
                     <VictoryLabel x={200} y={24} text={title}
                     />
                     <VictoryAxis
-                        tickValues={["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"]}
+                        tickValues={this.props.tickValues}
                         label={x_label}
                         style={{
                             axis: {stroke: "#756f6a"},
