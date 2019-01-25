@@ -1,15 +1,17 @@
 
 import React, { Component } from 'react';
-import Example from './Example';
+import { Navbar, Jumbotron, Button } from 'react-bootstrap';
+import MainGraph from './MainGraph';
 
 class MainScreen extends Component {
     render() {
-        let data = this.props.data
 
         return (
             <div>
-                <Example data={this.props.data} />
+               <MainGraph data={this.props.data} />
+
             </div>
+
         );
     }
 }

@@ -2,7 +2,18 @@
  * Created by Vermaas on 1/20/2019.
  */
 import React, { Component } from 'react';
-import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme, VictoryLabel, VictoryPie, VictoryZoomContainer } from 'victory';
+import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme, VictoryLabel, VictoryStack, VictoryZoomContainer } from 'victory';
+import GasGraph from './GasGraph';
+
+const color_gas = "0081C9"
+const color_electricity = "#FFDD00"
+
+const energyTypes = {
+    "NetLow" : 0,
+    "Consumption" : 1 ,
+    "NetHigh" : 2,
+    "Gas" : 3,
+    "Generation" : 4}
 
 
 function fillYAxis(data) {
@@ -16,30 +27,31 @@ function fillYAxis(data) {
     return items
 }
 
-class Example extends Component {
+class MainGraph extends Component {
     render() {
-        let data=this.props.data
-        let result = data.result
-        let data_list = data.data
-        let data_gas = data_list[3]
-        let energyType = data_gas["energyType"] // 'gas'
 
-        let gas_data = data_gas["data"]
+        let dataset = this.props.dataset
+        let my_data=this.props.data
 
-        let items = fillYAxis(gas_data)
-        //alert(gas_data)
+        let data_details = my_data.data[energyTypes[dataset]]
+        let data_list = data_details["data"]
+
+        let energyType = data_details["energyType"] // 'gas'
+        let title = energyType+" verbruik per maand"
+
+        let items = fillYAxis(data_list)
 
         return (
             <div style={{ display: "flex", flexWrap: "wrap" }}>
 
                 <VictoryChart
-                    style={{ parent: { maxWidth: "70%" } }}
+                    style={{ parent: { maxWidth: "80%" } }}
                     domainPadding={{ x: 15 }}
                     theme={VictoryTheme.material}
                     width={600}
                 >
                     {/* Define labels */}
-                    <VictoryLabel x={200} y={24} text="Gasverbruik 2018 per maand"
+                    <VictoryLabel x={200} y={24} text={title}
                     />
                     <VictoryAxis
                         tickValues={["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"]}
@@ -69,8 +81,11 @@ class Example extends Component {
                             tickLabels: {fontSize: 9, padding: 5}
                         }}
                     />
+                    <GasGraph x={"month"} y={"value"} items={items}/>
+                    <VictoryStack>
 
-                    <VictoryBar
+
+                        <VictoryBar
                         style={{
                             data: {
                                 fill: "#0081C9",
@@ -91,7 +106,7 @@ class Example extends Component {
                         x={"month"}
                         y={"value"}
                     />
-
+                    </VictoryStack>
                 </VictoryChart>
 
             </div>
@@ -99,4 +114,4 @@ class Example extends Component {
     }
 }
 
-export default Example;
+export default MainGraph;
