@@ -3,12 +3,20 @@ import logo from './logo.svg';
 import './App.css';
 import { Grid, Navbar, Jumbotron } from 'react-bootstrap';
 import MainGraph from './components/MainGraph';
-import ButtonBar from './components/ButtonBar';
+import PeriodButtonBar from './components/PeriodButtonBar';
+import PresentationButtonBar from './components/PresentationButtonBar';
 
 //import my_data from '../assets/data.json';
 var my_data = require('./assets/data.json');
-const API_URL = "http://192.168.178.64/api/getseries?sn=15-49-002-081&from=2018-01-01&to=2018-12-31&resolution=Month"
 
+const API_BASE = "http://192.168.178.64/api/getseries"
+const qbox_sn = "15-49-002-081"
+
+var from = "2018-01-01"
+var to = "2018-12-31"
+var resolution = "Month"
+
+var API_URL = API_BASE + "?sn=" + qbox_sn + "&from=" + from + "&to=" + to + "&resolution=" + resolution
 
 class App extends Component {
     constructor(props) {
@@ -16,7 +24,7 @@ class App extends Component {
     }
 
     // get the data from the api
-    fetchData = () => {
+    fetchData = (API_URL) => {
         this.setState({
             status: 'fetching',
         })
@@ -28,6 +36,7 @@ class App extends Component {
                 let myData = data;
                 this.setState({
                     fetchedData: myData,
+                    presentation: 'Gas',
                     dataset : 'Gas',
                     status : 'fetched'})
             })
@@ -36,29 +45,58 @@ class App extends Component {
      // simulating the fetch with data from the assets folder
      readData = () => {
          this.setState({fetchedData: my_data,
+                        presentation: 'Gas',
                         dataset : 'Gas',
                         status  : 'fetched'})
      }
 
 
-    handleChoice = (event) => {
+    handlePresentationChoice = (event) => {
         console.log(event)
         this.setState({
+            presentation: event,
+            dataset: event,
+        });
+    }
+
+    handlePeriodChoice = (period) => {
+
+        if (period='today') {
+            resolution = 'Hour'
+            API_URL = "http://192.168.178.64/api/getseries?sn=15-49-002-081&from=2019-01-25&to=2019-01-26&resolution=Hour"
+
+            this.fetchData(API_URL)
+        }
+
+        if (period='year') {
+            resolution = 'Month'
+            API_URL = "http://192.168.178.64/api/getseries?sn=15-49-002-081&from=2018-01-01&to=2018-12-31&resolution=Month"
+
+            this.fetchData(API_URL)
+        }
+
+        this.setState({
+            period: period,
+            resolution : resolution,
+            dataset: period,
+        });
+    }
+
+    handleResolutionChoice = (event) => {
+        alert(event)
+        this.setState({
+            resolution: event,
             dataset: event,
         });
     }
 
     // fetch the data
     componentWillMount() {
-
         console.log("componentWillMount()")
-        this.fetchData()
+        let API_URL = API_BASE + "?sn=" + qbox_sn + "&from=" + from + "&to=" + to + "&resolution=" + resolution
+
+        this.fetchData(API_URL)
         //this.readData()   //read test data
-
-    }
-
-    componentDidMount() {
-        console.log("componentDidMount()")
     }
 
     render() {
@@ -66,6 +104,7 @@ class App extends Component {
         let renderGraph
         if (this.state.status=='fetched') {
             renderGraph = <MainGraph data={this.state.fetchedData}
+                                     presentation={this.state.presentation}
                                      dataset={this.state.dataset} />
         }
 
@@ -83,7 +122,8 @@ class App extends Component {
             </Navbar>
             <Jumbotron>
                 <Grid>
-                    <ButtonBar handleChoice={this.handleChoice} />
+                    <PeriodButtonBar handleChoice={this.handlePeriodChoice} />
+                    <PresentationButtonBar handleChoice={this.handlePresentationChoice} />
                     {renderGraph}
                 </Grid>
             </Jumbotron>

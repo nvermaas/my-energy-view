@@ -5,14 +5,13 @@ import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme, VictoryLabel, Vict
 class GasGraph extends Component {
 
     render() {
-        let x = this.props.x;
-
-        let y = this.props.y;
         let items = this.props.items;
         let title = "Gas"
+        let x_label = "maand"
+        let y_label = "verbruik in m3"
 
         return (
-            <div>
+            <div style={{ display: "flex", flexWrap: "wrap" }}>
                 <VictoryChart
                     style={{ parent: { maxWidth: "80%" } }}
                     domainPadding={{ x: 15 }}
@@ -24,7 +23,7 @@ class GasGraph extends Component {
                     />
                     <VictoryAxis
                         tickValues={["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"]}
-                        label="Maand"
+                        label={x_label}
                         style={{
                             axis: {stroke: "#756f6a"},
                             axisLabel: {fontSize: 10, padding: 30},
@@ -41,7 +40,7 @@ class GasGraph extends Component {
                             duration: 2000,
                             easing: "bounce"
                         }}
-                        label="Verbruik in m3"
+                        label={y_label}
                         style={{
                             axis: {stroke: "#756f6a"},
                             axisLabel: {fontSize: 10, padding: 30},
@@ -51,31 +50,28 @@ class GasGraph extends Component {
                         }}
                     />
 
-                    <VictoryStack>
+                    <VictoryBar
+                        style={{
+                            data: {
+                                fill: "#0081C9",
+                                fillOpacity: 0.7,
+                            },
+                            labels: {
+                                fontSize: 10,
+                                fill: (d) => d.x === 3 ? "#000000" : "#c43a31"
+                            }
+                        }}
 
+                        animate={{
+                            duration: 2000,
+                            onLoad: { duration: 1000 }
+                        }}
 
-                        <VictoryBar
-                            style={{
-                                data: {
-                                    fill: "#0081C9",
-                                    fillOpacity: 0.7,
-                                },
-                                labels: {
-                                    fontSize: 10,
-                                    fill: (d) => d.x === 3 ? "#000000" : "#c43a31"
-                                }
-                            }}
+                        data={this.props.items}
+                        x={this.props.x}
+                        y={this.props.y}
+                    />
 
-                            animate={{
-                                duration: 2000,
-                                onLoad: { duration: 1000 }
-                            }}
-
-                            data={items}
-                            x={"month"}
-                            y={"value"}
-                        />
-                    </VictoryStack>
                 </VictoryChart>
             </div>
 

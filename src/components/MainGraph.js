@@ -4,6 +4,7 @@
 import React, { Component } from 'react';
 import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme, VictoryLabel, VictoryStack, VictoryZoomContainer } from 'victory';
 import GasGraph from './GasGraph';
+import ElectricityGraph from './ElectricityGraph';
 
 const color_gas = "0081C9"
 const color_electricity = "#FFDD00"
@@ -29,86 +30,43 @@ function fillYAxis(data) {
 
 class MainGraph extends Component {
     render() {
-
+        let presentation = this.props.presentation
         let dataset = this.props.dataset
-        let my_data=this.props.data
 
-        let data_details = my_data.data[energyTypes[dataset]]
-        let data_list = data_details["data"]
+        // this is all the fetched data in a json structure
+        let all_data=this.props.data
 
-        let energyType = data_details["energyType"] // 'gas'
-        let title = energyType+" verbruik per maand"
+        let drawGraph
 
-        let items = fillYAxis(data_list)
+        // the buttons determine which presentation is wanted, extract data and graph accordingly
+        if (presentation=='Gas') {
+            let data = all_data.data[energyTypes['Gas']]["data"]
+            let items = fillYAxis(data)
+
+            drawGraph = <GasGraph x={"month"} y={"value"} items={items}/>
+        } else
+
+        if (presentation=='Netto') {
+            // draw a stacked bar diagram with NetLow and NetHigh combined
+            let data1 = all_data.data[energyTypes['NetLow']]["data"]
+            let data2 = all_data.data[energyTypes['NetHigh']]["data"]
+            let items1 = fillYAxis(data1)
+            let items2 = fillYAxis(data2)
+
+            drawGraph = <ElectricityGraph x={"month"} y={"value"} items1={items1} items2={items2}/>
+
+        } else {
+            // draw a single bar diagram
+            let data = all_data.data[energyTypes[dataset]]["data"]
+            let items = fillYAxis(data)
+
+            drawGraph = <ElectricityGraph x={"month"} y={"value"} items1={items}/>
+        }
+
 
         return (
-            <div style={{ display: "flex", flexWrap: "wrap" }}>
-
-                <VictoryChart
-                    style={{ parent: { maxWidth: "80%" } }}
-                    domainPadding={{ x: 15 }}
-                    theme={VictoryTheme.material}
-                    width={600}
-                >
-                    {/* Define labels */}
-                    <VictoryLabel x={200} y={24} text={title}
-                    />
-                    <VictoryAxis
-                        tickValues={["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"]}
-                        label="Maand"
-                        style={{
-                            axis: {stroke: "#756f6a"},
-                            axisLabel: {fontSize: 10, padding: 30},
-                            grid: {stroke: (t) => t > 0.5 ? "red" : "grey"},
-                            ticks: {stroke: "grey", size: 5},
-                            tickLabels: {fontSize: 9, padding: 5}
-                        }}
-                    />
-
-                    <VictoryAxis
-                        dependentAxis
-                        tickFormat={(x) => (`${x/1000}`)}
-                        animate={{
-                            duration: 2000,
-                            easing: "bounce"
-                        }}
-                        label="Verbruik in m3"
-                        style={{
-                            axis: {stroke: "#756f6a"},
-                            axisLabel: {fontSize: 10, padding: 30},
-                            grid: {stroke: (t) => t > 0.5 ? "red" : "grey"},
-                            ticks: {stroke: "grey", size: 5},
-                            tickLabels: {fontSize: 9, padding: 5}
-                        }}
-                    />
-                    <GasGraph x={"month"} y={"value"} items={items}/>
-                    <VictoryStack>
-
-
-                        <VictoryBar
-                        style={{
-                            data: {
-                                fill: "#0081C9",
-                                fillOpacity: 0.7,
-                            },
-                            labels: {
-                                fontSize: 10,
-                                fill: (d) => d.x === 3 ? "#000000" : "#c43a31"
-                            }
-                        }}
-
-                        animate={{
-                            duration: 2000,
-                            onLoad: { duration: 1000 }
-                        }}
-
-                        data={items}
-                        x={"month"}
-                        y={"value"}
-                    />
-                    </VictoryStack>
-                </VictoryChart>
-
+            <div>
+                {drawGraph}
             </div>
         );
     }
