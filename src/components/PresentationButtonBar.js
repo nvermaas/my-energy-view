@@ -5,34 +5,38 @@ import { ButtonToolbar, Button } from 'react-bootstrap';
 
 class PresentationButtonBar extends Component {
 
-    handleChoice = (event) => {
-        this.props.handleChoice(event);
+    handleChoice = (choice) => {
+        this.props.handleChoice(choice);
     }
 
     render() {
 
         return (
             <div>
-                Presentation
+                Overzicht
                 <ButtonToolbar>
 
+
                     {/* Provides extra visual weight and identifies the primary action in a set of buttons */}
-                    <Button bsStyle="primary" onClick={() => this.handleChoice('Gas')}>Gas</Button>.
+                    <Button bsStyle="primary" bsSize="large" onClick={() => this.handleChoice('Gas')}>Gas</Button>.
 
                     {/* Indicates caution should be taken with this action */}
-                    <Button bsStyle="warning" onClick={() => this.handleChoice('Netto')}>Stroom</Button>.
+                    <Button bsStyle="warning" bsSize="large" onClick={() => this.handleChoice('Netto')}>Stroom</Button>.
+                </ButtonToolbar>
+                Details
+                <ButtonToolbar>
+                    {/* Indicates caution should be taken with this action */}
+                    <Button bsStyle="warning" bsSize="large" onClick={() => this.handleChoice('Consumption')}>Consumption</Button>.
 
                     {/* Indicates caution should be taken with this action */}
-                    <Button bsStyle="warning" onClick={() => this.handleChoice('Consumption')}>Consumption</Button>.
+                    <Button bsStyle="warning" bsSize="large" onClick={() => this.handleChoice('NetLow')}>Net Low</Button>.
 
                     {/* Indicates caution should be taken with this action */}
-                    <Button bsStyle="info" onClick={() => this.handleChoice('NetLow')}>Net Low</Button>.
+                    <Button bsStyle="warning" bsSize="large" onClick={() => this.handleChoice('NetHigh')}>Net High</Button>.
 
                     {/* Indicates caution should be taken with this action */}
-                    <Button bsStyle="info" onClick={() => this.handleChoice('NetHigh')}>Net High</Button>.
+                    <Button bsStyle="warning" bsSize="large" onClick={() => this.handleChoice('Generation')}>Generation</Button>.
 
-                    {/* Indicates caution should be taken with this action */}
-                    <Button bsStyle="primary" onClick={() => this.handleChoice('Generation')}>Generation</Button>.
                 </ButtonToolbar>
             </div>
 

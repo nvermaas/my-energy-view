@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { Grid, Navbar, Jumbotron } from 'react-bootstrap';
-import Status from './components/Status';
+import { Grid, Navbar, PageHeader, Jumbotron, Row, Col } from 'react-bootstrap';
+
 import MainGraph from './components/MainGraph';
-import PeriodButtonBar from './components/PeriodButtonBar';
+import HeaderPanel from './components/HeaderPanel';
+import PeriodPanel from './components/PeriodPanel';
 import PresentationButtonBar from './components/PresentationButtonBar';
+import PresentationPanel from './components/PresentationPanel';
 import ResolutionButtonBar from './components/ResolutionButtonBar';
+import StatusPanel from './components/StatusPanel';
+import LoadingSpinner from './components/LoadingSpinner';
 
 //import my_data from '../assets/data.json';
-var my_data = require('./assets/data.json');
+var my_data_2018 = require('./assets/data_2018.json');
+var my_month_data = require('./assets/data_dec_2018.json');
 
 const API_BASE = "http://192.168.178.64/api/getseries"
 const qbox_sn = "15-49-002-081"
@@ -100,7 +105,16 @@ class App extends Component {
         }
 
      // simulating the fetch with data from the assets folder
-     readData = () => {
+     fetchData0 = (API_URL) => {
+         alert(this.state.period)
+         let my_data
+         if (this.state.period == '2018') {
+            my_data = my_data_2018
+         } else
+         if (this.state.period == 'this_month') {
+             my_data = my_month_data
+         }
+
          this.setState({fetchedData: my_data,
                         presentation: 'Gas',
                         dataset : 'Gas',
@@ -195,33 +209,38 @@ class App extends Component {
             renderGraph = <MainGraph data={this.state.fetchedData}
                                      presentation={this.state.presentation}
                                      dataset={this.state.dataset}
+                                     period={this.state.period}
                                      tickValues = {this.state.tickValues} />
         }
+        const loading = this.state.status == 'fetching'
 
         return (
         <div>
-            <Navbar inverse fixedTop>
-                <Grid>
-                    <Navbar.Header>
-                        <Navbar.Brand>
-                            QboxView 1.0 (23 jan 2019)
-                        </Navbar.Brand>
 
-                    </Navbar.Header>
-                </Grid>
-            </Navbar>
             <Jumbotron>
+                <Grid fluid="true">
+                    <Row className="show-grid">
+                        <Col xs={6} md={4}>
+                            <HeaderPanel/>
+                            <PeriodPanel handleChoice={this.handlePeriodChoice} />
 
-                <Grid>
-                    <Status presentation={this.state.presentation}
-                            period={this.state.period}
-                            resolution={this.state.resolution} />
-                    <PeriodButtonBar handleChoice={this.handlePeriodChoice} />
-                    <PresentationButtonBar handleChoice={this.handlePresentationChoice} />
-                    {renderGraph}
-                    <ResolutionButtonBar handleChoice={this.handleResolutionChoice} />
+                            <PresentationPanel handleChoice={this.handlePresentationChoice} />
+                            <StatusPanel presentation={this.state.presentation}
+                                    period={this.state.period}
+                                    resolution={this.state.resolution} />
+
+                        </Col>
+                        <Col xs={12} md={8}>
+                            {loading ? <LoadingSpinner /> :
+                                <div>
+                                    {renderGraph}
+                                </div>
+                            }
+                        </Col>
+                    </Row>
                 </Grid>
             </Jumbotron>
+            <small> (C) 2019 - Nico Vermaas</small>
         </div>
         );
     }

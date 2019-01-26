@@ -2,7 +2,7 @@
  * Created by Vermaas on 1/20/2019.
  */
 import React, { Component } from 'react';
-import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme, VictoryLabel, VictoryStack, VictoryZoomContainer } from 'victory';
+import { Panel } from 'react-bootstrap';
 import GasGraph from './GasGraph';
 import ElectricityGraph from './ElectricityGraph';
 
@@ -37,6 +37,7 @@ class MainGraph extends Component {
         let all_data=this.props.data
         let tickValues = this.props.tickValues
 
+        let title = this.props.presentation+' '+this.props.period
         let drawGraph
 
         // the buttons determine which presentation is wanted, extract data and graph accordingly
@@ -44,7 +45,7 @@ class MainGraph extends Component {
             let data = all_data.data[energyTypes['Gas']]["data"]
             let items = fillYAxis(data)
 
-            drawGraph = <GasGraph x={"month"} y={"value"} items={items} tickValues={tickValues}/>
+            drawGraph = <GasGraph title={title} x={"month"} y={"value"} items={items} tickValues={tickValues}/>
         } else
 
         if (presentation=='Netto') {
@@ -54,20 +55,27 @@ class MainGraph extends Component {
             let items1 = fillYAxis(data1)
             let items2 = fillYAxis(data2)
 
-            drawGraph = <ElectricityGraph x={"month"} y={"value"} items1={items1} items2={items2} tickValues={tickValues}/>
+            drawGraph = <ElectricityGraph title={title} x={"month"} y={"value"} items1={items1} items2={items2} tickValues={tickValues}/>
 
         } else {
             // draw a single bar diagram
             let data = all_data.data[energyTypes[dataset]]["data"]
             let items = fillYAxis(data)
 
-            drawGraph = <ElectricityGraph x={"month"} y={"value"} items1={items} tickValues={tickValues}/>
+            drawGraph = <ElectricityGraph title={title} x={"month"} y={"value"} items1={items} tickValues={tickValues}/>
         }
 
 
         return (
             <div>
-                {drawGraph}
+                <Panel bsStyle="info">
+                    <Panel.Heading>
+                        <Panel.Title componentClass="h5">{title}</Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body>
+                        {drawGraph}
+                    </Panel.Body>
+                </Panel>
             </div>
         );
     }

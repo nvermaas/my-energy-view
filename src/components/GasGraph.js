@@ -6,28 +6,27 @@ class GasGraph extends Component {
 
     render() {
         let items = this.props.items;
-        let title = "Gas"
-        let x_label = "maand"
+        //let x_label = "maand"
         let y_label = "verbruik in m3"
 
         return (
             <div style={{ display: "flex", flexWrap: "wrap" }}>
                 <VictoryChart
-                    style={{ parent: { maxWidth: "80%" } }}
+                    style={{ parent: { maxWidth: "100%" } }}
                     domainPadding={{ x: 15 }}
                     theme={VictoryTheme.material}
                     width={600}
                 >
                     {/* Define labels */}
-                    <VictoryLabel x={200} y={24} text={title}
+                    <VictoryLabel x={200} y={24} text={this.props.title}
                     />
                     <VictoryAxis
                         tickValues={this.props.tickValues}
-                        label={x_label}
+                        //label={x_label}
                         style={{
                             axis: {stroke: "#756f6a"},
                             axisLabel: {fontSize: 10, padding: 30},
-                            grid: {stroke: (t) => t > 0.5 ? "red" : "grey"},
+                            grid: {stroke: (t) => t > 0.5 ? "grey" : "grey"},
                             ticks: {stroke: "grey", size: 5},
                             tickLabels: {fontSize: 9, padding: 5}
                         }}
@@ -61,7 +60,7 @@ class GasGraph extends Component {
                                 fill: (d) => d.x === 3 ? "#000000" : "#c43a31"
                             }
                         }}
-
+                        barRatio={0.8}
                         animate={{
                             duration: 2000,
                             onLoad: { duration: 1000 }
