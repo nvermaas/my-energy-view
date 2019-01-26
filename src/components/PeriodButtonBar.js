@@ -10,7 +10,6 @@ class PeriodButtonBar extends Component {
         this.props.handleChoice(choice);
     }
 
-
     render() {
 
         return (
@@ -23,6 +22,10 @@ class PeriodButtonBar extends Component {
 
                     {/* Indicates caution should be taken with this action */}
                     <Button bsStyle="info" bsSize="large" onClick={() => this.handleChoice('this_month')}>Deze Maand</Button>.
+
+                    {/* Indicates caution should be taken with this action */}
+
+                    <Button bsStyle="info" bsSize="large" onClick={() => this.handleChoice('previous_day')}>Gisteren</Button>.
 
                     {/* Indicates caution should be taken with this action */}
                     <Button bsStyle="info" bsSize="large" onClick={() => this.handleChoice('today')}>Vandaag</Button>.

@@ -3,9 +3,6 @@ import { Panel } from 'react-bootstrap';
 import PeriodButtonBar from './PeriodButtonBar';
 
 class PeriodePanel extends Component {
-    constructor(props, context) {
-        super(props, context);
-    }
 
     render() {
         return (

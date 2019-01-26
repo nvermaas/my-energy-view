@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme, VictoryLabel, VictoryStack, VictoryZoomContainer } from 'victory';
+import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme, VictoryLabel, VictoryStack } from 'victory';
 
 class ElectricityGraph extends Component {
 
@@ -15,7 +15,7 @@ class ElectricityGraph extends Component {
         let y_label = "verbruik in kWh"
 
         let myFirstBar
-        if (items1!=undefined) {
+        if (items1!==undefined) {
             myFirstBar =
                 <VictoryBar
                     style={{
@@ -41,7 +41,7 @@ class ElectricityGraph extends Component {
         }
 
         let mySecondBar
-        if (items2!=undefined) {
+        if (items2!==undefined) {
             mySecondBar =
                 <VictoryBar
                     style={{
@@ -68,7 +68,7 @@ class ElectricityGraph extends Component {
 
 
         let myThirdBar
-        if (items3!=undefined) {
+        if (items3!==undefined) {
             myThirdBar =
                 <VictoryBar
                     style={{

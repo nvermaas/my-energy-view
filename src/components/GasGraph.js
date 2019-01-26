@@ -1,12 +1,11 @@
 
 import React, { Component } from 'react';
-import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme, VictoryLabel, VictoryStack, VictoryZoomContainer } from 'victory';
+import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme, VictoryLabel  } from 'victory';
 
 class GasGraph extends Component {
 
     render() {
-        let items = this.props.items;
-        //let x_label = "maand"
+
         let y_label = "verbruik in m3"
 
         return (

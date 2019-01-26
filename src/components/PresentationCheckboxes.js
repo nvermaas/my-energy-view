@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { ButtonToolbar, Checkbox, Button } from 'react-bootstrap';
+import { Checkbox } from 'react-bootstrap';
 
 
 class PresentationCheckboxes extends Component {
@@ -18,7 +18,7 @@ class PresentationCheckboxes extends Component {
             <div>
 
                 <h2>
-                    <Checkbox name="Netto" onClick={e => this.handleChoice(e.target)} >Netto</Checkbox>
+                    <Checkbox name="Kosten" onClick={e => this.handleChoice(e.target)} >Kosten</Checkbox>
                 </h2>
             </div>
 

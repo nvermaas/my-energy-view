@@ -4,9 +4,6 @@ import PresentationButtonBar from './PresentationButtonBar';
 import PresentationCheckboxes from './PresentationCheckboxes';
 
 class PresentationPanel extends Component {
-    constructor(props, context) {
-        super(props, context);
-    }
 
     render() {
         return (

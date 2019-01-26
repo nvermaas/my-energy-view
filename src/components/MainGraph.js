@@ -6,9 +6,6 @@ import { Panel } from 'react-bootstrap';
 import GasGraph from './GasGraph';
 import ElectricityGraph from './ElectricityGraph';
 
-const color_gas = "0081C9"
-const color_electricity = "#FFDD00"
-
 const energyTypes = {
     "NetLow" : 0,
     "Consumption" : 1 ,
@@ -41,14 +38,14 @@ class MainGraph extends Component {
         let drawGraph
 
         // the buttons determine which presentation is wanted, extract data and graph accordingly
-        if (presentation=='Gas') {
+        if (presentation==='Gas') {
             let data = all_data.data[energyTypes['Gas']]["data"]
             let items = fillYAxis(data)
 
             drawGraph = <GasGraph title={title} x={"month"} y={"value"} items={items} tickValues={tickValues}/>
         } else
 
-        if (presentation=='Netto') {
+        if (presentation==='Netto') {
             // draw a stacked bar diagram with NetLow and NetHigh combined
             let data1 = all_data.data[energyTypes['NetLow']]["data"]
             let data2 = all_data.data[energyTypes['NetHigh']]["data"]

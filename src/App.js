@@ -1,20 +1,19 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import { Grid, Navbar, PageHeader, Jumbotron, Row, Col } from 'react-bootstrap';
+import { Grid, Jumbotron, Row, Col } from 'react-bootstrap';
 
 import MainGraph from './components/MainGraph';
 import HeaderPanel from './components/HeaderPanel';
 import PeriodPanel from './components/PeriodPanel';
-import PresentationButtonBar from './components/PresentationButtonBar';
 import PresentationPanel from './components/PresentationPanel';
-import ResolutionButtonBar from './components/ResolutionButtonBar';
 import StatusPanel from './components/StatusPanel';
 import LoadingSpinner from './components/LoadingSpinner';
+import {getLocalTime, getDaysInMonth } from './utils/utils'
 
 //import my_data from '../assets/data.json';
-var my_data_2018 = require('./assets/data_2018.json');
-var my_month_data = require('./assets/data_dec_2018.json');
+var my_2018_data = require('./assets/my_2018_data.json');
+var my_month_data = require('./assets/my_month_data.json');
+var my_today_data = require('./assets/my_today_data.json');
 
 const API_BASE = "http://192.168.178.64/api/getseries"
 const qbox_sn = "15-49-002-081"
@@ -32,45 +31,6 @@ const tickValues = {
 
 }
 
-function pad (str, max) {
-    str = str.toString();
-    return str.length < max ? pad("0" + str, max) : str;
-}
-
-/**
- * @param {int} The month number, 0 based
- * @param {int} The year, not zero based, required to account for leap years
- * @return {Date[]} List with date objects for each day of the month
- */
-function getDaysInMonth(month, year) {
-    var date = new Date(year, month-1, 1);
-    var days = [];
-    while (date.getMonth() === month) {
-        days.push(new Date(date).getDate());
-        date.setDate(date.getDate() + 1);
-    }
-    return days;
-}
-
-function getLocalTime(d, timezone, extra_day) {
-
-    // convert to msec
-    // subtract local time zone offset
-    // get UTC time in msec
-    var utc = d.getTime() + (d.getTimezoneOffset() * 60000);
-
-    // create new Date object for different city
-    // using supplied offset
-    var nd = new Date(utc + (3600000*timezone));
-
-    var y = nd.getFullYear().toString()
-    var m = pad((nd.getMonth()+1).toString(),2)
-    var d = pad(((nd.getDate()+extra_day).toString()),2)
-    var s = y+'-'+m+'-'+d
-
-    // return time as a string
-    return s;
-}
 
 class App extends Component {
 
@@ -106,13 +66,16 @@ class App extends Component {
 
      // simulating the fetch with data from the assets folder
      fetchData0 = (API_URL) => {
-         alert(this.state.period)
+         alert("DEMO DATA")
          let my_data
-         if (this.state.period == '2018') {
-            my_data = my_data_2018
+         if (this.state.period === '2018') {
+            my_data = my_2018_data
          } else
-         if (this.state.period == 'this_month') {
+         if (this.state.period === 'this_month') {
              my_data = my_month_data
+         } else
+         if (this.state.period === 'today') {
+             my_data = my_today_data
          }
 
          this.setState({fetchedData: my_data,
@@ -123,7 +86,7 @@ class App extends Component {
 
     // this function is called when the presentation choice changes (gas, stroom, netto, etc)
     handlePresentationChoice = (presentation) => {
-        console.log(presentation)
+        console.log('handlePresentationChoice : '+presentation)
         this.setState({
             presentation: presentation,
             dataset: presentation,
@@ -139,28 +102,35 @@ class App extends Component {
         let resolution
         let tv
 
-        if (period=='today') {
+        if (period==='today') {
             from = getLocalTime(new Date(),1,0)
             to   = getLocalTime(new Date(),1,1)
             resolution = "Hour"
             tv = tickValues["hour"]
         }
 
-        if (period=='this_month') {
+        if (period==='previous_day') {
+            from = getLocalTime(new Date(),1,-1)
+            to   = getLocalTime(new Date(),1,0)
+            resolution = "Hour"
+            tv = tickValues["hour"]
+        }
+
+        if (period==='this_month') {
             from = "2019-01-01"
             to   = "2019-01-31"
             resolution = "Day"
             tv = getDaysInMonth(1,2019)
         }
 
-        if (period=='2018') {
+        if (period==='2018') {
             from = "2018-01-01"
             to   = "2018-12-31"
             resolution = "Month"
             tv = tickValues["month"]
         }
 
-        if (period=='2019') {
+        if (period==='2019') {
             from = "2019-01-01"
             to   = "2019-12-31"
             resolution = "Month"
@@ -205,29 +175,27 @@ class App extends Component {
 
     render() {
         let renderGraph
-        if (this.state.status=='fetched') {
+        if (this.state.status==='fetched') {
             renderGraph = <MainGraph data={this.state.fetchedData}
                                      presentation={this.state.presentation}
                                      dataset={this.state.dataset}
                                      period={this.state.period}
                                      tickValues = {this.state.tickValues} />
         }
-        const loading = this.state.status == 'fetching'
+        const loading = this.state.status === 'fetching'
 
         return (
         <div>
 
             <Jumbotron>
-                <Grid fluid="true">
+                <Grid>
                     <Row className="show-grid">
                         <Col xs={6} md={4}>
                             <HeaderPanel/>
                             <PeriodPanel handleChoice={this.handlePeriodChoice} />
 
                             <PresentationPanel handleChoice={this.handlePresentationChoice} />
-                            <StatusPanel presentation={this.state.presentation}
-                                    period={this.state.period}
-                                    resolution={this.state.resolution} />
+                            <StatusPanel state={this.state} />
 
                         </Col>
                         <Col xs={12} md={8}>
