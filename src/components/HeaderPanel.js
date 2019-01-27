@@ -9,7 +9,9 @@ class HeaderPanel extends Component {
             <div>
                 <Panel bsStyle="info">
                     <Panel.Heading>
-                        <Panel.Title componentClass="h2"><img  src={logo} alt="Logo" width="40" />QboxView <small> version 0.9 - 27 jan 2019</small></Panel.Title>
+                        <Panel.Title componentClass="h2">
+                            <img  src={logo} alt="Logo" width="40" />QboxView <small> version 0.9 - 27 jan 2019</small>
+                        </Panel.Title>
                     </Panel.Heading>
                 </Panel>
             </div>

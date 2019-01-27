@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import { Grid, Jumbotron, Row, Col } from 'react-bootstrap';
 
+import Configuration from './components/Configuration';
 import MainGraph from './components/MainGraph';
 import HeaderPanel from './components/HeaderPanel';
 import PeriodPanel from './components/PeriodPanel';
@@ -16,8 +17,10 @@ var my_2018_data = require('./assets/my_2018_data.json');
 var my_month_data = require('./assets/my_month_data.json');
 var my_today_data = require('./assets/my_today_data.json');
 
-const API_BASE = "http://192.168.178.64/api/getseries"
-const qbox_sn = "15-49-002-081"
+var QserverIP = "192.168.178.64"
+var qbox_sn = "15-49-002-081"
+var API_BASE = "http://"+QserverIP+"/api/getseries?sn=" + qbox_sn
+
 var API_URL
 
 const tickValues = {
@@ -50,6 +53,7 @@ class App extends Component {
             status : 'idle'}
     }
 
+
     // get the data from the api
     fetchData = (API_URL) => {
         //alert(API_URL)
@@ -65,6 +69,9 @@ class App extends Component {
                 this.setState({
                     fetchedData: myData,
                     status : 'fetched'})
+            })
+            .catch(function() {
+                alert("fetch to "+API_URL+ " failed.");
             })
         }
 
@@ -105,10 +112,7 @@ class App extends Component {
         let resolution = "Day"
         let tv = createCustomTickvalues(from,to,resolution)
 
-        API_URL = API_BASE + "?sn=" + qbox_sn +
-            "&from=" + from +
-            "&to=" + to +
-            "&resolution=" + resolution
+        API_URL = API_BASE+ "&from=" + from + "&to=" + to + "&resolution=" + resolution
 
         this.fetchData(API_URL)
 
@@ -183,10 +187,7 @@ class App extends Component {
         }
 
         //alert('from = '+from+', to = '+to)
-        API_URL = API_BASE + "?sn=" + qbox_sn +
-            "&from=" + from +
-            "&to=" + to +
-            "&resolution=" + resolution
+        API_URL = API_BASE + "&from=" + from + "&to=" + to + "&resolution=" + resolution
 
         this.fetchData(API_URL)
 
@@ -212,16 +213,32 @@ class App extends Component {
     // fetch the data
     componentWillMount() {
         console.log("componentWillMount()")
-        let API_URL = API_BASE + "?sn=" + qbox_sn + "&from=" + this.state.from + "&to=" + this.state.to + "&resolution=" + this.state.resolution
 
-        this.fetchData(API_URL)
+        // read the QserverIP and Qbos serial number from the localstorage
+        // this is unique per user and stored in the broswer.
+        QserverIP = localStorage.getItem('QserverIP');
+        qbox_sn = localStorage.getItem('QboxSN')
+
+        if (QserverIP==null) {
+            alert("QserverIP is nog niet ingevuld. Gebruik de Configuratie knop.")
+        }
+        //} else {
+            API_URL = API_BASE + "&from=" + this.state.from + "&to=" + this.state.to + "&resolution=" + this.state.resolution
+            this.fetchData(API_URL)
+        //}
         //this.readData()   //read test data
     }
 
     render() {
         let renderGraph
+        let renderConfiguration
+
+        // conditional render, only render the GUI when there is data fetched.
         if (this.state.status==='fetched') {
             renderGraph = <MainGraph state = {this.state}/>
+        } else {
+            // fill in IP and serialnumber
+            //renderConfiguration=  <Configuration ip = "192.168.178.64" sn = "15-49-002-081" gp = "0.63" ep = "0.2" show="true" />
         }
         const loading = this.state.status === 'fetching'
 
@@ -241,14 +258,13 @@ class App extends Component {
                                 handleChoice={this.handlePeriodChoice}
                                 handleChangeDate={this.handleChangeDate}
                             />
-
                             <PresentationPanel handleChoice={this.handlePresentationChoice} />
                             <StatusPanel state={this.state} />
-
                         </Col>
                         <Col xs={12} md={8}>
                             {loading ? <LoadingSpinner /> :
                                 <div>
+                                    {renderConfiguration}
                                     {renderGraph}
                                 </div>
                             }

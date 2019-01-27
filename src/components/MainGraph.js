@@ -2,7 +2,7 @@
  * Created by Vermaas on 1/20/2019.
  */
 import React, { Component } from 'react';
-import { Panel, Glyphicon } from 'react-bootstrap';
+import { Panel } from 'react-bootstrap';
 import GasGraph from './GasGraph';
 import ElectricityGraph from './ElectricityGraph';
 import {getYear, getMonth, getFullDate, getWeek} from '../utils/utils'
@@ -52,7 +52,6 @@ function constructTitle(props) {
     }
 
     if (props.range === 'Dag') {
-        let day = getFullDate(props.from)
         title = getFullDate(props.from)
     }
 
