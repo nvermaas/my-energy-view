@@ -1,5 +1,50 @@
 ## QboxView
 
+### Install on your webserver
+
+#### Configure Nginx
+
+You have a nginx webserver running on the Raspberry Pi, but the default www port 80 has been proxied to the Qserver on port 5000
+```
+        location / {
+           proxy_pass http://localhost:5000/;
+           proxy_http_version 1.1;
+           proxy_set_header Connection keep-alive;
+           proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+           proxy_set_header X-Forwarded-Host  $http_host;
+           proxy_set_header X-Forwarded-Proto http;
+        }
+```
+
+```
+Also, the url to the REST API of the Qservice has been proxied to port 5002
+
+        location /api/getseries {
+           proxy_pass http://localhost:5002;
+        }
+```
+
+To be able to run QboxView on the webserver we must use a different port, like 81.
+Change the nginx configuration accordingly by adding the following part to /etc/nginx/sites-enabled/default
+
+```
+server {
+        listen 81;
+        listen [::]:81;
+
+        server_name _;
+
+        root /var/www/html;
+        index index.html;
+}
+```
+
+Now ''var/www/html'' will be served by Nginx.
+
+#### Install QboxView
+
+
+
 <p align="center">
   <img src="https://github.com/nvermaas/qbox-view/blob/master/images/qboxview_netto_stroom.png"/>
 </p>
