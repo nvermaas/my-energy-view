@@ -95,6 +95,13 @@ class App extends Component {
                         status  : 'fetched'})
      }
 
+
+    // this function is called when the period choices change
+    handleConfigChange = (ip, sn) => {
+        API_URL = API_BASE+ "&from=" + this.state.from + "&to=" + this.state.to + "&resolution=" + this.state.resolution
+        this.fetchData(API_URL)
+    }
+
     // this function is called when the presentation choice changes (gas, stroom, netto, etc)
     handlePresentationChoice = (presentation, dataset) => {
         //alert('handlePresentationChoice : '+presentation+ ','+dataset)
@@ -113,7 +120,6 @@ class App extends Component {
         let tv = createCustomTickvalues(from,to,resolution)
 
         API_URL = API_BASE+ "&from=" + from + "&to=" + to + "&resolution=" + resolution
-
         this.fetchData(API_URL)
 
         this.setState({
@@ -221,11 +227,11 @@ class App extends Component {
 
         if (QserverIP==null) {
             alert("QserverIP is nog niet ingevuld. Gebruik de Configuratie knop.")
-        }
-        //} else {
+
+        } else {
             API_URL = API_BASE + "&from=" + this.state.from + "&to=" + this.state.to + "&resolution=" + this.state.resolution
             this.fetchData(API_URL)
-        //}
+        }
         //this.readData()   //read test data
     }
 
@@ -259,7 +265,7 @@ class App extends Component {
                                 handleChangeDate={this.handleChangeDate}
                             />
                             <PresentationPanel handleChoice={this.handlePresentationChoice} />
-                            <StatusPanel state={this.state} />
+                            <StatusPanel state={this.state} handleConfigChange={this.handleConfigChange} />
                         </Col>
                         <Col xs={12} md={8}>
                             {loading ? <LoadingSpinner /> :

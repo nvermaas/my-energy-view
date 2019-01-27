@@ -20,7 +20,8 @@ render() {
                     <Panel.Title componentClass="h5">Status</Panel.Title>
                 </Panel.Heading>
                 <Panel.Body>
-                    <Configuration ip = {ip} sn = {sn} gp={gp} ep = {ep} show="false" />
+                    <Configuration ip = {ip} sn = {sn} gp={gp} ep = {ep} show="false"
+                                   handleConfigChange={this.props.handleConfigChange} />
                     <table>
                          <tr><td>dataset</td><td>{this.props.state.dataset}</td></tr>
                         <tr><td>period</td><td>{this.props.state.period}</td></tr>

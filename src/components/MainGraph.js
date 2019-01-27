@@ -82,9 +82,12 @@ class MainGraph extends Component {
 
             subTitle = subTitle + ' ('+total/1000 + ' m3)'
 
-            // add coasts
-            let costs = Math.round(0.63 * total/1000 * 100)/100
-               subTitle = subTitle + ' = € '+costs
+            // add costs, read gasprice from local storage (configured by user)
+            let gasPrice = localStorage.getItem('QboxGasPrice')
+            if (gasPrice!=null) {
+                let costs = Math.round(gasPrice * total / 1000 * 100) / 100
+                subTitle = subTitle + ' = € ' + costs
+            }
 
             drawGraph = <GasGraph
                 title={title}
@@ -108,9 +111,12 @@ class MainGraph extends Component {
             let total = total1 + total2
             subTitle = subTitle + ' ('+Math.round(total/1000) + ' kWh)'
 
-            // add coasts
-            let costs = Math.round(0.2 * total/1000 * 100)/100
-            subTitle = subTitle + ' = € '+costs
+            // add costs, read gasprice from local storage (configured by user)
+            let electricityPrice = localStorage.getItem('QboxElectricityPrice')
+            if (electricityPrice!=null) {
+                let costs = Math.round(electricityPrice * total/1000 * 100)/100
+                subTitle = subTitle + ' = € '+costs
+            }
 
             drawGraph = <ElectricityGraph
                 title={title}

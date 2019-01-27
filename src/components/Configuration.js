@@ -7,6 +7,7 @@ class Configuration extends Component {
 
         this.handleShow = this.handleShow.bind(this);
         this.handleClose = this.handleClose.bind(this);
+        this.handleSaveClose = this.handleSaveClose.bind(this);
 
         this.state = {
             ip : this.props.ip,
@@ -28,11 +29,13 @@ class Configuration extends Component {
         localStorage.setItem('QboxSN', this.state.sn);
         localStorage.setItem('QboxGasPrice', this.state.gp);
         localStorage.setItem('QboxElectricityPrice', this.state.ep);
-        this.setState({ show: false });
+        this.setState({ show: 'false' });
+
+        this.props.handleConfigChange(this.state.ip, this.state.sn)
     }
 
     handleShow() {
-        this.setState({ show: true });
+        this.setState({ show: 'true' });
     }
 
     changeIP = (ip) => {
