@@ -16,7 +16,6 @@ You have a nginx webserver running on the Raspberry Pi, but the default www port
         }
 ```
 
-```
 Also, the url to the REST API of the Qservice has been proxied to port 5002
 
         location /api/getseries {
@@ -43,16 +42,26 @@ Now ''var/www/html'' will be served by Nginx.
 
 #### Install QboxView
 
+   * copy the static directory to /var/www/html/static
+   * copy the the contents of the 'build' directory to /var/www/html/qbox-view
 
+   Now this link should work: http://192.168.178.64:81/qbox-view/
+
+#### Configuration of QboxView
+The first time you start QboxView you will need to give it the IP of the Qserver (the IP of the Raspberry Pi, and the serial nubmer of your Qbox.
+You can also enter your gas- and electricity price so that QboxView can calculated the correct costs.
+Do this by clicking on the configuraton button.
+
+<p align="center">
+  <img src="https://github.com/nvermaas/qbox-view/blob/master/images/qboxview_config.png"/>
+</p>
 
 <p align="center">
   <img src="https://github.com/nvermaas/qbox-view/blob/master/images/qboxview_netto_stroom.png"/>
 </p>
 
 
-<p align="center">
-  <img src="https://github.com/nvermaas/qbox-view/blob/master/images/qboxview_config.png"/>
-</p>
+
 
 -----
 
