@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { Panel, Glyphicon } from 'react-bootstrap';
 import GasGraph from './GasGraph';
 import ElectricityGraph from './ElectricityGraph';
-import {getYear, getMonth, getDate, getWeek} from '../utils/utils'
+import {getYear, getMonth, getFullDate, getWeek} from '../utils/utils'
 
 const energyTypes = {
     "NetLow" : 0,
@@ -27,31 +27,8 @@ function fillYAxis(data) {
 }
 
 function constructSubTitle(props) {
-    let title = props.presentation+' '+props.from+' - ' +props.to
 
-    if (props.range === 'Jaar') {
-        let year = getYear(props.from)
-        title = props.presentation + ' verbruik '
-    } else
-
-    if (props.range === 'Maand') {
-        let year = getYear(props.from)
-        let month = getMonth(props.from)
-        title = props.presentation + ' verbruik '
-    }
-
-    if (props.range === 'Week') {
-        let year = getYear(props.from)
-        let week = getWeek(props.from)
-        let day = getDate(props.from)
-        title = props.presentation + ' verbruik '
-    }
-
-    if (props.range === 'Dag') {
-        let day = getDate(props.from)
-        title = props.presentation+' verbruik '
-    }
-
+    let title = props.presentation + ' verbruik '
     return title
 }
 
@@ -71,13 +48,12 @@ function constructTitle(props) {
     if (props.range === 'Week') {
         let year = getYear(props.from)
         let week = getWeek(props.from)
-        let day = getDate(props.from)
         title = 'Week ' + week + ', ' + year
     }
 
     if (props.range === 'Dag') {
-        let day = getDate(props.from)
-        title = day
+        let day = getFullDate(props.from)
+        title = getFullDate(props.from)
     }
 
     return title

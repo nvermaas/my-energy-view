@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import {getDate} from '../utils/utils'
+
 
 class MyDatePicker extends Component {
     constructor(props) {
@@ -10,64 +12,73 @@ class MyDatePicker extends Component {
         this.handleShow = this.handleShow.bind(this);
         this.handleClose = this.handleClose.bind(this);
 
-
         this.state = {
-            startDate: new Date(),
+            to : this.props.to,
+            from : this.props.from,
             show: false
         };
     }
 
     handleClose() {
         this.setState({ show: false });
+        this.props.handleChangeDate(this.state.from, this.state.to)
     }
 
     handleShow() {
         this.setState({ show: true });
     }
 
-    handleChoice = (choice) => {
-        alert('myDatePicker.handleChoice:' +choice)
-        this.props.handleChoice(choice);
-    }
+    // this function stores the picked dates in the local state,
+    // because sending it back through the callback function would immediately trigger a new render.
+    // The flow will remain locally in this component until the OK button triggers the 'handleClose' function,
+    // which will send the changed dates back with the callback function 'this.props.handleChangeDate'
+    handleLocalChangeDate= (date, which) => {
+        let newDate = getDate(date)
 
-    handleChangeDate= (date) => {
-        alert(date)
-        this.setState({
-            startDate: date,
-        });
+        //this.props.handleChangeDate(newDate, which)
+        if (which==='from') {
+            this.setState({from: getDate(date)});
+        } else
+        if (which === 'to') {
+            this.setState({to: getDate(date)});
+        }
     }
 
     render() {
-        //alert('myDatePicker : '+this.props.date)
+        //alert('myDatePicker : '+this.state.show)
+        let periodeDialog
+        if (this.state.show) {
+            periodeDialog =
+                <Modal.Dialog show={this.state.show} onHide={this.handleClose}>
+                    <Modal.Header>
+                        <Modal.Title>Periode</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <h4>Kies Periode</h4>
+                        Van:
+                        <DatePicker
+                            selected={this.state.from}
+                            onChange={(new_date) => this.handleLocalChangeDate(new_date,'from')}
+                        />
+                        Tot:
+                        <DatePicker
+                            selected={this.state.to}
+                            onChange={(new_date) => this.handleLocalChangeDate(new_date,'to')}
+                        />
+
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button bsStyle="success" bsSize="large" onClick={this.handleClose}>OK</Button>
+                    </Modal.Footer>
+                </Modal.Dialog>
+        }
+
         return (
             <div>
                 <Button bsStyle="info" bsSize="large" onClick={this.handleShow}>
                     Kies Periode
                 </Button>
-
-                <Modal show={this.state.show} onHide={this.handleClose}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>Modal heading</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <h4>Text in a modal</h4>
-                        <DatePicker
-                            selected={this.props.date}
-                            onChange={this.handleChangeDate}
-                        />
-                        <h4>Overflowing text to show scroll behavior</h4>
-                        <p>
-                            Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-                            dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-                            ac consectetur ac, vestibulum at eros.
-                        </p>
-
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button onClick={this.handleClose}>Close</Button>
-                    </Modal.Footer>
-                </Modal>
-
+                {periodeDialog}
 
             </div>
         );

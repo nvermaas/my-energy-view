@@ -8,8 +8,8 @@ import PeriodPanel from './components/PeriodPanel';
 import PresentationPanel from './components/PresentationPanel';
 import StatusPanel from './components/StatusPanel';
 import LoadingSpinner from './components/LoadingSpinner';
-import {getLocalDateTime, getYearStart, getYearEnd, getMonthStart, getMonthEnd, getWeekStart, getWeekEnd,
-    getDaysInMonth, getDayStart, getDayEnd, goBackInTime, goForwardInTime} from './utils/utils'
+import {getDate, getYearStart, getYearEnd, getMonthStart, getMonthEnd, getWeekStart, getWeekEnd,
+    getDaysInMonth, getDayStart, getDayEnd, goBackInTime, goForwardInTime, getDaysBetween} from './utils/utils'
 
 //import my_data from '../assets/data.json';
 var my_2018_data = require('./assets/my_2018_data.json');
@@ -27,6 +27,11 @@ const tickValues = {
     "month" : ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"]
 }
 
+export function createCustomTickvalues(from,to,interval) {
+    let days = getDaysBetween(from,to)
+    let tv = new Array(days)
+    return tv
+}
 
 class App extends Component {
 
@@ -93,10 +98,27 @@ class App extends Component {
     }
 
     // this function is called when the period choices change
-    handleChangeDate = (date) => {
+    handleChangeDate = (from, to) => {
+        //alert('app.handleChangeDate:' +from+','+to)
+
+        // make this changable later
+        let resolution = "Day"
+        let tv = createCustomTickvalues(from,to,resolution)
+
+        API_URL = API_BASE + "?sn=" + qbox_sn +
+            "&from=" + from +
+            "&to=" + to +
+            "&resolution=" + resolution
+
+        this.fetchData(API_URL)
+
         this.setState({
-            fromDate: date,
-            toDate: date,
+            from: from,
+            to: to,
+            period : "custom",
+            range : "custom",
+            resolution : resolution,
+            tv : createCustomTickvalues(from,to,resolution)
         });
     }
 
@@ -104,7 +126,6 @@ class App extends Component {
     // this function is called when a different time period is selected.
     // it then also does a new fetch of the data.
     handlePeriodChoice = (period) => {
-
         let from
         let to
         let range
@@ -167,7 +188,6 @@ class App extends Component {
             "&to=" + to +
             "&resolution=" + resolution
 
-
         this.fetchData(API_URL)
 
         this.setState({
@@ -217,6 +237,7 @@ class App extends Component {
                                 from={this.state.from}
                                 to={this.state.to}
                                 range={this.state.range}
+                                resolution={this.state.resolution}
                                 handleChoice={this.handlePeriodChoice}
                                 handleChangeDate={this.handleChangeDate}
                             />

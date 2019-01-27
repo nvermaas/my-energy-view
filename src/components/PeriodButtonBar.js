@@ -10,13 +10,36 @@ class PeriodButtonBar extends Component {
         this.props.handleChoice(choice);
     }
 
-    handleChangeDate = (date) => {
-        alert('PeriodButtonBar.handleChangeDate:' +date)
-        this.props.handleChangeDate(date);
-    }
-
     render() {
+        let navButton1
+        let navButton2
+        if (this.props.range !== 'custom') {
+            navButton1 =
+                <div>
+                    <Button bsStyle="warning" bsSize="large" onClick={() => this.handleChoice('back')}>
+                        <Glyphicon glyph="step-backward" /> {this.props.range} terug
+                    </Button>
+                </div>
+            navButton2 =
+                <div>
+                    <Button bsStyle="warning" bsSize="large" onClick={() => this.handleChoice('forward')}>
+                        {this.props.range} verder<Glyphicon glyph="step-forward" />
+                    </Button>.
+                </div>
+        }
 
+        let periodSelection
+        if ((this.props.range === 'Maand') || (this.props.range === 'custom')) {
+            if (this.props.resolution === 'Day') {
+                periodSelection =
+                    <div>
+                        <MyDatePicker
+                            from={this.props.from}
+                            to={this.props.to}
+                            handleChangeDate={this.props.handleChangeDate}/>
+                    </div>
+            }
+        }
         return (
             <div>
                 {/* buttons for the current moment */}
@@ -30,17 +53,8 @@ class PeriodButtonBar extends Component {
                 <ButtonToolbar>
 
                     {/* navigiation and period buttons */}
-                    <Button bsStyle="warning" bsSize="large" onClick={() => this.handleChoice('back')}>
-                        <Glyphicon glyph="step-backward" /> {this.props.range} terug
-                    </Button>.
-
-                    <Button bsStyle="warning" bsSize="large" onClick={() => this.handleChoice('forward')}>
-                        {this.props.range} verder<Glyphicon glyph="step-forward" />
-                    </Button>.
-
-                    <MyDatePicker
-                        date={this.props.from}
-                        handleChangeDate={this.handleChangeDate}/>
+                    {navButton1}.{navButton2}
+                    {periodSelection}
 
                 </ButtonToolbar>
             </div>

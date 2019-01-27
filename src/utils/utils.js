@@ -98,9 +98,14 @@ export function getWeekEnd(date) {
     return end.format('YYYY-MM-DD')
 }
 
-export function getDate(date) {
+export function getFullDate(date) {
     let m = moment(date)
     return m.format("dddd, MMMM Do YYYY")
+}
+
+export function getDate(date) {
+    let m = moment(date)
+    return m.format('YYYY-MM-DD')
 }
 
 export function getToday(date) {
@@ -162,4 +167,22 @@ export function goForwardInTime(date, interval) {
         newDate = m.add(1,'year').format('YYYY-MM-DD')
     }
     return newDate
+}
+
+export function getDaysBetween(date1, date2) {
+    // Convert both dates to milliseconds
+    var d1 = new Date(date1)
+    var d2 = new Date(date2)
+    var one_day=1000*60*60*24;
+    var date1_ms = d1.getTime();
+    var date2_ms = d2.getTime();
+
+    // Calculate the difference in milliseconds
+    var difference_ms = date2_ms - date1_ms;
+
+    // Convert back to days and return
+    var d = Math.round(difference_ms/one_day);
+
+    return d
+
 }

@@ -17,6 +17,7 @@ class PeriodePanel extends Component {
                             from={this.props.from}
                             to={this.props.to}
                             range={this.props.range}
+                            resolution={this.props.resolution}
                             handleChoice={this.props.handleChoice}
                             handleChangeDate={this.props.handleChangeDate}
                         />
