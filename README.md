@@ -24,7 +24,7 @@ Also, the url to the REST API of the Qservice has been proxied to port 5002
 ```
 
 To be able to run QboxView on the webserver we must use a different port, like 81.
-Change the nginx configuration accordingly by adding the following part to /etc/nginx/sites-enabled/default
+Change the nginx configuration accordingly by adding the following part to ``/etc/nginx/sites-enabled/default``
 
 ```
 server {
@@ -45,7 +45,7 @@ Now ''var/www/html'' will be served by Nginx.
    * copy the static directory to /var/www/html/static
    * copy the the contents of the 'build' directory to /var/www/html/qbox-view
 
-   Now this link should work: http://192.168.178.64:81/qbox-view/
+   Now your local link should work, like this: http://192.168.178.64:81/qbox-view/
 
 #### Configuration of QboxView
 The first time you start QboxView you will need to give it the IP of the Qserver (the IP of the Raspberry Pi, and the serial nubmer of your Qbox.
