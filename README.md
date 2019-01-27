@@ -19,7 +19,7 @@ Install QboxView
   * npm install
   * sudo npm install -g serve
   * npm run build
-  * serve -s build -p 5050
+  * nohup serve -s build -p 5050 &
   * http://192.168.178.64:5050/
 
 ### Install on your existing Nginx webserver
