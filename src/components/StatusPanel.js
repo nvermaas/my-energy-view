@@ -16,6 +16,7 @@ render() {
                         <tr><td>presentation</td><td>{this.props.state.presentation}</td></tr>
                         <tr><td>dataset</td><td>{this.props.state.dataset}</td></tr>
                         <tr><td>period</td><td>{this.props.state.period}</td></tr>
+                        <tr><td>range</td><td>{this.props.state.range}</td></tr>
                         <tr><td>resolution</td><td>{this.props.state.resolution}</td></tr>
                         <tr><td>from</td><td>{this.props.state.from}</td></tr>
                         <tr><td>to</td><td>{this.props.state.to}</td></tr>

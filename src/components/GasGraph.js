@@ -1,11 +1,15 @@
 
 import React, { Component } from 'react';
-import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme, VictoryLabel  } from 'victory';
+import { VictoryBar, VictoryTooltip, VictoryCursorContainer, VictoryVoronoiContainer, VictoryChart, VictoryAxis, VictoryTheme, VictoryLabel  } from 'victory';
 
 class GasGraph extends Component {
 
-    render() {
+    handleEvent = (event) => {
+        alert('GasGraph.handleEvent:' +event)
+        //this.props.handleEvent(choice);
+    }
 
+    render() {
         let y_label = "verbruik in m3"
 
         return (
@@ -17,8 +21,8 @@ class GasGraph extends Component {
                     width={600}
                 >
                     {/* Define labels */}
-                    <VictoryLabel x={200} y={24} text={this.props.title}
-                    />
+                    <VictoryLabel x={150} y={5}  style={{fontSize: 15}} text={this.props.title}/>
+                    <VictoryLabel x={150} y={25} style={{fontSize: 12}} text={this.props.subTitle}/>
                     <VictoryAxis
                         tickValues={this.props.tickValues}
                         //label={x_label}
@@ -48,6 +52,7 @@ class GasGraph extends Component {
                         }}
                     />
 
+
                     <VictoryBar
                         style={{
                             data: {
@@ -68,6 +73,25 @@ class GasGraph extends Component {
                         data={this.props.items}
                         x={this.props.x}
                         y={this.props.y}
+
+                        events={[
+                            {
+                                target: "data",
+                                eventHandlers: {
+                                    onClick: () => {
+                                        return [{
+                                            target: "labels",
+                                            mutation: (props) => {
+                                                alert(props)
+                                                return props.text === "clicked" ?
+                                                    null : { text: "clicked" }
+                                            }
+                                        }];
+                                    }
+                                }
+                            }
+                        ]}
+
                     />
 
                 </VictoryChart>

@@ -102,8 +102,8 @@ class ElectricityGraph extends Component {
                     width={600}
                 >
                     {/* Define labels */}
-                    <VictoryLabel x={200} y={24} text={title}
-                    />
+                    <VictoryLabel x={150} y={5}  style={{fontSize: 15}} text={this.props.title}/>
+                    <VictoryLabel x={150} y={25} style={{fontSize: 12}} text={this.props.subTitle}/>
                     <VictoryAxis
                         tickValues={this.props.tickValues}
                         //label={x_label}

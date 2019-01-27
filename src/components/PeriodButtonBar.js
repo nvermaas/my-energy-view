@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { ButtonToolbar, Button } from 'react-bootstrap';
+import { ButtonToolbar, Button, Glyphicon } from 'react-bootstrap';
 import MyDatePicker from './MyDatePicker';
 
 class PeriodButtonBar extends Component {
@@ -10,28 +10,38 @@ class PeriodButtonBar extends Component {
         this.props.handleChoice(choice);
     }
 
+    handleChangeDate = (date) => {
+        alert('PeriodButtonBar.handleChangeDate:' +date)
+        this.props.handleChangeDate(date);
+    }
+
     render() {
 
         return (
             <div>
+                {/* buttons for the current moment */}
+                <ButtonToolbar>
+                    <Button bsStyle="info" bsSize="large" onClick={() => this.handleChoice('this_year')}>Dit JAAR</Button>.
+                    <Button bsStyle="info" bsSize="large" onClick={() => this.handleChoice('this_month')}>Deze MAAND</Button>.
+                    <Button bsStyle="info" bsSize="large" onClick={() => this.handleChoice('this_week')}>Deze WEEK</Button>.
+                    <Button bsStyle="info" bsSize="large" onClick={() => this.handleChoice('today')}>Deze DAG</Button>.
+                </ButtonToolbar>.
+
                 <ButtonToolbar>
 
-                    {/* Provides extra visual weight and identifies the primary action in a set of buttons */}
-                    <Button bsStyle="info" bsSize="large" onClick={() => this.handleChoice('2018')}>2018</Button>.
-                    <Button bsStyle="info" bsSize="large" onClick={() => this.handleChoice('2019')}>2019</Button>.
+                    {/* navigiation and period buttons */}
+                    <Button bsStyle="warning" bsSize="large" onClick={() => this.handleChoice('back')}>
+                        <Glyphicon glyph="step-backward" /> {this.props.range} terug
+                    </Button>.
 
-                    {/* Indicates caution should be taken with this action */}
-                    <Button bsStyle="info" bsSize="large" onClick={() => this.handleChoice('this_month')}>Deze Maand</Button>.
+                    <Button bsStyle="warning" bsSize="large" onClick={() => this.handleChoice('forward')}>
+                        {this.props.range} verder<Glyphicon glyph="step-forward" />
+                    </Button>.
 
-                    {/* Indicates caution should be taken with this action */}
+                    <MyDatePicker
+                        date={this.props.from}
+                        handleChangeDate={this.handleChangeDate}/>
 
-                    <Button bsStyle="info" bsSize="large" onClick={() => this.handleChoice('previous_day')}>Gisteren</Button>.
-
-                    {/* Indicates caution should be taken with this action */}
-                    <Button bsStyle="info" bsSize="large" onClick={() => this.handleChoice('today')}>Vandaag</Button>.
-
-                    {/* Indicates caution should be taken with this action */}
-                    <MyDatePicker handleChoice={this.handleChoice}/>
                 </ButtonToolbar>
             </div>
 
