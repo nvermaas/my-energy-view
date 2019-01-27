@@ -19,8 +19,7 @@ class Configuration extends Component {
     }
 
     handleClose() {
-        alert('handleclose')
-        this.setState({ show: false });
+        this.setState({ show: 'false' });
     }
 
     handleSaveClose() {
