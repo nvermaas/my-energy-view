@@ -1,6 +1,28 @@
 ## QboxView
 
-### Install on your webserver
+### install on express server
+
+Install node.js
+```
+https://www.instructables.com/id/Install-Nodejs-and-Npm-on-Raspberry-Pi/
+  * wget https://nodejs.org/dist/v8.9.0/node-v8.9.0-linux-armv6l.tar.gz
+  * tar -xzf node-v8.9.0-linux-armv6l.tar.gz
+  * cd node-v6.11.1-linux-armv6l/
+  * sudo cp -R * /usr/local/
+  * npm -v
+```
+
+Install QboxView
+```
+  * git clone https://github.com/nvermaas/qbox-view.git
+  * cd QboxView
+  * npm install
+  * sudo npm install -g serve
+  * npm run build
+  * serve -s build -p 5050
+  * http://192.168.178.64:5050/
+
+### Install on your existing Nginx webserver
 
 #### Configure Nginx
 
