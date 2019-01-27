@@ -1,12 +1,12 @@
 ## QboxView
 
 <p align="center">
-  <img src="https://github.com/nvermaas/qbox_view/blob/master/images/qboxview_netto_stroom.png"/>
+  <img src="https://github.com/nvermaas/qbox-view/blob/master/images/qboxview_netto_stroom.png"/>
 </p>
 
 
 <p align="center">
-  <img src="https://github.com/nvermaas/qbox_view/blob/master/images/qboxview_config.png"/>
+  <img src="https://github.com/nvermaas/qbox-view/blob/master/images/qboxview_config.png"/>
 </p>
 
 -----
