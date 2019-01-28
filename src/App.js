@@ -56,7 +56,7 @@ class App extends Component {
 
     // get the data from the api
     fetchData = (API_URL) => {
-        alert(API_URL)
+        //alert(API_URL)
         this.setState({
             status: 'fetching',
         })
