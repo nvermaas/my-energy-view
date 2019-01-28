@@ -82,7 +82,7 @@ class Configuration extends Component {
 
                         <form>
                             <FormGroup controlId="qservice_ip" validationState={this.getValidationState()}>
-                                <ControlLabel>IP van de Raspberry Pi</ControlLabel>
+                                <ControlLabel>Host of IP van de Raspberry Pi</ControlLabel>
                                 <FormControl
                                     type="text"
                                     value={this.state.ip}

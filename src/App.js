@@ -56,7 +56,7 @@ class App extends Component {
 
     // get the data from the api
     fetchData = (API_URL) => {
-        //alert(API_URL)
+        alert(API_URL)
         this.setState({
             status: 'fetching',
         })
@@ -98,6 +98,7 @@ class App extends Component {
 
     // this function is called when the period choices change
     handleConfigChange = (ip, sn) => {
+        API_BASE = "http://"+ip+"/api/getseries?sn=" + sn
         API_URL = API_BASE+ "&from=" + this.state.from + "&to=" + this.state.to + "&resolution=" + this.state.resolution
         this.fetchData(API_URL)
     }
@@ -229,6 +230,7 @@ class App extends Component {
             alert("QserverIP is nog niet ingevuld. Gebruik de Configuratie knop.")
 
         } else {
+            API_BASE = "http://"+QserverIP+"/api/getseries?sn=" + qbox_sn
             API_URL = API_BASE + "&from=" + this.state.from + "&to=" + this.state.to + "&resolution=" + this.state.resolution
             this.fetchData(API_URL)
         }

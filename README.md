@@ -37,7 +37,7 @@ You can also run the deployed version: http://uilennest.net/qbox-view/
 In that case you will need to enable CORS headers on your Qservice so that the frontend can reach the backend.
 Although the QboxView web application is served from uilennest, it would still only work from inside your network because that is where the backend is.
 
-## Option 3 - frontend install on your existing Nginx webserver (most elegant option).
+## Option 3 - frontend install on your existing Nginx webserver
 
 ### Configure Nginx
 
