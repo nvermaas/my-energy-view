@@ -1,6 +1,6 @@
 ## QboxView
 
-### install on express server
+### Option 1 - full install on express server
 
 Install node.js
 ```
@@ -22,9 +22,18 @@ Install QboxView
   * nohup serve -s build -p 5050 &
   * http://192.168.178.64:5050/
 
-### Install on your existing Nginx webserver
+----
+## Option 2 - run on uilennest website
+You can also run the deployed version: http://uilennest.net/qbox-view/
 
-#### Configure Nginx
+In that case you restart Qservice with CORS enabled for the uilennest.net domain so that the frontend can reach the backend.
+Although the QboxView web application is served from uilennest, it would still only work from inside your network because that is where the backend is.
+
+----
+
+## Option 3 - frontend install on your existing Nginx webserver
+
+### Configure Nginx
 
 You have a nginx webserver running on the Raspberry Pi, but the default www port 80 has been proxied to the Qserver on port 5000
 ```
@@ -62,14 +71,16 @@ server {
 
 Now ''var/www/html'' will be served by Nginx.
 
-#### Install QboxView
+### Install QboxView
 
    * copy the static directory to /var/www/html/static
    * copy the the contents of the 'build' directory to /var/www/html/qbox-view
 
    Now your local link should work, like this: http://192.168.178.64:81/qbox-view/
 
-#### Configuration of QboxView
+-----
+
+## Configuration of QboxView
 The first time you start QboxView you will need to give it the IP of the Qserver (the IP of the Raspberry Pi, and the serial nubmer of your Qbox.
 You can also enter your gas- and electricity price so that QboxView can calculated the correct costs.
 Do this by clicking on the configuraton button.
