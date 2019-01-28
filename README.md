@@ -31,7 +31,7 @@ Access QboxView from: http://192.168.178.64:5050/
 
 
 ## Option 2 - run on uilennest website (easiest option)
-You can also run the deployed version: http://uilennest.net/qbox-view/
+You can also run the deployed version: http://uilennest.net/QboxViewPublic
 
 In that case you will need to enable CORS headers on your Qservice so that the frontend can reach the backend.
 Although the QboxView web application is served from uilennest, it would still only work from inside your network because that is where the backend is.
