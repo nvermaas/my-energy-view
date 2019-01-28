@@ -10,7 +10,6 @@ Then only the last steps would be done on the Pi, which you could also do as Opt
 
 Install node.js
 ```
-https://www.instructables.com/id/Install-Nodejs-and-Npm-on-Raspberry-Pi/
   * wget https://nodejs.org/dist/v8.9.0/node-v8.9.0-linux-armv6l.tar.gz
   * tar -xzf node-v8.9.0-linux-armv6l.tar.gz
   * cd node-v6.11.1-linux-armv6l/
@@ -36,6 +35,17 @@ You can also run the deployed version: http://uilennest.net/qbox-view/
 
 In that case you will need to enable CORS headers on your Qservice so that the frontend can reach the backend.
 Although the QboxView web application is served from uilennest, it would still only work from inside your network because that is where the backend is.
+
+To allow CORS headers, log in to your Raspberry Pi and edit ``/home/pi/qservice/appsettings.json``.
+Sometimes this is not considered safe. You could also just allow 'uilennest.net' and 'localhost'.
+
+```
+  "AllowedHosts": "*",
+  "CorsPolicy": {
+    "AllowedOrigins": ["*"],
+    "Methods": ["GET"]
+  }
+```
 
 ## Option 3 - frontend install on your existing Nginx webserver
 
