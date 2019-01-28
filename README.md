@@ -26,6 +26,7 @@ Install QboxView
   * sudo npm install -g serve
   * npm run build
   * nohup serve -s build -p 5050 &
+```
 
 Access QboxView from: http://192.168.178.64:5050/
 
