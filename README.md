@@ -1,6 +1,12 @@
 ## QboxView
 
-### Option 1 - full install on express server
+### Option 1 - full install on express server (most controlled option)
+This will download, build and deploy the application and all its dependencies locally.
+Node.js needs to be downloaded and installed first, because the application will use ``npm`` as package manager to install dependencies and build the application.
+And it will use the node.js express webserver to run the application on port 5050 (the default port 5000 is already taken by Qserver).
+
+This can all be done on the Raspberry Pi, but you could also choose to do it all one your windows machine and only move the compiled application to the Pi and serve it there.
+Then only the last steps would be done on the Pi, which you could also do as Option 3.
 
 Install node.js
 ```
@@ -20,16 +26,17 @@ Install QboxView
   * sudo npm install -g serve
   * npm run build
   * nohup serve -s build -p 5050 &
-  * http://192.168.178.64:5050/
+
+Access QboxView from: http://192.168.178.64:5050/
 
 
-## Option 2 - run on uilennest website
+## Option 2 - run on uilennest website (easiest option)
 You can also run the deployed version: http://uilennest.net/qbox-view/
 
-In that case you restart Qservice with CORS enabled for the uilennest.net domain so that the frontend can reach the backend.
+In that case you will need to enable CORS headers on your Qservice so that the frontend can reach the backend.
 Although the QboxView web application is served from uilennest, it would still only work from inside your network because that is where the backend is.
 
-## Option 3 - frontend install on your existing Nginx webserver
+## Option 3 - frontend install on your existing Nginx webserver (most elegant option).
 
 ### Configure Nginx
 
