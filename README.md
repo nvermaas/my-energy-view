@@ -22,14 +22,12 @@ Install QboxView
   * nohup serve -s build -p 5050 &
   * http://192.168.178.64:5050/
 
-----
+
 ## Option 2 - run on uilennest website
 You can also run the deployed version: http://uilennest.net/qbox-view/
 
 In that case you restart Qservice with CORS enabled for the uilennest.net domain so that the frontend can reach the backend.
 Although the QboxView web application is served from uilennest, it would still only work from inside your network because that is where the backend is.
-
-----
 
 ## Option 3 - frontend install on your existing Nginx webserver
 
