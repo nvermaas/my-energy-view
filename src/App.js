@@ -112,6 +112,35 @@ class App extends Component {
         });
     }
 
+
+    // this function is called when a bar is clicked
+    handleZoom = (i) => {
+        //alert('app.handleZoom:' +i)
+
+        let from = '2018-'+(i+1).toString()+'-1'
+        let to = '2018-'+(i+1).toString()+'-31'
+
+        // make this changable later
+        let resolution = "Day"
+        let tv = createCustomTickvalues(from,to,resolution)
+        tv = getDaysInMonth(i+1,2018)
+
+        API_URL = API_BASE+ "&from=" + from + "&to=" + to + "&resolution=" + resolution
+        alert(API_URL)
+        this.fetchData(API_URL)
+
+        this.setState({
+            from: from,
+            to: to,
+            period : "maand",
+            range : "Maand",
+            resolution : resolution,
+            tv : tv
+        });
+
+    }
+
+
     // this function is called when the period choices change
     handleChangeDate = (from, to) => {
         //alert('app.handleChangeDate:' +from+','+to)
@@ -129,7 +158,7 @@ class App extends Component {
             period : "custom",
             range : "custom",
             resolution : resolution,
-            tv : createCustomTickvalues(from,to,resolution)
+            tv : tv
         });
     }
 
@@ -243,7 +272,7 @@ class App extends Component {
 
         // conditional render, only render the GUI when there is data fetched.
         if (this.state.status==='fetched') {
-            renderGraph = <MainGraph state = {this.state}/>
+            renderGraph = <MainGraph state = {this.state} handleZoom={this.handleZoom}/>
         } else {
             // fill in IP and serialnumber
             //renderConfiguration=  <Configuration ip = "192.168.178.64" sn = "15-49-002-081" gp = "0.63" ep = "0.2" show="true" />

@@ -2,11 +2,12 @@
 import React, { Component } from 'react';
 import { VictoryBar, VictoryTooltip, VictoryCursorContainer, VictoryVoronoiContainer, VictoryChart, VictoryAxis, VictoryTheme, VictoryLabel  } from 'victory';
 
+
 class GasGraph extends Component {
 
-    handleEvent = (event) => {
-        alert('GasGraph.handleEvent:' +event)
-        //this.props.handleEvent(choice);
+    handleEvent = (event, props) => {
+        //alert('GasGraph.handleEvent:' +props.index)
+        this.props.handleZoom(props.index)
     }
 
     render() {
@@ -54,6 +55,7 @@ class GasGraph extends Component {
 
 
                     <VictoryBar
+
                         style={{
                             data: {
                                 fill: "#0081C9",
@@ -74,22 +76,14 @@ class GasGraph extends Component {
                         x={this.props.x}
                         y={this.props.y}
 
+
+
                         events={[
                             {
                                 target: "data",
                                 eventHandlers: {
-                                    onClick: () => {
-                                        return [{
-                                            target: "labels",
-                                            mutation: (props) => {
-                                                alert(props)
-                                                return props.text === "clicked" ?
-                                                    null : { text: "clicked" }
-                                            }
-                                        }];
-                                    }
-                                }
-                            }
+                                    onClick: (evt, clickedProps) => this.handleEvent(evt, clickedProps)
+                            }}
                         ]}
 
                     />

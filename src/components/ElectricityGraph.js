@@ -96,6 +96,7 @@ class ElectricityGraph extends Component {
         return (
             <div style={{ display: "flex", flexWrap: "wrap" }}>
                 <VictoryChart
+
                     style={{ parent: { maxWidth: "100%" } }}
                     domainPadding={{ x: 15 }}
                     theme={VictoryTheme.material}

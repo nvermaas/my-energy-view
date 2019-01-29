@@ -96,6 +96,7 @@ class MainGraph extends Component {
                 y={"value"}
                 items={items}
                 tickValues={tickValues}
+                handleZoom={this.props.handleZoom}
             />
         } else
 
