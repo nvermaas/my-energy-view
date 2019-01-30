@@ -55,6 +55,12 @@ export function getWeek(date) {
     return week
 }
 
+export function addDays(date,numberOfDays) {
+    let m = moment(date)
+    let added = m.add(numberOfDays, 'days')
+    return added.format('YYYY-MM-DD')
+}
+
 export function getWeekStart(date) {
     let m = moment(date)
     let start = m.startOf('week')

@@ -2,15 +2,14 @@ import React, { Component } from 'react';
 import './App.css';
 import { Grid, Jumbotron, Row, Col } from 'react-bootstrap';
 
-import Configuration from './components/Configuration';
 import MainGraph from './components/MainGraph';
 import HeaderPanel from './components/HeaderPanel';
 import PeriodPanel from './components/PeriodPanel';
 import PresentationPanel from './components/PresentationPanel';
 import StatusPanel from './components/StatusPanel';
 import LoadingSpinner from './components/LoadingSpinner';
-import {pad, getDate, getYearStart, getYearEnd, getMonthStart, getMonthEnd, getWeekStart, getWeekEnd, getYear, getMonth,
-    getDaysInMonth, getDayStart, getDayEnd, goBackInTime, goForwardInTime, getDaysBetween} from './utils/DateUtils'
+import {pad, getYearStart, getYearEnd, getMonthStart, getMonthEnd, getWeekStart, getWeekEnd, getYear, getMonth,
+    getDaysInMonth, addDays, getDayStart, getDayEnd, goBackInTime, goForwardInTime, getDaysBetween} from './utils/DateUtils'
 
 //import my_data from '../assets/data.json';
 var my_2018_data = require('./assets/my_2018_data.json');
@@ -149,13 +148,19 @@ class App extends Component {
 
         // clicked on a day bar in a month overview
         if (this.state.resolution === 'Day') {
+            if (this.state.range==='Week') {
+                from = this.state.from
+                from = addDays(from,i)
+                to = addDays(from,1)
+            } else {
+                let day = i+1
+                let year = getYear(this.state.from).toString()
+                let month = pad(getMonth(this.state.from).toString(),2)
+                from = year + '-' + month+ '-'+pad((day).toString(), 2)
+                to = year + '-' + month+ '-'+pad((day+1).toString(), 2)
+            }
             range = 'Dag'
-            let day = i+1
-            let year = getYear(this.state.from).toString()
-            let month = pad(getMonth(this.state.from).toString(),2)
-            from = year + '-' + month+ '-'+pad((day).toString(), 2)
-            let days = getDaysInMonth(from).toString()
-            to = year + '-' + month+ '-'+pad((day+1).toString(), 2)
+
             resolution = "Hour"
             tv = tickValues["hour"]
         }
@@ -164,15 +169,6 @@ class App extends Component {
         if (this.state.resolution === 'Hour') {
             alert('Dieper inzoomen is nog niet mogelijk.')
             return
-            range = 'Dag'
-            let day = i+1
-            let year = getYear(this.state.from).toString()
-            let month = pad(getMonth(this.state.from).toString(),2)
-            from = year + '-' + month+ '-'+pad((day).toString(), 2)
-            let days = getDaysInMonth(from).toString()
-            to = year + '-' + month+ '-'+pad((day+1).toString(), 2)
-            resolution = "OneMinute"
-            tv = createCustomTickvalues(from, to, resolution)
         }
 
         //alert(API_URL)
