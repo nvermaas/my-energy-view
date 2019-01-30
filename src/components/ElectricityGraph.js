@@ -4,6 +4,11 @@ import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme, VictoryLabel, Vict
 
 class ElectricityGraph extends Component {
 
+    handleEvent = (event, props) => {
+        //alert('GasGraph.handleEvent:' +props.index)
+        this.props.handleZoom(props.index)
+    }
+
     render() {
 
         let items1 = this.props.items1;
@@ -13,6 +18,7 @@ class ElectricityGraph extends Component {
         let title = this.props.title
 
         let y_label = "verbruik in kWh"
+        let x_label = "Klik op een balk voor details"
 
         let myFirstBar
         if (items1!==undefined) {
@@ -37,6 +43,14 @@ class ElectricityGraph extends Component {
                     data={this.props.items1}
                     x={this.props.x}
                     y={this.props.y}
+
+                    events={[
+                        {
+                            target: "data",
+                            eventHandlers: {
+                                onClick: (evt, clickedProps) => this.handleEvent(evt, clickedProps)
+                            }}
+                    ]}
                 />
         }
 
@@ -63,6 +77,14 @@ class ElectricityGraph extends Component {
                     data={this.props.items2}
                     x={this.props.x}
                     y={this.props.y}
+
+                    events={[
+                        {
+                            target: "data",
+                            eventHandlers: {
+                                onClick: (evt, clickedProps) => this.handleEvent(evt, clickedProps)
+                            }}
+                    ]}
                 />
         }
 
@@ -90,6 +112,14 @@ class ElectricityGraph extends Component {
                     data={this.props.items3}
                     x={this.props.x}
                     y={this.props.y}
+
+                    events={[
+                        {
+                            target: "data",
+                            eventHandlers: {
+                                onClick: (evt, clickedProps) => this.handleEvent(evt, clickedProps)
+                            }}
+                    ]}
                 />
         }
 

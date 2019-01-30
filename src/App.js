@@ -9,8 +9,8 @@ import PeriodPanel from './components/PeriodPanel';
 import PresentationPanel from './components/PresentationPanel';
 import StatusPanel from './components/StatusPanel';
 import LoadingSpinner from './components/LoadingSpinner';
-import {pad, getDate, getYearStart, getYearEnd, getMonthStart, getMonthEnd, getWeekStart, getWeekEnd, getYear,
-    getDaysInMonth, getDayStart, getDayEnd, goBackInTime, goForwardInTime, getDaysBetween} from './utils/utils'
+import {pad, getDate, getYearStart, getYearEnd, getMonthStart, getMonthEnd, getWeekStart, getWeekEnd, getYear, getMonth,
+    getDaysInMonth, getDayStart, getDayEnd, goBackInTime, goForwardInTime, getDaysBetween} from './utils/DateUtils'
 
 //import my_data from '../assets/data.json';
 var my_2018_data = require('./assets/my_2018_data.json');
@@ -30,15 +30,19 @@ const tickValues = {
     "month" : ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"]
 }
 
-export function createCustomTickvalues(from,to,interval) {
-    let days = getDaysBetween(from,to)
-    let tv = new Array(days)
-    var i;
-    for (i = 0; i < tv.length; i++) {
-        tv[i] = i+1
+export function createCustomTickvalues(from,to,resolution) {
+
+    let tv=null
+
+    if (resolution='Days') {
+        let days = getDaysBetween(from,to)
+        tv = new Array(days)
+        for (var i = 0; i < tv.length; i++) {
+            tv[i] = i + 1
+        }
     }
 
-    //alert('createCustomTickValues('+days+') = '+tv.toString())
+    //alert('createCustomTickValues('+resolution+') = '+tv.toString())
     return tv
 }
 
@@ -122,26 +126,64 @@ class App extends Component {
     // this function is called when a bar n the graph is clicked
     // depending on the 'range' it will zoom into the next range (year, month, day)
     handleZoom = (i) => {
-        //alert('app.handleZoom:' +i)
+        //alert('app.handleZoom:' + i + 'this.state.resolution = ' + this.state.resolution)
+        let from,to,resolution, range, tv
 
-        let year = getYear(this.state.from).toString()
-        let from = year+'-'+pad((i+1).toString(),2)+'-01'
-        let days = getDaysInMonth(from).toString()
+        // only range year, month and day are valid, because for custom ranges it is not known
+        // to which month, day the 'index' points when clicking a bar
+        if (this.state.range === 'custom') {
+            return
+        }
 
-        let to = year+'-'+pad((i+1).toString(),2)+'-'+days
-        let resolution = "Day"
-        let tv = createCustomTickvalues(from,to,resolution)
-        //alert(tv)
+        // clicked on a month bar in a Year overview
+        if (this.state.resolution === 'Month') {
+            range = 'Maand'
+            let month = i+1
+            let year = getYear(this.state.from).toString()
+            from = year + '-' + pad((month).toString(), 2) + '-01'
+            let days = getDaysInMonth(from).toString()
+            to = year + '-' + pad((i + 1).toString(), 2) + '-' + days
+            resolution = "Day"
+            tv = createCustomTickvalues(from, to, resolution)
+        } else
 
-        API_URL = API_BASE+ "&from=" + from + "&to=" + to + "&resolution=" + resolution
+        // clicked on a day bar in a month overview
+        if (this.state.resolution === 'Day') {
+            range = 'Dag'
+            let day = i+1
+            let year = getYear(this.state.from).toString()
+            let month = pad(getMonth(this.state.from).toString(),2)
+            from = year + '-' + month+ '-'+pad((day).toString(), 2)
+            let days = getDaysInMonth(from).toString()
+            to = year + '-' + month+ '-'+pad((day+1).toString(), 2)
+            resolution = "Hour"
+            tv = tickValues["hour"]
+        }
+
+        // clicked on a day bar in a month overview
+        if (this.state.resolution === 'Hour') {
+            alert('Dieper inzoomen is nog niet mogelijk.')
+            return
+            range = 'Dag'
+            let day = i+1
+            let year = getYear(this.state.from).toString()
+            let month = pad(getMonth(this.state.from).toString(),2)
+            from = year + '-' + month+ '-'+pad((day).toString(), 2)
+            let days = getDaysInMonth(from).toString()
+            to = year + '-' + month+ '-'+pad((day+1).toString(), 2)
+            resolution = "OneMinute"
+            tv = createCustomTickvalues(from, to, resolution)
+        }
+
         //alert(API_URL)
+        API_URL = API_BASE+ "&from=" + from + "&to=" + to + "&resolution=" + resolution
         this.fetchData(API_URL)
 
         this.setState({
             from: from,
             to: to,
-            period : "maand",
-            range : "Maand",
+            period : "zoom",
+            range : range,
             resolution : resolution,
             tickValues : tv
         });
@@ -305,7 +347,9 @@ class App extends Component {
                                 handleChangeDate={this.handleChangeDate}
                             />
                             <PresentationPanel handleChoice={this.handlePresentationChoice} />
-                            <StatusPanel state={this.state} handleConfigChange={this.handleConfigChange} />
+                            <StatusPanel state={this.state}
+                                         url = {API_URL}
+                                         handleConfigChange={this.handleConfigChange} />
                         </Col>
                         <Col xs={12} md={8}>
                             {loading ? <LoadingSpinner /> :

@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { VictoryBar, VictoryTooltip, VictoryCursorContainer, VictoryVoronoiContainer, VictoryChart, VictoryAxis, VictoryTheme, VictoryLabel  } from 'victory';
+import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme, VictoryLabel  } from 'victory';
 
 
 class GasGraph extends Component {
@@ -13,6 +13,7 @@ class GasGraph extends Component {
     render() {
         //alert(this.props.tickValues)
         let y_label = "verbruik in m3"
+        let x_label = "Klik op een balk voor details"
 
         return (
             <div style={{ display: "flex", flexWrap: "wrap" }}>
@@ -27,7 +28,7 @@ class GasGraph extends Component {
                     <VictoryLabel x={150} y={25} style={{fontSize: 12}} text={this.props.subTitle}/>
                     <VictoryAxis
                         tickValues={this.props.tickValues}
-                        //label={x_label}
+                        label={x_label}
                         style={{
                             axis: {stroke: "#756f6a"},
                             axisLabel: {fontSize: 10, padding: 30},
@@ -76,8 +77,6 @@ class GasGraph extends Component {
                         data={this.props.items}
                         x={this.props.x}
                         y={this.props.y}
-
-
 
                         events={[
                             {

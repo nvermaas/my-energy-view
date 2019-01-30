@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import {getDate} from '../utils/utils'
+import {getDate} from '../utils/DateUtils'
 
 
 class MyDatePicker extends Component {

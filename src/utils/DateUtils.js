@@ -8,29 +8,14 @@ export function pad (str, max) {
     return str.length < max ? pad("0" + str, max) : str;
 }
 
-export function getLocalDateTime(date, timezone, extra_year, extra_month, extra_day) {
-
-    // convert to msec
-    // subtract local time zone offset
-    // get UTC time in msec
-    var utc = date.getTime() + (date.getTimezoneOffset() * 60000);
-
-    // create new Date object for different city
-    // using supplied offset
-    var nd = new Date(utc + (3600000*timezone));
-
-    var y = (nd.getFullYear()+extra_year).toString()
-    var m = pad((nd.getMonth()+1+extra_month).toString(),2)
-    var d = pad(((nd.getDate()+extra_day).toString()),2)
-    var s = y+'-'+m+'-'+d
-
-    // return time as a string
-    return s;
-}
-
 export function getYear(date) {
     let m = moment(date)
     return m.year()
+}
+
+export function getMonth(date) {
+    let m = moment(date)
+    return m.month()+1
 }
 
 export function getYearStart(date) {
@@ -45,7 +30,7 @@ export function getYearEnd(date) {
     return end.format('YYYY-MM-DD')
 }
 
-export function getMonth(date) {
+export function getMonthName(date) {
     let m = moment(date)
     let month = m.month()
     let monthLabel = months[month]

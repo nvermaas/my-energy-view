@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { Panel } from 'react-bootstrap';
 import GasGraph from './GasGraph';
 import ElectricityGraph from './ElectricityGraph';
-import {getYear, getMonth, getFullDate, getWeek} from '../utils/utils'
+import {getYear, getMonthName, getFullDate, getWeek} from '../utils/DateUtils'
 
 const energyTypes = {
     "NetLow" : 0,
@@ -41,7 +41,7 @@ function constructTitle(props) {
 
     } else if (props.range === 'Maand') {
         let year = getYear(props.from)
-        let month = getMonth(props.from)
+        let month = getMonthName(props.from)
         title = month + ' ' + year
     }
 
@@ -126,6 +126,7 @@ class MainGraph extends Component {
                 items1={items1}
                 items2={items2}
                 tickValues={this.props.state.tickValues}
+                handleZoom={this.props.handleZoom}
             />
 
         } else {
@@ -146,6 +147,7 @@ class MainGraph extends Component {
                 y={"value"}
                 items1={items}
                 tickValues={this.props.state.tickValues}
+                handleZoom={this.props.handleZoom}
             />
         }
 
