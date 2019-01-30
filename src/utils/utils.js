@@ -3,7 +3,7 @@ import moment from 'moment';
 const months = ["Januari", "Februari", "Maart", "April", "Mei", "Juni",
     "Juli", "Augustus", "September", "Oktober", "November", "December"]
 
-function pad (str, max) {
+export function pad (str, max) {
     str = str.toString();
     return str.length < max ? pad("0" + str, max) : str;
 }
@@ -26,22 +26,6 @@ export function getLocalDateTime(date, timezone, extra_year, extra_month, extra_
 
     // return time as a string
     return s;
-}
-
-
-/**
- * @param {int} The month number, 0 based
- * @param {int} The year, not zero based, required to account for leap years
- * @return {Date[]} List with date objects for each day of the month
- */
-export function getDaysInMonth(month, year) {
-    var date = new Date(year, month-1, 1);
-    var days = [];
-    while (date.getMonth() === month) {
-        days.push(new Date(date).getDate());
-        date.setDate(date.getDate() + 1);
-    }
-    return days;
 }
 
 export function getYear(date) {
@@ -185,4 +169,9 @@ export function getDaysBetween(date1, date2) {
 
     return d
 
+}
+
+export function getDaysInMonth(date) {
+    let m = moment(date)
+    return m.daysInMonth();
 }

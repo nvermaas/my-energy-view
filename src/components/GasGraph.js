@@ -11,6 +11,7 @@ class GasGraph extends Component {
     }
 
     render() {
+        //alert(this.props.tickValues)
         let y_label = "verbruik in m3"
 
         return (

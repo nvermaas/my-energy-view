@@ -23,12 +23,15 @@ render() {
                     <Configuration ip = {ip} sn = {sn} gp={gp} ep = {ep} show="false"
                                    handleConfigChange={this.props.handleConfigChange} />
                     <table>
-                         <tr><td>dataset</td><td>{this.props.state.dataset}</td></tr>
-                        <tr><td>period</td><td>{this.props.state.period}</td></tr>
-                        <tr><td>range</td><td>{this.props.state.range}</td></tr>
-                        <tr><td>resolution</td><td>{this.props.state.resolution}</td></tr>
-                        <tr><td>from</td><td>{this.props.state.from}</td></tr>
-                        <tr><td>to</td><td>{this.props.state.to}</td></tr>
+                        <tbody>
+                        <tr><td>dataset : </td><td>{this.props.state.dataset}</td></tr>
+                        <tr><td>period : </td><td>{this.props.state.period}</td></tr>
+                        <tr><td>range : </td><td>{this.props.state.range}</td></tr>
+                        <tr><td>resolution : </td><td>{this.props.state.resolution}</td></tr>
+                        <tr><td>from : </td><td>{this.props.state.from}</td></tr>
+                        <tr><td>to : </td><td>{this.props.state.to}</td></tr>
+                        <tr><td>ticks : </td><td>{this.props.state.tickValues}</td></tr>
+                        </tbody>
                     </table>
                 </Panel.Body>
             </Panel>

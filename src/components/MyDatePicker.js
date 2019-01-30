@@ -33,7 +33,6 @@ class MyDatePicker extends Component {
     // The flow will remain locally in this component until the OK button triggers the 'handleClose' function,
     // which will send the changed dates back with the callback function 'this.props.handleChangeDate'
     handleLocalChangeDate= (date, which) => {
-        let newDate = getDate(date)
 
         //this.props.handleChangeDate(newDate, which)
         if (which==='from') {

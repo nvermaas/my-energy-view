@@ -65,7 +65,6 @@ class MainGraph extends Component {
 
         // this is all the fetched data in a json structure
         let all_data=this.props.state.fetchedData
-        let tickValues = this.props.state.tickValues
 
         // contruct the title based on the properties in the state
         let title = constructTitle(this.props.state)
@@ -95,7 +94,7 @@ class MainGraph extends Component {
                 x={"month"}
                 y={"value"}
                 items={items}
-                tickValues={tickValues}
+                tickValues={this.props.state.tickValues}
                 handleZoom={this.props.handleZoom}
             />
         } else
@@ -126,7 +125,7 @@ class MainGraph extends Component {
                 y={"value"}
                 items1={items1}
                 items2={items2}
-                tickValues={tickValues}
+                tickValues={this.props.state.tickValues}
             />
 
         } else {
@@ -146,7 +145,8 @@ class MainGraph extends Component {
                 x={"month"}
                 y={"value"}
                 items1={items}
-                tickValues={tickValues}/>
+                tickValues={this.props.state.tickValues}
+            />
         }
 
 

@@ -1,5 +1,9 @@
 ## QboxView
 
+Note: this is a frontend for the QboxNext project and requires the Qserver and Qservice to be up and running.
+Instructions for that can be found here: https://qboxnext.miraheze.org/wiki/Qserver_op_Raspberry_Pi3_installeren
+
+
 ### Option 1 - full install on express server (most controlled option)
 This will download, build and deploy the application and all its dependencies locally.
 Node.js needs to be downloaded and installed first, because the application will use ``npm`` as package manager to install dependencies and build the application.

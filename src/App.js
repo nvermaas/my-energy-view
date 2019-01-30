@@ -9,7 +9,7 @@ import PeriodPanel from './components/PeriodPanel';
 import PresentationPanel from './components/PresentationPanel';
 import StatusPanel from './components/StatusPanel';
 import LoadingSpinner from './components/LoadingSpinner';
-import {getDate, getYearStart, getYearEnd, getMonthStart, getMonthEnd, getWeekStart, getWeekEnd,
+import {pad, getDate, getYearStart, getYearEnd, getMonthStart, getMonthEnd, getWeekStart, getWeekEnd, getYear,
     getDaysInMonth, getDayStart, getDayEnd, goBackInTime, goForwardInTime, getDaysBetween} from './utils/utils'
 
 //import my_data from '../assets/data.json';
@@ -33,6 +33,12 @@ const tickValues = {
 export function createCustomTickvalues(from,to,interval) {
     let days = getDaysBetween(from,to)
     let tv = new Array(days)
+    var i;
+    for (i = 0; i < tv.length; i++) {
+        tv[i] = i+1
+    }
+
+    //alert('createCustomTickValues('+days+') = '+tv.toString())
     return tv
 }
 
@@ -56,7 +62,7 @@ class App extends Component {
 
     // get the data from the api
     fetchData = (API_URL) => {
-        //alert(API_URL)
+        //alert('fetchData: '+(API_URL))
         this.setState({
             status: 'fetching',
         })
@@ -113,20 +119,22 @@ class App extends Component {
     }
 
 
-    // this function is called when a bar is clicked
+    // this function is called when a bar n the graph is clicked
+    // depending on the 'range' it will zoom into the next range (year, month, day)
     handleZoom = (i) => {
         //alert('app.handleZoom:' +i)
 
-        let from = '2018-'+(i+1).toString()+'-1'
-        let to = '2018-'+(i+1).toString()+'-31'
+        let year = getYear(this.state.from).toString()
+        let from = year+'-'+pad((i+1).toString(),2)+'-01'
+        let days = getDaysInMonth(from).toString()
 
-        // make this changable later
+        let to = year+'-'+pad((i+1).toString(),2)+'-'+days
         let resolution = "Day"
         let tv = createCustomTickvalues(from,to,resolution)
-        tv = getDaysInMonth(i+1,2018)
+        //alert(tv)
 
         API_URL = API_BASE+ "&from=" + from + "&to=" + to + "&resolution=" + resolution
-        alert(API_URL)
+        //alert(API_URL)
         this.fetchData(API_URL)
 
         this.setState({
@@ -135,7 +143,7 @@ class App extends Component {
             period : "maand",
             range : "Maand",
             resolution : resolution,
-            tv : tv
+            tickValues : tv
         });
 
     }
@@ -148,7 +156,7 @@ class App extends Component {
         // make this changable later
         let resolution = "Day"
         let tv = createCustomTickvalues(from,to,resolution)
-
+        //alert(tv)
         API_URL = API_BASE+ "&from=" + from + "&to=" + to + "&resolution=" + resolution
         this.fetchData(API_URL)
 
@@ -158,7 +166,7 @@ class App extends Component {
             period : "custom",
             range : "custom",
             resolution : resolution,
-            tv : tv
+            tickValues : null
         });
     }
 
@@ -185,7 +193,7 @@ class App extends Component {
             to   = getMonthEnd(new Date())
             range = "Maand"
             resolution = "Day"
-            tv = getDaysInMonth(1,2019)
+            tv = null
         }
 
         if (period==='this_week') {
@@ -272,6 +280,7 @@ class App extends Component {
 
         // conditional render, only render the GUI when there is data fetched.
         if (this.state.status==='fetched') {
+            //alert('render: this.state.tickvalues = '+this.state.tickValues)
             renderGraph = <MainGraph state = {this.state} handleZoom={this.handleZoom}/>
         } else {
             // fill in IP and serialnumber

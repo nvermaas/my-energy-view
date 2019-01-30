@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Glyphicon, Button, Modal, Form, FormGroup, FormControl, HelpBlock, ControlLabel } from 'react-bootstrap';
+import { Glyphicon, Button, Modal, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 
 class Configuration extends Component {
     constructor(props) {
