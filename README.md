@@ -28,6 +28,7 @@ Install QboxView
   * npm install
   * sudo npm install -g serve
   * npm run build
+  * cd qbox-view
   * nohup serve -s build -p 5050 &
 ```
 

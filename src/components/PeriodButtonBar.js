@@ -5,24 +5,19 @@ import MyDatePicker from './MyDatePicker';
 
 class PeriodButtonBar extends Component {
 
-    handleChoice = (choice) => {
-        //alert('PeriodButtonBar.handleChoice:' +choice)
-        this.props.handleChoice(choice);
-    }
-
     render() {
         let navButton1
         let navButton2
         if (this.props.range !== 'custom') {
             navButton1 =
                 <div>
-                    <Button bsStyle="warning" bsSize="large" onClick={() => this.handleChoice('back')}>
+                    <Button bsStyle="warning" bsSize="large" onClick={() => this.props.handleChoice('back')}>
                         <Glyphicon glyph="step-backward" /> {this.props.range} terug
                     </Button>
                 </div>
             navButton2 =
                 <div>
-                    <Button bsStyle="warning" bsSize="large" onClick={() => this.handleChoice('forward')}>
+                    <Button bsStyle="warning" bsSize="large" onClick={() => this.props.handleChoice('forward')}>
                         {this.props.range} verder<Glyphicon glyph="step-forward" />
                     </Button>.
                 </div>
@@ -44,10 +39,11 @@ class PeriodButtonBar extends Component {
             <div>
                 {/* buttons for the current moment */}
                 <ButtonToolbar>
-                    <Button bsStyle="info" bsSize="large" onClick={() => this.handleChoice('this_year')}>Dit JAAR</Button>.
-                    <Button bsStyle="info" bsSize="large" onClick={() => this.handleChoice('this_month')}>Deze MAAND</Button>.
-                    <Button bsStyle="info" bsSize="large" onClick={() => this.handleChoice('this_week')}>Deze WEEK</Button>.
-                    <Button bsStyle="info" bsSize="large" onClick={() => this.handleChoice('today')}>Deze DAG</Button>.
+                    <Button bsStyle="info" bsSize="large" onClick={() => this.props.handleChoice('this_year')}>Dit JAAR</Button>.
+                    <Button bsStyle="info" bsSize="large" onClick={() => this.props.handleChoice('this_month')}>Deze MAAND</Button>.
+                    <Button bsStyle="info" bsSize="large" onClick={() => this.props.handleChoice('this_week')}>Deze WEEK</Button>.
+                    <Button bsStyle="info" bsSize="large" onClick={() => this.props.handleChoice('today')}>Deze DAG</Button>.
+                    <Button bsStyle="info" bsSize="large" onClick={() => this.props.handleChoice('live','live')}>LIVE!</Button>.
                 </ButtonToolbar>.
 
                 <ButtonToolbar>

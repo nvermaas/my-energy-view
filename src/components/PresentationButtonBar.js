@@ -20,8 +20,9 @@ class PresentationButtonBar extends Component {
                     {/* Provides extra visual weight and identifies the primary action in a set of buttons */}
                     <Button bsStyle="primary" bsSize="large" onClick={() => this.handleChoice('Gas','Gas')}>GAS</Button>.
 
-                    {/* Indicates caution should be taken with this action */}
                     <Button bsStyle="warning" bsSize="large" onClick={() => this.handleChoice('Netto Stroom','Netto')}>Netto STROOM</Button>.
+
+
                 </ButtonToolbar>
                 Details
                 <ButtonToolbar>

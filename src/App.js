@@ -268,6 +268,14 @@ class App extends Component {
             tv = this.state.tickValues
         }
 
+        if (period==='live') {
+            from = getDayStart(new Date())
+            to   = getDayEnd(new Date())
+            range = "Dag"
+            resolution = "Hour"
+            tv = tickValues["hour"]
+        }
+
         //alert('from = '+from+', to = '+to)
         API_URL = API_BASE + "&from=" + from + "&to=" + to + "&resolution=" + resolution
 
