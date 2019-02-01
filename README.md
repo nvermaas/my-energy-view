@@ -19,14 +19,17 @@ Install node.js
   * cd node-v6.11.1-linux-armv6l/
   * sudo cp -R * /usr/local/
   * npm -v
+  * sudo npm install -g serve
+
 ```
 
 Install QboxView
 ```
-  * git clone https://github.com/nvermaas/qbox-view.git
+  * mkdir QboxView
   * cd QboxView
+  * git clone https://github.com/nvermaas/qbox-view.git
+  * cd qbox-view
   * npm install
-  * sudo npm install -g serve
   * npm run build
   * cd qbox-view
   * nohup serve -s build -p 5050 &
