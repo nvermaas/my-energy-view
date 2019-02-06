@@ -72,7 +72,7 @@ You have a nginx webserver running on the Raspberry Pi, but the default www port
 
 Also, the url to the REST API of the Qservice has been proxied to port 5002
 ```
-        location /api/getseries {
+        location /api {
            proxy_pass http://localhost:5002;
         }
 ```
