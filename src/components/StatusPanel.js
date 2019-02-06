@@ -30,6 +30,7 @@ render() {
                         <tr><td>from : </td><td>{this.props.state.from}</td></tr>
                         <tr><td>to : </td><td>{this.props.state.to}</td></tr>
                         <tr><td>url : </td><td><a href={this.props.url}>(click for url to qservice)</a></td></tr>
+                        <tr><td>tv : </td><td>{this.props.state.tickValues}</td></tr>
                         </tbody>
                     </table>
                 </Panel.Body>

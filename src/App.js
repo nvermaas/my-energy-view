@@ -41,7 +41,7 @@ export function createCustomTickvalues(from,to,resolution) {
         }
     }
 
-    //alert('createCustomTickValues('+resolution+') = '+tv.toString())
+   // alert('createCustomTickValues('+from+','+to+','+resolution+') = '+tv.toString())
     return tv
 }
 
@@ -140,8 +140,9 @@ class App extends Component {
             let month = i+1
             let year = getYear(this.state.from).toString()
             from = year + '-' + pad((month).toString(), 2) + '-01'
-            let days = getDaysInMonth(from).toString()
-            to = year + '-' + pad((i + 1).toString(), 2) + '-' + days
+
+            from = getMonthStart(from)
+            to = getMonthEnd(from)
             resolution = "Day"
             tv = createCustomTickvalues(from, to, resolution)
         } else
@@ -232,6 +233,7 @@ class App extends Component {
             range = "Maand"
             resolution = "Day"
             tv = null
+            tv = createCustomTickvalues(from, to, resolution)
         }
 
         if (period==='this_week') {
@@ -257,6 +259,10 @@ class App extends Component {
             range = this.state.range
             resolution = this.state.resolution
             tv = this.state.tickValues
+            if (range=='Maand') {
+                to = getMonthStart(this.state.from)
+                tv = createCustomTickvalues(from, to, resolution)
+            }
         }
 
         // depending go back 1 'resolution
@@ -266,6 +272,9 @@ class App extends Component {
             range = this.state.range
             resolution = this.state.resolution
             tv = this.state.tickValues
+            if (range=='Maand') {
+                tv = createCustomTickvalues(from, to, resolution)
+            }
         }
 
         if (period==='live') {

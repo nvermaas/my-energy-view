@@ -45,7 +45,7 @@ export function getMonthStart(date) {
 
 export function getMonthEnd(date) {
     let m = moment(date)
-    let end = m.endOf('month')
+    let end = m.endOf('month').add('1','days')
     return end.format('YYYY-MM-DD')
 }
 
