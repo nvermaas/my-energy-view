@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import { Panel } from 'react-bootstrap';
 import Configuration from './Configuration';
-
 class StatusPanel extends Component {
 
 render() {
@@ -17,21 +16,18 @@ render() {
         <div>
             <Panel bsStyle="info">
                 <Panel.Heading>
-                    <Panel.Title componentClass="h5">Status</Panel.Title>
+                    <Panel.Title componentClass="h5">Configuratie</Panel.Title>
                 </Panel.Heading>
                 <Panel.Body>
                     <Configuration ip = {ip} sn = {sn} gp={gp} ep = {ep} show="false"
                                    handleConfigChange={this.props.handleConfigChange} />
                     <table>
                         <tbody>
-                        <tr><td>dataset : </td><td>{this.props.state.dataset}</td></tr>
-                        <tr><td>range : </td><td>{this.props.state.range}</td></tr>
-                        <tr><td>resolution : </td><td>{this.props.state.resolution}</td></tr>
-                        <tr><td>from : </td><td>{this.props.state.from}</td></tr>
-                        <tr><td>to : </td><td>{this.props.state.to}</td></tr>
                         <tr><td>url : </td><td><a href={this.props.url}>(click for url to qservice)</a></td></tr>
+
                         </tbody>
                     </table>
+
                 </Panel.Body>
             </Panel>
         </div>

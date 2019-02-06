@@ -4,6 +4,7 @@ import { Grid, Jumbotron, Row, Col } from 'react-bootstrap';
 
 import MainGraph from './components/MainGraph';
 import HeaderPanel from './components/HeaderPanel';
+import LiveView from './components/LiveView';
 import PeriodPanel from './components/PeriodPanel';
 import PresentationPanel from './components/PresentationPanel';
 import StatusPanel from './components/StatusPanel';
@@ -82,9 +83,10 @@ class App extends Component {
             .catch(function() {
                 alert("fetch to "+API_URL+ " failed.");
             })
-        }
+    }
 
-     // simulating the fetch with data from the assets folder
+
+    // simulating the fetch with data from the assets folder
      fetchData0 = (API_URL) => {
          alert("DEMO DATA")
          let my_data
@@ -337,10 +339,8 @@ class App extends Component {
         if (this.state.status==='fetched') {
             //alert('render: this.state.tickvalues = '+this.state.tickValues)
             renderGraph = <MainGraph state = {this.state} handleZoom={this.handleZoom}/>
-        } else {
-            // fill in IP and serialnumber
-            //renderConfiguration=  <Configuration ip = "192.168.178.64" sn = "15-49-002-081" gp = "0.63" ep = "0.2" show="true" />
         }
+
         const loading = this.state.status === 'fetching'
 
         return (
@@ -351,6 +351,7 @@ class App extends Component {
                     <Row className="show-grid">
                         <Col xs={6} md={4}>
                             <HeaderPanel/>
+
                             <PeriodPanel
                                 from={this.state.from}
                                 to={this.state.to}
@@ -359,10 +360,13 @@ class App extends Component {
                                 handleChoice={this.handlePeriodChoice}
                                 handleChangeDate={this.handleChangeDate}
                             />
+
                             <PresentationPanel handleChoice={this.handlePresentationChoice} />
+                            <LiveView state={this.props.state}></LiveView>
                             <StatusPanel state={this.state}
                                          url = {API_URL}
                                          handleConfigChange={this.handleConfigChange} />
+
                         </Col>
                         <Col xs={12} md={8}>
                             {loading ? <LoadingSpinner /> :

@@ -43,7 +43,6 @@ class PeriodButtonBar extends Component {
                     <Button bsStyle="info" bsSize="large" onClick={() => this.props.handleChoice('this_month')}>Deze MAAND</Button>.
                     <Button bsStyle="info" bsSize="large" onClick={() => this.props.handleChoice('this_week')}>Deze WEEK</Button>.
                     <Button bsStyle="info" bsSize="large" onClick={() => this.props.handleChoice('today')}>Deze DAG</Button>.
-                    <Button bsStyle="info" bsSize="large" onClick={() => this.props.handleChoice('live','live')}>LIVE!</Button>.
                 </ButtonToolbar>.
 
                 <ButtonToolbar>
