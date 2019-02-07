@@ -4,7 +4,11 @@ Note: this is a frontend for the QboxNext project and requires the Qserver and Q
 Instructions for that can be found here: https://qboxnext.miraheze.org/wiki/Qserver_op_Raspberry_Pi3_installeren
 
 
-### Option 1 - full install on express server (most controlled option)
+### Option 1 - full install on express server
+
+pro's: it is all contained to your Pi (very safe)
+con's: you have to update and build manually with a 'git pull'. Only local access (unless you 'port forward' your router).
+
 This will download, build and deploy the application and all its dependencies locally.
 Node.js needs to be downloaded and installed first, because the application will use ``npm`` as package manager to install dependencies and build the application.
 And it will use the node.js express webserver to run the application on port 5050 (the default port 5000 is already taken by Qserver).
@@ -38,7 +42,11 @@ Access QboxView from: http://192.168.178.64:5050/
 
 
 ## Option 2 - run on uilennest website (easiest option)
-You can also run the deployed version: http://uilennest.net/QboxViewPublic
+
+pro's: easy. You will always have the latest version.
+con's: dependency on my webserver, which I only guarantee for the current test phase.
+
+You can run the deployed version from your browser: http://uilennest.net/QboxViewPublic
 
 In that case you will need to enable CORS headers on your Qservice so that the frontend can reach the backend.
 Although the QboxView web application is served from uilennest, it would still only work from inside your network because that is where the backend is.
@@ -57,6 +65,9 @@ Sometimes this is not considered safe. You could also just allow 'uilennest.net'
 ## Option 3 - frontend install on your existing Nginx webserver
 
 ### Configure Nginx
+
+pro's: Small footprint, safe. You won't need an extra webserver.
+con's: more technical skills required to set it up. Only local access (unless you 'port forward' your router).
 
 You have a nginx webserver running on the Raspberry Pi, but the default www port 80 has been proxied to the Qserver on port 5000
 ```
