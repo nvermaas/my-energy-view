@@ -64,8 +64,15 @@ class App extends Component {
     }
 
 
+    sanitizeData = (data) => {
+        //alert('sanitizeData()')
+        return data
+    }
+
+
     // get the data from the api
     fetchData = (API_URL) => {
+        //API_URL = "http://localhost:8000/my_energy/api/getseries?&from=2019-01-14&resolution=Hour&sn=15-49-002-081&to=2019-01-15"
         //alert('fetchData: '+(API_URL))
         this.setState({
             status: 'fetching',
@@ -75,7 +82,7 @@ class App extends Component {
                 return results.json();
             })
             .then(data => {
-                let myData = data;
+                let myData = this.sanitizeData(data);
                 this.setState({
                     fetchedData: myData,
                     status : 'fetched'})
@@ -362,10 +369,11 @@ class App extends Component {
                             />
 
                             <PresentationPanel handleChoice={this.handlePresentationChoice} />
-                            <LiveView state={this.props.state}></LiveView>
+
                             <StatusPanel state={this.state}
                                          url = {API_URL}
                                          handleConfigChange={this.handleConfigChange} />
+                            <LiveView state={this.props.state}></LiveView>
 
                         </Col>
                         <Col xs={12} md={8}>

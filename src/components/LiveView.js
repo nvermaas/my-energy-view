@@ -76,7 +76,7 @@ render() {
             <div>
                 <Panel bsStyle="warning">
                     <Panel.Heading>
-                        <Panel.Title componentClass="h5">Huidige verbruik: Gas = {GasData} m3/uur,  Stroom = {Netto} W/uur, </Panel.Title>
+                        <Panel.Title componentClass="h5">Huidige verbruik: Gas = {GasData} m3/uur,  Stroom = {Netto} W, </Panel.Title>
 
                     </Panel.Heading>
                 </Panel>
