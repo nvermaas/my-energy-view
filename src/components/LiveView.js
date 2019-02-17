@@ -40,7 +40,7 @@ class LiveView extends Component {
                     status : 'fetched_live_data'})
             })
             .catch(function() {
-                 alert("fetch to "+API_URL+ " failed.");
+                 console.log("fetch to "+API_URL+ " failed.");
             })
     }
 

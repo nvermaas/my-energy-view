@@ -17,11 +17,20 @@ const energyTypes = {
 
 function fillYAxis(data) {
     let items = []
+    let previous_value = 0
     for (var i = 0; i < data.length; i++) {
         let item = {}
         item.month = i+1;
-        item.value = data[i]
+
+        // remove error spikes in the data
+        if (data[i]<1000000) {
+            item.value = data[i]
+        } else {
+            alert('error in qbx file, spike removed: '+data[i])
+            item.value = previous_value
+        }
         items.push(item)
+        previous_value = item.value
     }
     return items
 }
