@@ -26,7 +26,7 @@ function fillYAxis(data) {
         if (data[i]<1000000) {
             item.value = data[i]
         } else {
-            alert('error in qbx file, spike removed: '+data[i])
+            alert('error in qbx file, spike removed: '+data[i]+ ' at position '+i.toString())
             item.value = previous_value
         }
         items.push(item)

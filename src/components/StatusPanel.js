@@ -23,7 +23,7 @@ render() {
                                    handleConfigChange={this.props.handleConfigChange} />
                     <table>
                         <tbody>
-                        <tr><td>url : </td><td><a href={this.props.url}>(click for url to qservice)</a></td></tr>
+                        <tr><td>url : </td><td><a href={this.props.url}>(click for url to MyEnergy)</a></td></tr>
 
                         </tbody>
                     </table>
