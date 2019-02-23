@@ -10,7 +10,7 @@ class PresentationPanel extends Component {
             <div>
                 <Panel bsStyle="info">
                     <Panel.Heading>
-                        <Panel.Title componentClass="h5">Presentaties</Panel.Title>
+                        <Panel.Title componentClass="h5">Presentations</Panel.Title>
                     </Panel.Heading>
                     <Panel.Body>
                         <PresentationButtonBar handleChoice={this.props.handleChoice} />

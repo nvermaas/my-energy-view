@@ -70,7 +70,7 @@ class Configuration extends Component {
             renderConfigButton =
             <Button bsStyle="info" bsSize="small"
                     onClick={this.handleShow}><Glyphicon glyph="wrench" />
-                Configuratie wijzigen
+                .Configuration
             </Button>
         } else {
             renderConfigDialog =

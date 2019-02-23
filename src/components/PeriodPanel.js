@@ -10,7 +10,7 @@ class PeriodePanel extends Component {
             <div>
                 <Panel bsStyle="info">
                     <Panel.Heading>
-                        <Panel.Title componentClass="h5">Periode</Panel.Title>
+                        <Panel.Title componentClass="h5">Period</Panel.Title>
                     </Panel.Heading>
                     <Panel.Body>
                         <PeriodButtonBar
