@@ -86,27 +86,6 @@ class App extends Component {
     }
 
 
-    // simulating the fetch with data from the assets folder
-     fetchData0 = (API_URL) => {
-         alert("DEMO DATA")
-         let my_data
-         if (this.state.period === '2018') {
-            my_data = my_2018_data
-         } else
-         if (this.state.period === 'this_month') {
-             my_data = my_month_data
-         } else
-         if (this.state.period === 'today') {
-             my_data = my_today_data
-         }
-
-         this.setState({fetchedData: my_data,
-                        presentation: 'Gas',
-                        dataset : 'Gas',
-                        status  : 'fetched'})
-     }
-
-
     // this function is called when the period choices change
     handleConfigChange = (ip, sn) => {
         API_BASE = "http://"+ip+"/api/getseries?sn=" + sn
@@ -115,11 +94,10 @@ class App extends Component {
     }
 
     // this function is called when the presentation choice changes (gas, stroom, netto, etc)
-    handlePresentationChoice = (presentation, dataset) => {
+    handlePresentationChoice = (presentation) => {
         //alert('handlePresentationChoice : '+presentation+ ','+dataset)
         this.setState({
             presentation: presentation,
-            dataset: dataset,
         });
     }
 
