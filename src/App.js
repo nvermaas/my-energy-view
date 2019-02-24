@@ -94,10 +94,11 @@ class App extends Component {
     }
 
     // this function is called when the presentation choice changes (gas, stroom, netto, etc)
-    handlePresentationChoice = (presentation) => {
+    handlePresentationChoice = (presentation, dataset) => {
         //alert('handlePresentationChoice : '+presentation+ ','+dataset)
         this.setState({
             presentation: presentation,
+            dataset: dataset,
         });
     }
 

@@ -131,7 +131,7 @@ class MainGraph extends Component {
 
         } else {
             // draw a single bar diagram
-            let data = all_data.data[energyTypes[dataset]]["data"]
+             let data = all_data.data[energyTypes[dataset]]["data"]
             let total = all_data.data[energyTypes[dataset]]["total"]
             let items = fillYAxis(data)
             subTitle = subTitle + ' ('+Math.round(total/1000) + ' kWh)'
