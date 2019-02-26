@@ -18,7 +18,7 @@ class ElectricityGraph extends Component {
 
         let title = this.props.title
 
-        let y_label = "verbruik in kWh"
+        let y_label = "kWh"
         let x_label = "Klik op een balk voor details"
 
         let myFirstBar

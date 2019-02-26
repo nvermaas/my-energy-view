@@ -33,7 +33,7 @@ function fillYAxis(data, negative) {
 
 function constructSubTitle(props) {
 
-    let title = props.presentation + ' verbruik '
+    let title = props.presentation
     return title
 }
 

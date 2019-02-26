@@ -50,6 +50,13 @@ export function createCustomTickvalues(from,to,resolution) {
         }
     }
 
+    if (resolution=='5MINUTES') {
+        tv = new Array(24*12)
+        for (var i = 0; i < tv.length; i++) {
+            tv[i] = i + 1
+        }
+    }
+
     // alert('createCustomTickValues('+from+','+to+','+resolution+') = '+tv.toString())
     return tv
 }
@@ -69,6 +76,7 @@ class App extends Component {
             resolution : "Hour",
             tickValues : tickValues["hour"],
             status : 'idle'}
+
     }
 
 
@@ -115,7 +123,11 @@ class App extends Component {
     // depending on the 'range' it will zoom into the next range (year, month, day)
     handleZoom = (i) => {
         //alert('app.handleZoom:' + i + 'this.state.resolution = ' + this.state.resolution)
-        let from,to,resolution, range, tv
+        let from = this.state.from
+        let to = this.state.to
+        let resolution = this.state.resolution
+        let range = this.state.range
+        let tv = this.state.tv
 
         // only range year, month and day are valid, because for custom ranges it is not known
         // to which month, day the 'index' points when clicking a bar
@@ -157,8 +169,16 @@ class App extends Component {
 
         // clicked on a day bar in a month overview
         if (this.state.resolution === 'Hour') {
-            alert('Dieper inzoomen is nog niet mogelijk.')
-            return
+            //alert('Dieper inzoomen is nog niet mogelijk.')
+            resolution = "15MINUTES"
+            //return
+        }
+
+        // clicked on a day bar in a month overview
+        if (this.state.resolution === '15MINUTES') {
+            //alert('Dieper inzoomen is nog niet mogelijk.')
+            resolution = "Hour"
+            //return
         }
 
         //alert(API_URL)
@@ -237,8 +257,8 @@ class App extends Component {
             from = getDayStart(new Date())
             to   = getDayEnd(new Date())
             range = "Dag"
-            resolution = "HOUR"
-            tv = tickValues["HOUR"]
+            resolution = "Hour"
+            tv = tickValues["hour"]
             //resolution = "15MINUTES"
             //tv = tickValues["15MINUTES"]
         }
