@@ -15,13 +15,18 @@ const energyTypes = {
     "Generation" : 4}
 
 
-function fillYAxis(data) {
+function fillYAxis(data, negative) {
     let items = []
     for (var i = 0; i < data.length; i++) {
         let item = {}
         item.month = i+1;
-        item.value = data[i]
+        if (negative==true) {
+            item.value = parseInt(data[i]) * -1
+        } else {
+            item.value = data[i]
+        }
         items.push(item)
+        console.log(items.value)
     }
     return items
 }
@@ -77,7 +82,7 @@ class MainGraph extends Component {
         if (presentation==='Gas') {
             let total = all_data.data[energyTypes['Gas']]["total"]
             let data = all_data.data[energyTypes['Gas']]["data"]
-            let items = fillYAxis(data)
+            let items = fillYAxis(data, false)
 
             subTitle = subTitle + ' ('+total/1000 + ' m3)'
 
@@ -105,8 +110,17 @@ class MainGraph extends Component {
             let total1 = all_data.data[energyTypes['NetLow']]["total"]
             let data2 = all_data.data[energyTypes['NetHigh']]["data"]
             let total2 = all_data.data[energyTypes['NetHigh']]["total"]
-            let items1 = fillYAxis(data1)
-            let items2 = fillYAxis(data2)
+            let items1 = fillYAxis(data1,false)
+            let items2 = fillYAxis(data2,false)
+
+            // add consumption graph
+            let data3 = all_data.data[energyTypes['Consumption']]["data"]
+            let items3 = fillYAxis(data3)
+
+            // add Generation graph
+            let data4 = all_data.data[energyTypes['Generation']]["data"]
+            let items4 = fillYAxis(data4, true)
+            console.log(items4)
 
             let total = total1 + total2
             subTitle = subTitle + ' ('+Math.round(total/1000) + ' kWh)'
@@ -125,6 +139,8 @@ class MainGraph extends Component {
                 y={"value"}
                 items1={items1}
                 items2={items2}
+                items3={items3}
+                items4={items4}
                 tickValues={this.props.state.tickValues}
                 handleZoom={this.props.handleZoom}
             />

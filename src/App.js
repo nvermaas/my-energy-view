@@ -24,6 +24,7 @@ var API_BASE = "http://"+QserverIP+"/api/getseries?sn=" + qbox_sn
 var API_URL
 
 const tickValues = {
+
     "hour" : ["00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11",
               "12", "13", "14", "15", "16", "17","18", "19", "20", "21", "22", "23"],
     "day" : ["Zondag", "Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag", "Zaterdag"],
@@ -33,8 +34,8 @@ const tickValues = {
 export function createCustomTickvalues(from,to,resolution) {
 
     let tv=null
-
-    if (resolution='Days') {
+// if (resolution='Day') {
+    if (resolution=='Day') {
         let days = getDaysBetween(from,to)
         tv = new Array(days)
         for (var i = 0; i < tv.length; i++) {
@@ -42,7 +43,14 @@ export function createCustomTickvalues(from,to,resolution) {
         }
     }
 
-   // alert('createCustomTickValues('+from+','+to+','+resolution+') = '+tv.toString())
+    if (resolution=='15MINUTES') {
+        tv = new Array(24*4)
+        for (var i = 0; i < tv.length; i++) {
+            tv[i] = i + 1
+        }
+    }
+
+    // alert('createCustomTickValues('+from+','+to+','+resolution+') = '+tv.toString())
     return tv
 }
 
@@ -229,8 +237,10 @@ class App extends Component {
             from = getDayStart(new Date())
             to   = getDayEnd(new Date())
             range = "Dag"
-            resolution = "Hour"
-            tv = tickValues["hour"]
+            resolution = "HOUR"
+            tv = tickValues["HOUR"]
+            //resolution = "15MINUTES"
+            //tv = tickValues["15MINUTES"]
         }
 
         // depending go back 1 'resolution

@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme, VictoryLabel, VictoryStack } from 'victory';
+import { VictoryBar, VictoryLine, VictoryChart, VictoryAxis, VictoryTheme, VictoryLabel, VictoryStack } from 'victory';
 
 class ElectricityGraph extends Component {
 
@@ -14,6 +14,7 @@ class ElectricityGraph extends Component {
         let items1 = this.props.items1;
         let items2 = this.props.items2;
         let items3 = this.props.items3;
+        let items4 = this.props.items4;
 
         let title = this.props.title
 
@@ -89,13 +90,15 @@ class ElectricityGraph extends Component {
         }
 
 
-        let myThirdBar
+        let myFirstLine
         if (items3!==undefined) {
-            myThirdBar =
-                <VictoryBar
+            myFirstLine =
+                <VictoryLine
                     style={{
                         data: {
-                            fill: "#FFAA08",
+                            stroke: "#c43a31",
+                            // stroke: "#C0C0C0",
+                            strokeWidth: 0.7,
                             fillOpacity: 0.7,
                         },
                         labels: {
@@ -110,6 +113,43 @@ class ElectricityGraph extends Component {
                     }}
 
                     data={this.props.items3}
+                    x={this.props.x}
+                    y={this.props.y}
+
+                    events={[
+                        {
+                            target: "data",
+                            eventHandlers: {
+                                onClick: (evt, clickedProps) => this.handleEvent(evt, clickedProps)
+                            }}
+                    ]}
+                />
+        }
+
+        let mySecondLine
+        if (items4!==undefined) {
+            mySecondLine =
+                <VictoryLine
+                    style={{
+                        data: {
+                            stroke: "#008000",
+                            //stroke: "#C0C0C0",
+                            strokeWidth: 0.7,
+                            strokeLinecap: "round",
+                            parent: { border: "1px solid #ccc"}
+                        },
+                        labels: {
+                            fontSize: 10,
+                            fill: (d) => d.x === 3 ? "#000000" : "#c43a31"
+                        }
+                    }}
+
+                    animate={{
+                        duration: 2000,
+                        onLoad: {duration: 1000}
+                    }}
+
+                    data={this.props.items4}
                     x={this.props.x}
                     y={this.props.y}
 
@@ -158,16 +198,17 @@ class ElectricityGraph extends Component {
                         style={{
                             axis: {stroke: "#756f6a"},
                             axisLabel: {fontSize: 10, padding: 30},
-                            grid: {stroke: (t) => t > 0.5 ? "red" : "green"},
+                            grid: {stroke: (t) => t > 0.5 ? "grey" : "grey"},
                             ticks: {stroke: "grey", size: 5},
                             tickLabels: {fontSize: 9, padding: 5}
                         }}
                     />
-
+                    {myFirstLine}
+                    {mySecondLine}
                     <VictoryStack>
                         {myFirstBar}
                         {mySecondBar}
-                        {myThirdBar}
+
                     </VictoryStack>
 
                 </VictoryChart>
