@@ -10,7 +10,7 @@ class HeaderPanel extends Component {
                 <Panel bsStyle="info">
                     <Panel.Heading>
                         <Panel.Title componentClass="h2">
-                            <img  src={logo} alt="Logo" width="40" /> MyEnergy View<small> version 1.2.0 - 27 feb 2019</small>
+                            <img  src={logo} alt="Logo" width="40" /> MyEnergy View<small> version 1.2.1 - 27 feb 2019</small>
                         </Panel.Title>
                     </Panel.Heading>
                 </Panel>

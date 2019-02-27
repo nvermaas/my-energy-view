@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/qbox-view.iml" filepath="$PROJECT_DIR$/.idea/qbox-view.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/my-energy-view.iml" filepath="$PROJECT_DIR$/.idea/my-energy-view.iml" />
     </modules>
   </component>
 </project>

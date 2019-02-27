@@ -57,7 +57,7 @@ export function createCustomTickvalues(from,to,resolution) {
         }
     }
 
-    // alert('createCustomTickValues('+from+','+to+','+resolution+') = '+tv.toString())
+    alert('createCustomTickValues('+from+','+to+','+resolution+') = '+tv.toString())
     return tv
 }
 
@@ -171,14 +171,13 @@ class App extends Component {
         if (this.state.resolution === 'Hour') {
             //alert('Dieper inzoomen is nog niet mogelijk.')
             resolution = "15MINUTES"
-            //return
         }
 
         // clicked on a day bar in a month overview
         if (this.state.resolution === '15MINUTES') {
             //alert('Dieper inzoomen is nog niet mogelijk.')
+            tv = tickValues["hour"]
             resolution = "Hour"
-            //return
         }
 
         //alert(API_URL)
@@ -340,6 +339,22 @@ class App extends Component {
         //this.readData()   //read test data
     }
 
+    componentDidMount() {
+        // refresh the data every 5 minutes (this is also the Domoticz interval)
+        this.timer = setInterval(() => this.doPolling(), 300000)
+    }
+
+    componentWillUnmount () {
+        // use intervalId from the state to clear the interval
+        clearInterval(this.timer)
+    }
+
+    doPolling() {
+        if (this.state.status==='fetched') {
+            this.fetchData(API_URL)
+        }
+    }
+
     render() {
         let renderGraph
         let renderConfiguration
@@ -377,7 +392,7 @@ class App extends Component {
                                          handleConfigChange={this.handleConfigChange} />
 
                         </Col>
-                        <Col xs={13} md={8}>
+                        <Col xs={14} md={8}>
                             {loading ? <LoadingSpinner /> :
                                 <div>
                                     {renderConfiguration}

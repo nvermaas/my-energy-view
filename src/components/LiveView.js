@@ -59,7 +59,7 @@ render() {
     if (this.state.fetchedLiveData!=undefined) {
         let live_data = this.state.fetchedLiveData
         let PowerData = parseInt(live_data['data'].power_usage) - parseInt(live_data['data'].power_delivery)
-        let GasData = live_data['data'].gas
+        //let GasData = live_data['data'].gas
 
         renderLiveInfo =
             <div>

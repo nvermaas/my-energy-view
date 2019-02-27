@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="377bbf25-a6f3-40ac-8152-eaf75146a50e" name="uilennest.net" url="http://uilennest.net/my-energy-view">
+        <fileTransfer host="uilennest.net" port="22" rootFolder="/home/nvermaas/www" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

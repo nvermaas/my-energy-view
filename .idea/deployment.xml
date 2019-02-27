@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" serverName="uilennest.net">
+    <serverData>
+      <paths name="uilennest.net">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/my-energy-view" local="$PROJECT_DIR$/build" web="/" />
+            <mapping deploy="/my_static_files" local="$PROJECT_DIR$/build/static" web="/static" />
+          </mappings>
+          <excludedPaths>
+            <excludedPath local="true" path="$PROJECT_DIR$/build/static" />
+          </excludedPaths>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+</project>
