@@ -65,7 +65,7 @@ render() {
             <div>
                 <Panel bsStyle="warning">
                     <Panel.Heading>
-                        <Panel.Title componentClass="h5">LIVE: Gas = {GasData},  Power = {PowerData}, </Panel.Title>
+                        <Panel.Title componentClass="h5">LIVE Power = {PowerData} </Panel.Title>
 
                     </Panel.Heading>
                 </Panel>

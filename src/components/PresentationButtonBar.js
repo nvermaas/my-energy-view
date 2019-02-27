@@ -18,15 +18,16 @@ class PresentationButtonBar extends Component {
 
 
                     {/* Provides extra visual weight and identifies the primary action in a set of buttons */}
-                    <Button bsStyle="primary" bsSize="large" onClick={() => this.handleChoice('Gas','Gas')}>GAS</Button>.
+                    <Button bsStyle="primary" bsSize="large" onClick={() => this.handleChoice('Gas','Gas')}>GAS</Button>&nbsp;
 
-                    <Button bsStyle="warning" bsSize="large" onClick={() => this.handleChoice('Netto Stroom','Netto')}>Netto POWER</Button>.
+                    <Button bsStyle="warning" bsSize="large" onClick={() => this.handleChoice('Netto Stroom','Netto')}>POWER</Button>&nbsp;
 
-                    {/* Indicates caution should be taken with this action */}
-                    <Button bsStyle="warning" bsSize="large" onClick={() => this.handleChoice('Consumption','Consumption')}>Consumption</Button>.
 
                     {/* Indicates caution should be taken with this action */}
-                    <Button bsStyle="warning" bsSize="large" onClick={() => this.handleChoice('Generation','Generation')}>Generation</Button>.
+                    <Button bsStyle="warning" bsSize="large" onClick={() => this.handleChoice('Consumption','Consumption')}>Consumed</Button>&nbsp;
+
+                    {/* Indicates caution should be taken with this action */}
+                    <Button bsStyle="warning" bsSize="large" onClick={() => this.handleChoice('Generation','Generation')}>Generated</Button>&nbsp;
 
                 </ButtonToolbar>
             </div>

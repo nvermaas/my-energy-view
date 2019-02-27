@@ -12,14 +12,14 @@ class PeriodButtonBar extends Component {
             navButton1 =
                 <div>
                     <Button bsStyle="warning" bsSize="large" onClick={() => this.props.handleChoice('back')}>
-                        <Glyphicon glyph="step-backward" /> {this.props.range} terug
+                        <Glyphicon glyph="step-backward" /> Prev
                     </Button>
                 </div>
             navButton2 =
                 <div>
                     <Button bsStyle="warning" bsSize="large" onClick={() => this.props.handleChoice('forward')}>
-                        {this.props.range} verder<Glyphicon glyph="step-forward" />
-                    </Button>.
+                        Next <Glyphicon glyph="step-forward" />
+                    </Button>
                 </div>
         }
 
@@ -39,16 +39,16 @@ class PeriodButtonBar extends Component {
             <div>
                 {/* buttons for the current moment */}
                 <ButtonToolbar>
-                    <Button bsStyle="info" bsSize="large" onClick={() => this.props.handleChoice('this_year')}>Dit JAAR</Button>.
-                    <Button bsStyle="info" bsSize="large" onClick={() => this.props.handleChoice('this_month')}>Deze MAAND</Button>.
-                    <Button bsStyle="info" bsSize="large" onClick={() => this.props.handleChoice('this_week')}>Deze WEEK</Button>.
-                    <Button bsStyle="info" bsSize="large" onClick={() => this.props.handleChoice('today')}>Deze DAG</Button>.
-                </ButtonToolbar>.
-
+                    <Button bsStyle="info" bsSize="large" onClick={() => this.props.handleChoice('this_year')}>YEAR</Button>&nbsp;
+                    <Button bsStyle="info" bsSize="large" onClick={() => this.props.handleChoice('this_month')}>MONTH</Button>&nbsp;
+                    <Button bsStyle="info" bsSize="large" onClick={() => this.props.handleChoice('this_week')}>WEEK</Button>&nbsp;
+                    <Button bsStyle="info" bsSize="large" onClick={() => this.props.handleChoice('today')}>TODAY</Button>&nbsp;
+                </ButtonToolbar>
+                &nbsp;
                 <ButtonToolbar>
 
                     {/* navigiation and period buttons */}
-                    {navButton1}.{navButton2}
+                    {navButton1}&nbsp;{navButton2}
                     {periodSelection}
 
                 </ButtonToolbar>

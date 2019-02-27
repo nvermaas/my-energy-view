@@ -358,7 +358,7 @@ class App extends Component {
             <Jumbotron>
                 <Grid>
                     <Row className="show-grid">
-                        <Col xs={6} md={4}>
+                        <Col xs={4} md={3}>
                             <HeaderPanel/>
 
                             <PeriodPanel
@@ -377,7 +377,7 @@ class App extends Component {
                                          handleConfigChange={this.handleConfigChange} />
 
                         </Col>
-                        <Col xs={12} md={8}>
+                        <Col xs={13} md={8}>
                             {loading ? <LoadingSpinner /> :
                                 <div>
                                     {renderConfiguration}
