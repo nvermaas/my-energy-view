@@ -57,7 +57,7 @@ export function createCustomTickvalues(from,to,resolution) {
         }
     }
 
-    alert('createCustomTickValues('+from+','+to+','+resolution+') = '+tv.toString())
+    //alert('createCustomTickValues('+from+','+to+','+resolution+') = '+tv.toString())
     return tv
 }
 
