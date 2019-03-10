@@ -1,7 +1,7 @@
-## QboxView
+## MyEnergy View
 
-Note: this is a frontend for the QboxNext project and requires the Qserver and Qservice to be up and running.
-Instructions for that can be found here: https://qboxnext.miraheze.org/wiki/Qserver_op_Raspberry_Pi3_installeren
+Note: this is the frontend for the MyEnergy project.
+It talks through a ReST API with the MyEnergy Server, which in turn gets its information from a Domoticz database.
 
 
 ### Option 1 - full install on express server
@@ -60,32 +60,6 @@ Sometimes this is not considered safe. You could also just allow 'uilennest.net'
     "AllowedOrigins": ["*"],
     "Methods": ["GET"]
   }
-```
-
-## Option 3 - frontend install on your existing Nginx webserver
-
-### Configure Nginx
-
-- pro's: Small footprint, safe. You won't need an extra webserver.
-- con's: more technical skills required to set it up. Only local access (unless you 'port forward' your router).
-
-You have a nginx webserver running on the Raspberry Pi, but the default www port 80 has been proxied to the Qserver on port 5000
-```
-        location / {
-           proxy_pass http://localhost:5000/;
-           proxy_http_version 1.1;
-           proxy_set_header Connection keep-alive;
-           proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
-           proxy_set_header X-Forwarded-Host  $http_host;
-           proxy_set_header X-Forwarded-Proto http;
-        }
-```
-
-Also, the url to the REST API of the Qservice has been proxied to port 5002
-```
-        location /api {
-           proxy_pass http://localhost:5002;
-        }
 ```
 
 To be able to run QboxView on the webserver we must use a different port, like 81.

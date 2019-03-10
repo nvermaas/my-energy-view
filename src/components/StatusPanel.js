@@ -7,8 +7,7 @@ class StatusPanel extends Component {
 render() {
     let ip,sn,gp,ep
     // condition ? exprT : exprF
-    localStorage.getItem('QserverIP') == null ? ip = '192.168.178.64' : ip = localStorage.getItem('QserverIP')
-    localStorage.getItem('QboxSN') == null ? sn = '15-49-002-081' : sn = localStorage.getItem('QboxSN')
+    localStorage.getItem('MyEnergyServerIP') == null ? ip = '192.168.178.64' : ip = localStorage.getItem('MyEnergyServerIP')
     localStorage.getItem('QboxGasPrice') == null ? gp = '0.63' : gp = localStorage.getItem('QboxGasPrice')
     localStorage.getItem('QboxElectricityPrice') == null ? ep = '0.20' : ep = localStorage.getItem('QboxElectricityPrice')
 
@@ -23,7 +22,7 @@ render() {
                                    handleConfigChange={this.props.handleConfigChange} />
                     <table>
                         <tbody>
-                        <tr><td>url : </td><td><a href={this.props.url}>(click for API)</a></td></tr>
+                        <tr><td>url : </td><td><a href={this.props.url}>(click for MyEnergy Server)</a></td></tr>
 
                         </tbody>
                     </table>

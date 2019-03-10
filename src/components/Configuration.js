@@ -11,7 +11,6 @@ class Configuration extends Component {
 
         this.state = {
             ip : this.props.ip,
-            sn : this.props.sn,
             gp : this.props.gp,
             ep : this.props.ep,
             show: this.props.show
@@ -24,13 +23,12 @@ class Configuration extends Component {
 
     handleSaveClose() {
         // setter
-        localStorage.setItem('QserverIP', this.state.ip);
-        localStorage.setItem('QboxSN', this.state.sn);
+        localStorage.setItem('MyEnergyServerIP', this.state.ip);
         localStorage.setItem('QboxGasPrice', this.state.gp);
         localStorage.setItem('QboxElectricityPrice', this.state.ep);
         this.setState({ show: 'false' });
 
-        this.props.handleConfigChange(this.state.ip, this.state.sn)
+        this.props.handleConfigChange(this.state.ip)
     }
 
     handleShow() {
@@ -39,10 +37,6 @@ class Configuration extends Component {
 
     changeIP = (ip) => {
         this.setState({ip: ip.target.value});
-    }
-
-    changeSN = (sn) => {
-        this.setState({sn: sn.target.value});
     }
 
     changeGasPrice = (price) => {
@@ -76,13 +70,13 @@ class Configuration extends Component {
             renderConfigDialog =
                 <Modal.Dialog show={this.state.show} onHide={this.handleClose}>
                     <Modal.Header>
-                        <Modal.Title>Configuratie</Modal.Title>
+                        <Modal.Title>Configuration</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
 
                         <form>
                             <FormGroup controlId="qservice_ip" validationState={this.getValidationState()}>
-                                <ControlLabel>Host of IP van de Raspberry Pi</ControlLabel>
+                                <ControlLabel>Host or IP of MyEnergy Server</ControlLabel>
                                 <FormControl
                                     type="text"
                                     value={this.state.ip}
@@ -91,18 +85,8 @@ class Configuration extends Component {
                                 />
                             </FormGroup>
 
-                            <FormGroup controlId="qbox_sn">
-                                <ControlLabel>Serienummer van de Qbox Duo</ControlLabel>
-                                <FormControl
-                                    type="text"
-                                    value={this.state.sn}
-                                    placeholder={this.state.sn}
-                                    onChange={(sn) => this.changeSN(sn)}
-                                />
-                            </FormGroup>
-
                             <FormGroup controlId="gas_price">
-                                <ControlLabel>Gasprijs per m3 in EUR</ControlLabel>
+                                <ControlLabel>Gas price per m3 in EUR</ControlLabel>
                                 <FormControl
                                     type="text"
                                     value={this.state.gp}
@@ -112,7 +96,7 @@ class Configuration extends Component {
                             </FormGroup>
 
                             <FormGroup controlId="electricity_price">
-                                <ControlLabel>Stroomprijs per kWh in EUR</ControlLabel>
+                                <ControlLabel>Electricity price per kWh in EUR</ControlLabel>
                                 <FormControl
                                     type="text"
                                     value={this.state.ep}

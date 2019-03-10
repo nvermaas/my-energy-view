@@ -12,23 +12,17 @@ import LoadingSpinner from './components/LoadingSpinner';
 import {pad, getYearStart, getYearEnd, getMonthStart, getMonthEnd, getWeekStart, getWeekEnd, getYear, getMonth,
     getDaysInMonth, addDays, getDayStart, getDayEnd, goBackInTime, goForwardInTime, getDaysBetween} from './utils/DateUtils'
 
-//import my_data from '../assets/data.json';
-var my_2018_data = require('./assets/my_2018_data.json');
-var my_month_data = require('./assets/my_month_data.json');
-var my_today_data = require('./assets/my_today_data.json');
-
-var QserverIP = "192.168.178.64"
-var qbox_sn = "15-49-002-081"
-var API_BASE = "http://"+QserverIP+"/api/getseries?sn=" + qbox_sn
-
+var MyEnergyServerIP = "192.168.178.64"
+var API_MY_ENERGY_SERVER = "http://"+MyEnergyServerIP+"/my_energy/"
+var API_BASE = API_MY_ENERGY_SERVER + "api/getseries"
 var API_URL
 
 const tickValues = {
 
     "hour" : ["00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11",
               "12", "13", "14", "15", "16", "17","18", "19", "20", "21", "22", "23"],
-    "day" : ["Zondag", "Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag", "Zaterdag"],
-    "month" : ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"]
+    "day" : ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+    "month" : ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 }
 
 export function createCustomTickvalues(from,to,resolution) {
@@ -76,9 +70,7 @@ class App extends Component {
             resolution : "Hour",
             tickValues : tickValues["hour"],
             status : 'idle'}
-
     }
-
 
     // get the data from the api
     fetchData = (API_URL) => {
@@ -102,16 +94,16 @@ class App extends Component {
     }
 
 
-    // this function is called when the period choices change
-    handleConfigChange = (ip, sn) => {
-        API_BASE = "http://"+ip+"/api/getseries?sn=" + sn
-        API_URL = API_BASE+ "&from=" + this.state.from + "&to=" + this.state.to + "&resolution=" + this.state.resolution
+    // this function is called when the IP address is changed in the configuration screen
+    handleConfigChange = (ip) => {
+        API_MY_ENERGY_SERVER = "http://"+ip+"/my_energy/"
+        API_BASE = API_MY_ENERGY_SERVER + "api/getseries"
+        API_URL = API_BASE+ "?from=" + this.state.from + "&to=" + this.state.to + "&resolution=" + this.state.resolution
         this.fetchData(API_URL)
     }
 
-    // this function is called when the presentation choice changes (gas, stroom, netto, etc)
+    // this function is called when the presentation choice changes (gas, power, etc)
     handlePresentationChoice = (presentation, dataset) => {
-        //alert('handlePresentationChoice : '+presentation+ ','+dataset)
         this.setState({
             presentation: presentation,
             dataset: dataset,
@@ -181,7 +173,7 @@ class App extends Component {
         }
 
         //alert(API_URL)
-        API_URL = API_BASE+ "&from=" + from + "&to=" + to + "&resolution=" + resolution
+        API_URL = API_BASE+ "?from=" + from + "&to=" + to + "&resolution=" + resolution
         this.fetchData(API_URL)
 
         this.setState({
@@ -204,7 +196,7 @@ class App extends Component {
         let resolution = "Day"
         let tv = createCustomTickvalues(from,to,resolution)
         //alert(tv)
-        API_URL = API_BASE+ "&from=" + from + "&to=" + to + "&resolution=" + resolution
+        API_URL = API_BASE+ "?from=" + from + "&to=" + to + "&resolution=" + resolution
         this.fetchData(API_URL)
 
         this.setState({
@@ -295,8 +287,7 @@ class App extends Component {
             tv = tickValues["hour"]
         }
 
-        //alert('from = '+from+', to = '+to)
-        API_URL = API_BASE + "&from=" + from + "&to=" + to + "&resolution=" + resolution
+        API_URL = API_BASE + "?from=" + from + "&to=" + to + "&resolution=" + resolution
 
         this.fetchData(API_URL)
 
@@ -323,20 +314,19 @@ class App extends Component {
     componentWillMount() {
         console.log("componentWillMount()")
 
-        // read the QserverIP and Qbos serial number from the localstorage
+        // read the MyEnergyServerIP and Qbos serial number from the localstorage
         // this is unique per user and stored in the broswer.
-        QserverIP = localStorage.getItem('QserverIP');
-        qbox_sn = localStorage.getItem('QboxSN')
+        MyEnergyServerIP = localStorage.getItem('MyEnergyServerIP');
 
-        if (QserverIP==null) {
-            alert("QserverIP is nog niet ingevuld. Gebruik de Configuratie knop.")
+        if (MyEnergyServerIP==null) {
+            alert("IP address of MyEnergyServer has not been set yet. Use 'configuration' button.")
 
         } else {
-            API_BASE = "http://"+QserverIP+"/api/getseries?sn=" + qbox_sn
-            API_URL = API_BASE + "&from=" + this.state.from + "&to=" + this.state.to + "&resolution=" + this.state.resolution
+            API_MY_ENERGY_SERVER = "http://"+MyEnergyServerIP+"/my_energy/"
+            API_BASE = API_MY_ENERGY_SERVER + "api/getseries"
+            API_URL = API_BASE + "?from=" + this.state.from + "&to=" + this.state.to + "&resolution=" + this.state.resolution
             this.fetchData(API_URL)
         }
-        //this.readData()   //read test data
     }
 
     componentDidMount() {
@@ -388,7 +378,7 @@ class App extends Component {
                             <PresentationPanel handleChoice={this.handlePresentationChoice} />
                             <LiveView state={this.props.state}></LiveView>
                             <StatusPanel state={this.state}
-                                         url = {API_URL}
+                                         url = {API_MY_ENERGY_SERVER}
                                          handleConfigChange={this.handleConfigChange} />
 
                         </Col>
