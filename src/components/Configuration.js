@@ -64,7 +64,7 @@ class Configuration extends Component {
             renderConfigButton =
             <Button bsStyle="info" bsSize="small"
                     onClick={this.handleShow}><Glyphicon glyph="wrench" />
-                .Configuration
+                &nbsp;Configuration
             </Button>
         } else {
             renderConfigDialog =

@@ -42,7 +42,7 @@ class PeriodButtonBar extends Component {
                     <Button bsStyle="info" bsSize="large" onClick={() => this.props.handleChoice('this_year')}>YEAR</Button>&nbsp;
                     <Button bsStyle="info" bsSize="large" onClick={() => this.props.handleChoice('this_month')}>MONTH</Button>&nbsp;
                     <Button bsStyle="info" bsSize="large" onClick={() => this.props.handleChoice('this_week')}>WEEK</Button>&nbsp;
-                    <Button bsStyle="info" bsSize="large" onClick={() => this.props.handleChoice('today')}>TODAY</Button>&nbsp;
+                    <Button bsStyle="info" bsSize="large" onClick={() => this.props.handleChoice('today')}>DAY</Button>&nbsp;
                 </ButtonToolbar>
                 &nbsp;
                 <ButtonToolbar>

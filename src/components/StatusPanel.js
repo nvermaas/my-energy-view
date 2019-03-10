@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { Panel } from 'react-bootstrap';
+import { Panel, Button, Glyphicon } from 'react-bootstrap';
 import Configuration from './Configuration';
 class StatusPanel extends Component {
 
@@ -18,14 +18,21 @@ render() {
                     <Panel.Title componentClass="h5">Status</Panel.Title>
                 </Panel.Heading>
                 <Panel.Body>
-                    <Configuration ip = {ip} sn = {sn} gp={gp} ep = {ep} show="false"
-                                   handleConfigChange={this.props.handleConfigChange} />
-                    <table>
-                        <tbody>
-                        <tr><td>url : </td><td><a href={this.props.url}>(click for MyEnergy Server)</a></td></tr>
-
-                        </tbody>
-                    </table>
+                    <tr>
+                        <td>
+                            <Configuration ip = {ip} sn = {sn} gp={gp} ep = {ep} show="false"
+                                           handleConfigChange={this.props.handleConfigChange} />
+                        </td>
+                        &nbsp;
+                        <td>
+                            <a href={this.props.url}>
+                                <Button bsStyle="success" bsSize="small"
+                                        onClick="location.href={this.props.url}" >
+                                    MyEnergy Server
+                                </Button>
+                            </a>
+                        </td>
+                    </tr>
 
                 </Panel.Body>
             </Panel>
