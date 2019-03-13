@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Panel } from 'react-bootstrap';
 
 const MyEnergyServerIP = localStorage.getItem('MyEnergyServerIP');
-const API_URL_LIVE = "http://"+MyEnergyServerIP+"/api/getlivedata"
+const API_URL_LIVE = "http://"+MyEnergyServerIP+"/my_energy/api/getlivedata"
 
 class LiveView extends Component {
 
