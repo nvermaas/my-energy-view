@@ -62,9 +62,9 @@ class Configuration extends Component {
 
         if (this.state.show=='false') {
             renderConfigButton =
-            <Button bsStyle="info" bsSize="small"
+            <Button bsStyle="info" bsSize="large"
                     onClick={this.handleShow}><Glyphicon glyph="wrench" />
-                &nbsp;Configuration
+                &nbsp;Config
             </Button>
         } else {
             renderConfigDialog =

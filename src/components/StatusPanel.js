@@ -11,6 +11,7 @@ render() {
     localStorage.getItem('QboxGasPrice') == null ? gp = '0.63' : gp = localStorage.getItem('QboxGasPrice')
     localStorage.getItem('QboxElectricityPrice') == null ? ep = '0.20' : ep = localStorage.getItem('QboxElectricityPrice')
 
+    let help_url = "https://github.com/nvermaas/my_energy/blob/master/README_DOCKER.md"
     return (
         <div>
             <Panel bsStyle="info">
@@ -25,13 +26,23 @@ render() {
                         </td>
                         &nbsp;
                         <td>
-                            <a href={this.props.url}>
-                                <Button bsStyle="success" bsSize="small"
-                                        onClick="location.href={this.props.url}" >
-                                    MyEnergy Server
+                            <a href={this.props.url} target="_blank">
+                                <Button bsStyle="success" bsSize="large">
+                                    <Glyphicon glyph="cog" />
+                                    &nbsp;Server
                                 </Button>
                             </a>
                         </td>
+                        &nbsp;
+                        <td>
+                            <a href={help_url} target="_blank">
+                                <Button bsStyle="info" bsSize="large">
+                                    <Glyphicon glyph="question-sign" />
+                                    &nbsp; Help
+                                </Button>
+                            </a>
+                        </td>
+
                     </tr>
 
                 </Panel.Body>
