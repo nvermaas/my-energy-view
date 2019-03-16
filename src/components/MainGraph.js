@@ -104,7 +104,7 @@ class MainGraph extends Component {
             />
         } else
 
-        if (presentation==='Netto Stroom') {
+        if (presentation==='Net Electric Power') {
             // draw a stacked bar diagram with NetLow and NetHigh combined
             let data1 = all_data.data[energyTypes['NetLow']]["data"]
             let total1 = all_data.data[energyTypes['NetLow']]["total"]
