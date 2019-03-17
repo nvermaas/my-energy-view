@@ -50,10 +50,10 @@ class MyDatePicker extends Component {
             periodeDialog =
                 <Modal.Dialog show={this.state.show} onHide={this.handleClose}>
                     <Modal.Header>
-                        <Modal.Title>Periode</Modal.Title>
+                        <Modal.Title>Period</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <h4>Kies Periode</h4>
+                        <h4>Choose Period</h4>
                         Van:
                         <DatePicker
                             selected={this.state.from}
@@ -75,7 +75,7 @@ class MyDatePicker extends Component {
         return (
             <div>
                 <Button bsStyle="info" bsSize="large" onClick={this.handleShow}>
-                    Kies Periode
+                    Choose Period
                 </Button>
                 {periodeDialog}
 
