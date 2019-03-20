@@ -29,6 +29,9 @@ class PresentationButtonBar extends Component {
                     {/* Indicates caution should be taken with this action */}
                     <Button bsStyle="warning" bsSize="large" onClick={() => this.handleChoice('Generation','Generation')}>Generated</Button>&nbsp;
 
+                    {/* Provides extra visual weight and identifies the primary action in a set of buttons */}
+                    <Button bsStyle="primary" bsSize="large" onClick={() => this.handleChoice('Meteo','Meteo')}>Meteo</Button>&nbsp;
+
                 </ButtonToolbar>
             </div>
 

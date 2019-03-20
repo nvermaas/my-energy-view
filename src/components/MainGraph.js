@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import { Panel } from 'react-bootstrap';
 import GasGraph from './GasGraph';
 import ElectricityGraph from './ElectricityGraph';
+import MeteoGraph from './MeteoGraph';
 import {getYear, getMonthName, getFullDate, getWeek} from '../utils/DateUtils'
 
 const dataTypes = {
@@ -13,7 +14,12 @@ const dataTypes = {
     "NetHigh" : 2,
     "Gas" : 3,
     "Generation" : 4,
-    "Temperature" : 5
+    "Temperature" : 5,
+    "Rain" : 6,
+    "Wind Speed" : 7,
+    "Wind Gust" : 8,
+    "Wind Direction" : 9,
+
 }
 
 function getScale(data, range) {
@@ -118,6 +124,90 @@ function constructTitle(props) {
 }
 
 class MainGraph extends Component {
+
+    drawGasGraph() {
+        // this is all the fetched data in a json structure
+        let all_data=this.props.state.fetchedData
+
+        let total = all_data.data[dataTypes['Gas']]["total"]
+        let data = all_data.data[dataTypes['Gas']]["data"]
+        let items = fillYAxis(data, false, 1)
+        let range = getMax(items)
+
+        let scale = getScale(data, range)
+
+        // contruct the title based on the properties in the state
+        let title = constructTitle(this.props.state)
+        let subTitle = constructSubTitle(this.props.state)
+
+        let averageTemperature = all_data.data[dataTypes['Temperature']]["average"]
+
+        let itemsTemperature
+        try {
+            let dataTemperature = all_data.data[dataTypes['Temperature']]["data"]
+            itemsTemperature = fillYAxis(dataTemperature, false, scale)
+        } catch (e) {
+        }
+
+        subTitle = subTitle + ' ('+total/1000 + ' m3)'
+
+        // add costs, read gasprice from local storage (configured by user)
+        let gasPrice = localStorage.getItem('QboxGasPrice')
+        if (gasPrice!=null) {
+            let costs = Math.round(gasPrice * total / 1000 * 100) / 100
+            subTitle = subTitle + ' = € ' + costs
+        }
+
+        return <GasGraph
+            title={title}
+            subTitle={subTitle}
+            x={"month"}
+            y={"value"}
+            items={items}
+            itemsTemperature={itemsTemperature}
+            tickValues={this.props.state.tickValues}
+            handleZoom={this.props.handleZoom}
+            scale={scale}
+        />
+    }
+
+    drawMeteoGraph() {
+        // this is all the fetched data in a json structure
+
+        let all_data=this.props.state.fetchedData
+        let title = constructTitle(this.props.state)
+
+        let averageTemperature = all_data.data[dataTypes['Temperature']]["average"]
+        let scaleTemperature = 1
+        let itemsTemperature
+        try {
+            let dataTemperature = all_data.data[dataTypes['Temperature']]["data"]
+            itemsTemperature = fillYAxis(dataTemperature, false, scaleTemperature)
+        } catch (e) {
+        }
+
+        let totalRain = all_data.data[dataTypes['Rain']]["total"]
+        let scaleRain = 1
+        let itemsRain
+        try {
+            let dataRain = all_data.data[dataTypes['Rain']]["data"]
+            itemsRain = fillYAxis(dataRain, false, scaleRain)
+        } catch (e) {
+        }
+
+        return <MeteoGraph
+            title={title}
+            x={"month"}
+            y={"value"}
+            itemsTemperature={itemsTemperature}
+            itemsRain={itemsRain}
+            tickValues={this.props.state.tickValues}
+            handleZoom={this.props.handleZoom}
+            scaleTemperature={scaleTemperature}
+            scaleRain={scaleRain}
+        />
+    }
+
     render() {
         let presentation = this.props.state.presentation
         let dataset = this.props.state.dataset
@@ -133,43 +223,16 @@ class MainGraph extends Component {
         let drawGraph
         let scale=1
 
+        let averageTemperature
+
         // the presentation buttons determine which presentation is wanted, extract data and graph accordingly
         if (presentation==='Gas') {
-            let total = all_data.data[dataTypes['Gas']]["total"]
-            let data = all_data.data[dataTypes['Gas']]["data"]
-            let items = fillYAxis(data, false, 1)
-            let range = getMax(items)
-            scale = getScale(data, range)
+            drawGraph = this.drawGasGraph()
+        } else
 
-            let averageTemperature = all_data.data[dataTypes['Temperature']]["average"]
-
-            let itemsTemperature
-            try {
-                let dataTemperature = all_data.data[dataTypes['Temperature']]["data"]
-                itemsTemperature = fillYAxis(dataTemperature, false, scale)
-            } catch (e) {
-            }
-
-            subTitle = subTitle + ' ('+total/1000 + ' m3)'
-
-            // add costs, read gasprice from local storage (configured by user)
-            let gasPrice = localStorage.getItem('QboxGasPrice')
-            if (gasPrice!=null) {
-                let costs = Math.round(gasPrice * total / 1000 * 100) / 100
-                subTitle = subTitle + ' = € ' + costs
-            }
-
-            drawGraph = <GasGraph
-                title={title}
-                subTitle={subTitle}
-                x={"month"}
-                y={"value"}
-                items={items}
-                itemsTemperature={itemsTemperature}
-                tickValues={this.props.state.tickValues}
-                handleZoom={this.props.handleZoom}
-                scale={scale}
-            />
+        // the presentation buttons determine which presentation is wanted, extract data and graph accordingly
+        if (presentation==='Meteo') {
+            drawGraph = this.drawMeteoGraph()
         } else
 
         if (presentation==='Net Electric Power') {
