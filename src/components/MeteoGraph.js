@@ -14,11 +14,11 @@ class MeteoGraph extends Component {
     render() {
         //alert(this.props.tickValues)
         let y_label = "Rain in mm"
-        let x_label = "click on a bar to zoom in"
+        let x_label = this.props.subTitle
 
         let itemsTemperature = this.props.itemsTemperature
         let itemsRain = this.props.itemsRain
-        
+
         let myXAxis =
             <VictoryAxis
                 tickValues={this.props.tickValues}
@@ -99,6 +99,7 @@ class MeteoGraph extends Component {
             myTemperatureLine =
                 <VictoryLine
                     standalone={false}
+                    //domain = {{y: this.props.domainRain}}
                     style={{
                         data: {
                             stroke: "#c43a31",
@@ -134,7 +135,7 @@ class MeteoGraph extends Component {
                     dependentAxis
                     standalone={false}
                     tickFormat={(temp) => (`${Math.round(temp/this.props.scaleTemperature)} ºC`)}
-                    //domain = {{y: [-10,40]}}
+                    domain = {{y: this.props.domainTemperature}}
                     tickCount = {5}
 
                     animate={{
@@ -156,28 +157,23 @@ class MeteoGraph extends Component {
             <div style={{ parent: { maxWidth: "100%" } }}>
                 <svg viewBox="0 0 900 600"
 
-
                     domainPadding={{ x: 5 }}
                     theme={VictoryTheme.material}
                     width={900}>
 
-
+                    {/* https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform */}
                     <g
                         fill="grey"
                         transform={"translate(0, 10) " +
                                    "scale(2 2)"}
-
                     >
                         {/* Define labels */}
-                        <VictoryLabel x={150} y={5}  style={{fontSize: 15}} text={this.props.title}/>
-                        <VictoryLabel x={150} y={25} style={{fontSize: 12}} text={this.props.subTitle}/>
+                        <VictoryLabel x={150} y={5}  style={{fontSize: 13}} text={this.props.title}/>
+                        <VictoryLabel x={150} y={25} style={{fontSize: 10}} text="Rain and Temperature"/>
 
                         {myXAxis}
 
-
                         {myTemperatureAxis}
-
-
                         {myTemperatureLine}
                         {myRainBarAxis}
                         {myRainBar}

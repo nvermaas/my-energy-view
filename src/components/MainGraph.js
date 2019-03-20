@@ -98,7 +98,7 @@ function constructSubTitle(props) {
 }
 
 function constructTitle(props) {
-    let title = props.presentation + ' ' + props.from + ' - ' + props.to
+    let title = 'Meteo Information ' + props.from + ' - ' + props.to
 
     if (props.range === 'Jaar') {
         let year = getYear(props.from)
@@ -176,17 +176,32 @@ class MainGraph extends Component {
 
         let all_data=this.props.state.fetchedData
         let title = constructTitle(this.props.state)
+        let subTitle = ''
 
-        let averageTemperature = all_data.data[dataTypes['Temperature']]["average"]
         let scaleTemperature = 1
         let itemsTemperature
+        let domainTemperature = []
         try {
+            let averageTemperature = all_data.data[dataTypes['Temperature']]["average"]
+            let minTemperature = all_data.data[dataTypes['Temperature']]["min"]
+            let maxTemperature = all_data.data[dataTypes['Temperature']]["max"]
+            domainTemperature.push(parseInt(Math.round(minTemperature)))
+            domainTemperature.push(parseInt(Math.round(maxTemperature)))
+            subTitle = subTitle + 'temperature: min '+minTemperature+'ºC, max '+maxTemperature+'ºC, '
+
             let dataTemperature = all_data.data[dataTypes['Temperature']]["data"]
             itemsTemperature = fillYAxis(dataTemperature, false, scaleTemperature)
+
         } catch (e) {
         }
 
         let totalRain = all_data.data[dataTypes['Rain']]["total"]
+        let minRain = all_data.data[dataTypes['Rain']]["min"]
+        let maxRain = all_data.data[dataTypes['Rain']]["max"]
+        let domainRain = []
+        domainRain.push(parseInt(Math.round(minRain)))
+        domainRain.push(parseInt(Math.round(maxRain)))
+        subTitle = subTitle + 'rain: '+totalRain+ ' mm'
         let scaleRain = 1
         let itemsRain
         try {
@@ -197,6 +212,7 @@ class MainGraph extends Component {
 
         return <MeteoGraph
             title={title}
+            subTitle={subTitle}
             x={"month"}
             y={"value"}
             itemsTemperature={itemsTemperature}
@@ -204,7 +220,9 @@ class MainGraph extends Component {
             tickValues={this.props.state.tickValues}
             handleZoom={this.props.handleZoom}
             scaleTemperature={scaleTemperature}
+            domainTemperature={domainTemperature}
             scaleRain={scaleRain}
+            domainRain={domainRain}
         />
     }
 
