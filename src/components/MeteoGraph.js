@@ -3,7 +3,9 @@ import React, { Component } from 'react';
 import { svg, g, VictoryBar, VictoryLine, VictoryChart, VictoryAxis, VictoryTheme, VictoryLabel  } from 'victory';
 
 
+
 class MeteoGraph extends Component {
+
 
     handleEvent = (event, props) => {
         this.props.handleZoom(props.index)
@@ -21,12 +23,14 @@ class MeteoGraph extends Component {
             <VictoryAxis
                 tickValues={this.props.tickValues}
                 label={x_label}
+                scale="linear"
+                standalone={false}
                 style={{
                     axis: {stroke: "#756f6a"},
                     axisLabel: {fontSize: 10, padding: 30},
                     grid: {stroke: (t) => t > 0.5 ? "grey" : "grey"},
-                    ticks: {stroke: "grey", size: 5},
-                    tickLabels: {fontSize: 9, padding: 5}
+                    ticks: {stroke: "grey", size: 1},
+                    tickLabels: {fontSize: 8, padding: 5}
                 }}
             />
 
@@ -35,7 +39,7 @@ class MeteoGraph extends Component {
         if (itemsRain!==undefined) {
             myRainBar =
                 <VictoryBar
-
+                    standalone={false}
                     style={{
                         data: {
                             fill: "#0081C9",
@@ -71,7 +75,9 @@ class MeteoGraph extends Component {
         let myRainBarAxis =
             <VictoryAxis
                 dependentAxis
+                standalone={false}
                 tickFormat={(value) => (`${value/this.props.scaleRain} mm`)}
+                scale="linear"
                 animate={{
                     duration: 2000,
                     easing: "bounce"
@@ -81,7 +87,7 @@ class MeteoGraph extends Component {
                     axis: {stroke: "#756f6a"},
                     axisLabel: {fontSize: 10, padding: 30},
                     grid: {stroke: (t) => t > 0.5 ? "grey" : "grey"},
-                    ticks: {stroke: "grey", size: 5},
+                    ticks: {stroke: "grey", size: 1},
                     tickLabels: {fontSize: 9, padding: 5}
                 }}
             />
@@ -92,6 +98,7 @@ class MeteoGraph extends Component {
         if (itemsTemperature!==undefined) {
             myTemperatureLine =
                 <VictoryLine
+                    standalone={false}
                     style={{
                         data: {
                             stroke: "#c43a31",
@@ -125,8 +132,8 @@ class MeteoGraph extends Component {
             myTemperatureAxis =
                 <VictoryAxis
                     dependentAxis
+                    standalone={false}
                     tickFormat={(temp) => (`${Math.round(temp/this.props.scaleTemperature)} ºC`)}
-                    //tickValues={[-200, 0, 200, 400, 600, 800]}
                     //domain = {{y: [-10,40]}}
                     tickCount = {5}
 
@@ -146,34 +153,43 @@ class MeteoGraph extends Component {
 
 
         return (
-            <div style={{ display: "flex", flexWrap: "wrap" }}>
-                <VictoryChart
-                    style={{ parent: { maxWidth: "100%" } }}
-                    domainPadding={{ x: 15 }}
+            <div style={{ parent: { maxWidth: "100%" } }}>
+                <svg viewBox="0 0 900 600"
+
+
+                    domainPadding={{ x: 5 }}
                     theme={VictoryTheme.material}
-                    width={600}>
-
-                    {/* Define labels */}
-                    <VictoryLabel x={150} y={5}  style={{fontSize: 15}} text={this.props.title}/>
-                    <VictoryLabel x={150} y={25} style={{fontSize: 12}} text={this.props.subTitle}/>
+                    width={900}>
 
 
-                    {myXAxis}
+                    <g
+                        fill="grey"
+                        transform={"translate(0, 10) " +
+                                   "scale(2 2)"}
 
-                    {myTemperatureAxis}
+                    >
+                        {/* Define labels */}
+                        <VictoryLabel x={150} y={5}  style={{fontSize: 15}} text={this.props.title}/>
+                        <VictoryLabel x={150} y={25} style={{fontSize: 12}} text={this.props.subTitle}/>
+
+                        {myXAxis}
 
 
-                    {myTemperatureLine}
-                    {myRainBarAxis}
-                    {myRainBar}
+                        {myTemperatureAxis}
 
-                </VictoryChart>
+
+                        {myTemperatureLine}
+                        {myRainBarAxis}
+                        {myRainBar}
+                    </g>
+                </svg>
 
             </div>
 
         );
-    }
 
+    }
 
 }
 export default MeteoGraph;
+
