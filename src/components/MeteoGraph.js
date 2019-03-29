@@ -75,7 +75,7 @@ class MeteoGraph extends Component {
             <VictoryAxis
                 dependentAxis
                 standalone={false}
-                tickFormat={(value) => (`${value/this.props.scaleRain} mm`)}
+                tickFormat={(value) => (`${value/this.props.scaleRain}`)}
                 scale="linear"
                 animate={{
                     duration: 2000,
