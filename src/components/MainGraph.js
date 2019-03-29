@@ -79,7 +79,7 @@ function fillYAxis(data, negative, factor) {
     let items = []
     for (var i = 0; i < data.length; i++) {
         let item = {}
-        item.month = i+1;
+        item.x = i+1;
         if (negative==true) {
             item.value = parseInt(data[i]) * -1
         } else {
@@ -162,7 +162,7 @@ class MainGraph extends Component {
         return <GasGraph
             title={title}
             subTitle={subTitle}
-            x={"month"}
+            x={"x"}
             y={"value"}
             items={items}
             itemsTemperature={itemsTemperature}
@@ -214,7 +214,7 @@ class MainGraph extends Component {
         return <MeteoGraph
             title={title}
             subTitle={subTitle}
-            x={"month"}
+            x={"x"}
             y={"value"}
             itemsTemperature={itemsTemperature}
             itemsRain={itemsRain}
@@ -243,7 +243,7 @@ class MainGraph extends Component {
             let maxWindSpeed = all_data.data[dataTypes['Wind Speed']]["max"]
             domainWindSpeed.push(parseInt(minWindSpeed))
             domainWindSpeed.push(parseInt(maxWindSpeed))
-            subTitle = subTitle + 'Wind Speed: min '+minWindSpeed+'m/s, max '+maxWindSpeed+'m/s, '
+            subTitle = subTitle + 'Max Wind Speed: '+maxWindSpeed+' km/h, '
 
             let dataWindSpeed = all_data.data[dataTypes['Wind Speed']]["data"]
             itemsWindSpeed = fillYAxis(dataWindSpeed, false, scaleWindSpeed)
@@ -256,7 +256,7 @@ class MainGraph extends Component {
         let domainWindGust = []
         domainWindGust.push(parseInt(minWindGust))
         domainWindGust.push(parseInt(maxWindGust))
-        subTitle = subTitle + 'Max Wind Gust: '+maxWindGust+ ' m/s'
+        subTitle = subTitle + 'Max Wind Gust: '+maxWindGust+ ' km/h'
         let scaleWindGust = 1
         let itemsWindGust
         try {
@@ -268,14 +268,14 @@ class MainGraph extends Component {
         return <WindGraph
             title={title}
             subTitle={subTitle}
-            x={"month"}
+            x={"x"}
             y={"value"}
             itemsWindSpeed={itemsWindSpeed}
             itemsWindGust={itemsWindGust}
             tickValues={this.props.state.tickValues}
             handleZoom={this.props.handleZoom}
-            scaleTemperature={scaleWindSpeed}
-            domainTemperature={domainWindSpeed}
+            scaleWindSpeed={scaleWindSpeed}
+            domainWindSpeed={domainWindSpeed}
             scaleWindGust={scaleWindGust}
             domainWindGust={domainWindGust}
         />
@@ -343,7 +343,7 @@ class MainGraph extends Component {
             drawGraph = <ElectricityGraph
                 title={title}
                 subTitle={subTitle}
-                x={"month"}
+                x={"x"}
                 y={"value"}
                 items1={items1}
                 items2={items2}
@@ -367,7 +367,7 @@ class MainGraph extends Component {
             drawGraph = <ElectricityGraph
                 title={title}
                 subTitle={subTitle}
-                x={"month"}
+                x={"x"}
                 y={"value"}
                 items1={items}
                 tickValues={this.props.state.tickValues}

@@ -22,7 +22,6 @@ class MeteoGraph extends Component {
         let myXAxis =
             <VictoryAxis
                 tickValues={this.props.tickValues}
-                label={x_label}
                 scale="linear"
                 standalone={false}
                 style={{
@@ -168,8 +167,8 @@ class MeteoGraph extends Component {
                                    "scale(2 2)"}
                     >
                         {/* Define labels */}
-                        <VictoryLabel x={150} y={5}  style={{fontSize: 13}} text={this.props.title}/>
-                        <VictoryLabel x={150} y={25} style={{fontSize: 10}} text="Rain and Temperature"/>
+                        <VictoryLabel x={100} y={5}  style={{fontSize: 13}} text={this.props.title}/>
+                        <VictoryLabel x={100} y={25} style={{fontSize: 10}} text={this.props.subTitle}/>
 
                         {myXAxis}
 
