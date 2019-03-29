@@ -6,6 +6,7 @@ import { Panel } from 'react-bootstrap';
 import GasGraph from './GasGraph';
 import ElectricityGraph from './ElectricityGraph';
 import MeteoGraph from './MeteoGraph';
+import WindGraph from './WindGraph';
 import {getYear, getMonthName, getFullDate, getWeek} from '../utils/DateUtils'
 
 const dataTypes = {
@@ -97,8 +98,8 @@ function constructSubTitle(props) {
     return title
 }
 
-function constructTitle(props) {
-    let title = 'Meteo Information ' + props.from + ' - ' + props.to
+function constructTitle(props, extra_title='') {
+    let title = extra_title + props.from + ' - ' + props.to
 
     if (props.range === 'Jaar') {
         let year = getYear(props.from)
@@ -175,7 +176,7 @@ class MainGraph extends Component {
         // this is all the fetched data in a json structure
 
         let all_data=this.props.state.fetchedData
-        let title = constructTitle(this.props.state)
+        let title = constructTitle(this.props.state,'Wind and Temperature')
         let subTitle = ''
 
         let scaleTemperature = 1
@@ -226,6 +227,60 @@ class MainGraph extends Component {
         />
     }
 
+    drawWindGraph() {
+        // this is all the fetched data in a json structure
+
+        let all_data=this.props.state.fetchedData
+        let title = constructTitle(this.props.state,'Wind')
+        let subTitle = ''
+
+        let scaleWindSpeed = 1
+        let itemsWindSpeed
+        let domainWindSpeed = []
+        try {
+            let averageWindSpeed = all_data.data[dataTypes['Wind Speed']]["average"]
+            let minWindSpeed = all_data.data[dataTypes['Wind Speed']]["min"]
+            let maxWindSpeed = all_data.data[dataTypes['Wind Speed']]["max"]
+            domainWindSpeed.push(parseInt(minWindSpeed))
+            domainWindSpeed.push(parseInt(maxWindSpeed))
+            subTitle = subTitle + 'Wind Speed: min '+minWindSpeed+'m/s, max '+maxWindSpeed+'m/s, '
+
+            let dataWindSpeed = all_data.data[dataTypes['Wind Speed']]["data"]
+            itemsWindSpeed = fillYAxis(dataWindSpeed, false, scaleWindSpeed)
+
+        } catch (e) {
+        }
+
+        let minWindGust = all_data.data[dataTypes['Wind Gust']]["min"]
+        let maxWindGust = all_data.data[dataTypes['Wind Gust']]["max"]
+        let domainWindGust = []
+        domainWindGust.push(parseInt(minWindGust))
+        domainWindGust.push(parseInt(maxWindGust))
+        subTitle = subTitle + 'Max Wind Gust: '+maxWindGust+ ' m/s'
+        let scaleWindGust = 1
+        let itemsWindGust
+        try {
+            let dataWindGust = all_data.data[dataTypes['Wind Gust']]["data"]
+            itemsWindGust = fillYAxis(dataWindGust, false, scaleWindGust)
+        } catch (e) {
+        }
+
+        return <WindGraph
+            title={title}
+            subTitle={subTitle}
+            x={"month"}
+            y={"value"}
+            itemsWindSpeed={itemsWindSpeed}
+            itemsWindGust={itemsWindGust}
+            tickValues={this.props.state.tickValues}
+            handleZoom={this.props.handleZoom}
+            scaleTemperature={scaleWindSpeed}
+            domainTemperature={domainWindSpeed}
+            scaleWindGust={scaleWindGust}
+            domainWindGust={domainWindGust}
+        />
+    }
+
     render() {
         let presentation = this.props.state.presentation
         let dataset = this.props.state.dataset
@@ -251,6 +306,10 @@ class MainGraph extends Component {
         // the presentation buttons determine which presentation is wanted, extract data and graph accordingly
         if (presentation==='Meteo') {
             drawGraph = this.drawMeteoGraph()
+        } else
+
+        if (presentation==='Wind') {
+            drawGraph = this.drawWindGraph()
         } else
 
         if (presentation==='Net Electric Power') {
