@@ -19,8 +19,7 @@ render() {
                     <Panel.Title componentClass="h5">Status</Panel.Title>
                 </Panel.Heading>
                 <Panel.Body>
-                    <tr>
-                        <td>
+                    <tr><td>
                             <Configuration ip = {ip} sn = {sn} gp={gp} ep = {ep} show="false"
                                            handleConfigChange={this.props.handleConfigChange} />
                         </td>

@@ -199,10 +199,14 @@ class MainGraph extends Component {
         let totalRain = all_data.data[dataTypes['Rain']]["total"]
         let minRain = all_data.data[dataTypes['Rain']]["min"]
         let maxRain = all_data.data[dataTypes['Rain']]["max"]
+        if (maxRain == 0) {
+            maxRain = 1
+        }
+
         let domainRain = []
         domainRain.push(parseInt(Math.round(minRain)))
         domainRain.push(parseInt(Math.round(maxRain)))
-        subTitle = subTitle + 'rain: '+totalRain+ ' mm'
+        subTitle = subTitle + 'rain: '+totalRain+ ' mm, '
         let scaleRain = 1
         let itemsRain
         try {

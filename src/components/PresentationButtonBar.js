@@ -15,26 +15,18 @@ class PresentationButtonBar extends Component {
             <div>
 
                 <ButtonToolbar>
-
-
-                    {/* Provides extra visual weight and identifies the primary action in a set of buttons */}
                     <Button bsStyle="primary" bsSize="large" onClick={() => this.handleChoice('Gas','Gas')}>GAS</Button>&nbsp;
-
                     <Button bsStyle="warning" bsSize="large" onClick={() => this.handleChoice('Net Electric Power','Netto')}>POWER</Button>&nbsp;
-
-
-                    {/* Indicates caution should be taken with this action */}
                     <Button bsStyle="warning" bsSize="large" onClick={() => this.handleChoice('Consumption','Consumption')}>Consumed</Button>&nbsp;
-
-                    {/* Indicates caution should be taken with this action */}
                     <Button bsStyle="warning" bsSize="large" onClick={() => this.handleChoice('Generation','Generation')}>Generated</Button>&nbsp;
 
-                    {/* Provides extra visual weight and identifies the primary action in a set of buttons */}
-                    <Button bsStyle="primary" bsSize="large" onClick={() => this.handleChoice('Meteo','Meteo')}>Rain & Temp</Button>&nbsp;
+                </ButtonToolbar>
 
-                    {/* Provides extra visual weight and identifies the primary action in a set of buttons */}
-                    <Button bsStyle="primary" bsSize="large" onClick={() => this.handleChoice('Wind','Wind')}>Wind</Button>&nbsp;
+                &nbsp;
 
+                <ButtonToolbar>
+                        <Button bsStyle="primary" bsSize="large" onClick={() => this.handleChoice('Meteo','Meteo')}>Rain & Temp</Button>&nbsp;
+                        <Button bsStyle="primary" bsSize="large" onClick={() => this.handleChoice('Wind','Wind')}>Wind</Button>&nbsp;
                 </ButtonToolbar>
             </div>
 
