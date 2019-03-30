@@ -188,7 +188,7 @@ class MainGraph extends Component {
             let maxTemperature = all_data.data[dataTypes['Temperature']]["max"]
             domainTemperature.push(parseInt(Math.round(minTemperature)))
             domainTemperature.push(parseInt(Math.round(maxTemperature)))
-            subTitle = subTitle + 'temperature: min '+minTemperature+'ºC, max '+maxTemperature+'ºC, '
+            subTitle = subTitle + 'Temperature: min '+minTemperature+' ºC, max '+maxTemperature+' ºC, '
 
             let dataTemperature = all_data.data[dataTypes['Temperature']]["data"]
             itemsTemperature = fillYAxis(dataTemperature, false, scaleTemperature)
@@ -206,7 +206,7 @@ class MainGraph extends Component {
         let domainRain = []
         domainRain.push(parseInt(Math.round(minRain)))
         domainRain.push(parseInt(Math.round(maxRain)))
-        subTitle = subTitle + 'rain: '+totalRain+ ' mm, '
+        subTitle = subTitle + 'Rain: '+totalRain+ ' mm, '
         let scaleRain = 1
         let itemsRain
         try {
@@ -247,7 +247,7 @@ class MainGraph extends Component {
             let maxWindSpeed = all_data.data[dataTypes['Wind Speed']]["max"]
             domainWindSpeed.push(parseInt(minWindSpeed))
             domainWindSpeed.push(parseInt(maxWindSpeed))
-            subTitle = subTitle + 'Max Wind Speed: '+maxWindSpeed+' km/h, '
+            subTitle = subTitle + 'max Wind Speed: '+maxWindSpeed+' km/h, '
 
             let dataWindSpeed = all_data.data[dataTypes['Wind Speed']]["data"]
             itemsWindSpeed = fillYAxis(dataWindSpeed, false, scaleWindSpeed)
@@ -260,7 +260,7 @@ class MainGraph extends Component {
         let domainWindGust = []
         domainWindGust.push(parseInt(minWindGust))
         domainWindGust.push(parseInt(maxWindGust))
-        subTitle = subTitle + 'Max Wind Gust: '+maxWindGust+ ' km/h'
+        subTitle = subTitle + 'max Wind Gust: '+maxWindGust+ ' km/h'
         let scaleWindGust = 1
         let itemsWindGust
         try {

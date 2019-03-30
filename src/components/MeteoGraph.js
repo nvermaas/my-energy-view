@@ -154,7 +154,7 @@ class MeteoGraph extends Component {
 
         return (
             <div style={{ parent: { maxWidth: "100%" } }}>
-                <svg viewBox="0 0 900 600"
+                <svg viewBox="0 0 900 550"
 
                     domainPadding={{ x: 5 }}
                     theme={VictoryTheme.material}
@@ -163,12 +163,12 @@ class MeteoGraph extends Component {
                     {/* https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform */}
                     <g
                         fill="grey"
-                        transform={"translate(0, 10) " +
+                        transform={"translate(0, 0) " +
                                    "scale(2 2)"}
                     >
                         {/* Define labels */}
-                        <VictoryLabel x={100} y={5}  style={{fontSize: 13}} text={this.props.title}/>
-                        <VictoryLabel x={100} y={25} style={{fontSize: 10}} text={this.props.subTitle}/>
+                        <VictoryLabel x={90} y={5}  style={{fontSize: 11}} text={this.props.title}/>
+                        <VictoryLabel x={90} y={20} style={{fontSize: 9}} text={this.props.subTitle}/>
 
                         {myXAxis}
 
