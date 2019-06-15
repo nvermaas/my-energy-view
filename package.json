@@ -1,6 +1,6 @@
 {
-  "name": "QboxView",
-  "version": "1.0.0",
+  "name": "MyEnergyView",
+  "version": "1.4.1",
   "private": true,
   "dependencies": {
     "bootstrap": "^4.2.1",
