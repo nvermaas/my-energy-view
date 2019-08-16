@@ -3,6 +3,7 @@ import { Button, Modal, FormGroup, FormControl, FormLabel } from 'react-bootstra
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faWrench } from '@fortawesome/free-solid-svg-icons'
+
 class Configuration extends Component {
     constructor(props) {
         super(props);

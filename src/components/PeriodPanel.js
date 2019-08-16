@@ -2,30 +2,26 @@ import React, { Component } from 'react';
 import { Card } from 'react-bootstrap';
 import PeriodButtonBar from './PeriodButtonBar';
 
-class PeriodeCard extends Component {
-    render() {
-        //alert('periodCard to='+this.props.to+', from='+this.props.from)
+export default function PeriodPanel(props) {
 
-        return (
-            <div>
-                <Card border="info" >
-                    <Card.Header>
-                        <Card.Title as="h5">Period</Card.Title>
-                    </Card.Header>
-                    <Card.Body>
-                        <PeriodButtonBar
-                            from={this.props.from}
-                            to={this.props.to}
-                            range={this.props.range}
-                            resolution={this.props.resolution}
-                            handleChoice={this.props.handleChoice}
-                            handleChangeDate={this.props.handleChangeDate}
-                        />
-                    </Card.Body>
-                </Card>
-            </div>
-        );
-    }
+    return (
+        <div>
+            <Card border="info" >
+                <Card.Header>
+                    <Card.Title as="h5">Period</Card.Title>
+                </Card.Header>
+                <Card.Body>
+                    <PeriodButtonBar
+                        from={props.from}
+                        to={props.to}
+                        range={props.range}
+                        resolution={props.resolution}
+                        handleChoice={props.handleChoice}
+                        handleChangeDate={props.handleChangeDate}
+                    />
+                </Card.Body>
+            </Card>
+        </div>
+    );
 }
 
-export default PeriodeCard;

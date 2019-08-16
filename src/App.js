@@ -10,7 +10,7 @@ import PresentationPanel from './components/PresentationPanel';
 import StatusPanel from './components/StatusPanel';
 import LoadingSpinner from './components/LoadingSpinner';
 import {pad, getYearStart, getYearEnd, getMonthStart, getMonthEnd, getWeekStart, getWeekEnd, getYear, getMonth,
-    getDaysInMonth, addDays, getDayStart, getDayEnd, goBackInTime, goForwardInTime, getDaysBetween} from './utils/DateUtils'
+    addDays, getDayStart, getDayEnd, goBackInTime, goForwardInTime, getDaysBetween} from './utils/DateUtils'
 
 var MyEnergyServerIP = "192.168.178.64"
 var API_MY_ENERGY_SERVER = "http://"+MyEnergyServerIP+"/my_energy/"
@@ -18,7 +18,6 @@ var API_BASE = API_MY_ENERGY_SERVER + "api/getseries"
 var API_URL
 
 const tickValues = {
-
     "hour" : ["00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11",
               "12", "13", "14", "15", "16", "17","18", "19", "20", "21", "22", "23"],
     "day" : ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
@@ -26,9 +25,7 @@ const tickValues = {
 }
 
 export function createCustomTickvalues(from,to,resolution) {
-
     let tv=null
-// if (resolution='Day') {
     if (resolution=='Day') {
         let days = getDaysBetween(from,to)
         tv = new Array(days)
@@ -51,7 +48,6 @@ export function createCustomTickvalues(from,to,resolution) {
         }
     }
 
-    //alert('createCustomTickValues('+from+','+to+','+resolution+') = '+tv.toString())
     return tv
 }
 

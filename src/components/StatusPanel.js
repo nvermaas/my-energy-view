@@ -1,12 +1,12 @@
 
-import React, { Component } from 'react';
+import React from 'react';
 import { Card, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCog, faQuestion } from '@fortawesome/free-solid-svg-icons'
 import Configuration from './Configuration';
-class StatusCard extends Component {
 
-render() {
+export default function StatusPanel(props) {
+
     let ip,sn,gp,ep
     // condition ? exprT : exprF
     localStorage.getItem('MyEnergyServerIP') == null ? ip = '192.168.178.64' : ip = localStorage.getItem('MyEnergyServerIP')
@@ -14,6 +14,7 @@ render() {
     localStorage.getItem('QboxElectricityPrice') == null ? ep = '0.20' : ep = localStorage.getItem('QboxElectricityPrice')
 
     let help_url = "https://github.com/nvermaas/my_energy/blob/master/README_DOCKER.md"
+
     return (
         <div>
             <Card border="info">
@@ -23,11 +24,11 @@ render() {
                 <Card.Body>
                     <tr><td>
                             <Configuration ip = {ip} sn = {sn} gp={gp} ep = {ep} show="false"
-                                           handleConfigChange={this.props.handleConfigChange} />
+                                           handleConfigChange={props.handleConfigChange} />
                         </td>
                         &nbsp;
                         <td>
-                            <a href={this.props.url} target="_blank">
+                            <a href={props.url} target="_blank">
                                 <Button variant="success" >
                                     <FontAwesomeIcon icon={faCog} />
                                     &nbsp;Server
@@ -43,13 +44,9 @@ render() {
                                 </Button>
                             </a>
                         </td>
-
                     </tr>
-
                 </Card.Body>
             </Card>
         </div>
     );
 }
-}
-export default StatusCard;
