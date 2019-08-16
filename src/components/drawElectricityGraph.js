@@ -27,7 +27,7 @@ export default function drawElecticityGraph(props, dataTypes, kind) {
         console.log(items4)
 
         let total = total1 + total2
-        let subTitle = subTitle + ' ('+Math.round(total/1000) + ' kWh)'
+        subTitle = subTitle + ' ('+Math.round(total/1000) + ' kWh)'
 
         // add costs, read gasprice from local storage (configured by user)
         let electricityPrice = localStorage.getItem('QboxElectricityPrice')

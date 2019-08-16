@@ -312,6 +312,7 @@ class App extends Component {
         }
 
         const loading = this.state.status === 'fetching'
+        // <Col xs={4} md={4} sm={2}>
 
         return (
         <div>
@@ -319,7 +320,7 @@ class App extends Component {
             <Jumbotron>
                 <Container fluid>
                     <Row className="show-grid">
-                        <Col xs={4} md={3}>
+                        <Col lg={true}>
                             <HeaderPanel/>
                             &nbsp;
                             <PeriodPanel
@@ -340,7 +341,7 @@ class App extends Component {
                                          handleConfigChange={this.handleConfigChange} />
 
                         </Col>
-                        <Col xs={14} md={8}>
+                        <Col xs={14} md={8} sm={4}>
                             {loading ? <LoadingSpinner /> :
                                 <div>
                                     {renderConfiguration}
