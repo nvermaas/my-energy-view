@@ -1,24 +1,23 @@
 import React, { Component } from 'react';
-import { Panel } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import PresentationButtonBar from './PresentationButtonBar';
-import PresentationCheckboxes from './PresentationCheckboxes';
 
-class PresentationPanel extends Component {
+class PresentationCard extends Component {
 
     render() {
         return (
             <div>
-                <Panel bsStyle="info">
-                    <Panel.Heading>
-                        <Panel.Title componentClass="h5">Presentations</Panel.Title>
-                    </Panel.Heading>
-                    <Panel.Body>
+                <Card border="info">
+                    <Card.Header>
+                        <Card.Title as="h5">Presentations</Card.Title>
+                    </Card.Header>
+                    <Card.Body>
                         <PresentationButtonBar handleChoice={this.props.handleChoice} />
-                    </Panel.Body>
-                </Panel>
+                    </Card.Body>
+                </Card>
             </div>
         );
     }
 }
 
-export default PresentationPanel;
+export default PresentationCard;

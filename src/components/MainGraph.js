@@ -2,7 +2,7 @@
  * Created by Vermaas on 1/20/2019.
  */
 import React, { Component } from 'react';
-import { Panel } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import GasGraph from './GasGraph';
 import ElectricityGraph from './ElectricityGraph';
 import MeteoGraph from './MeteoGraph';
@@ -382,14 +382,14 @@ class MainGraph extends Component {
 
         return (
             <div>
-                <Panel bsStyle="info">
-                    <Panel.Heading>
-                        <Panel.Title componentClass="h5">{title}</Panel.Title>
-                    </Panel.Heading>
-                    <Panel.Body>
+                <Card border="info">
+                    <Card.Header>
+                        <Card.Title as="h5">{title}</Card.Title>
+                    </Card.Header>
+                    <Card.Body>
                         {drawGraph}
-                    </Panel.Body>
-                </Panel>
+                    </Card.Body>
+                </Card>
             </div>
         );
     }

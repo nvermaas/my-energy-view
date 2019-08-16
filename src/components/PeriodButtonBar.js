@@ -1,7 +1,9 @@
 
 import React, { Component } from 'react';
-import { ButtonToolbar, Button, Glyphicon } from 'react-bootstrap';
+import { ButtonToolbar, Button } from 'react-bootstrap';
 import MyDatePicker from './MyDatePicker';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faStepForward, faStepBackward } from '@fortawesome/free-solid-svg-icons'
 
 class PeriodButtonBar extends Component {
 
@@ -11,14 +13,14 @@ class PeriodButtonBar extends Component {
         if (this.props.range !== 'custom') {
             navButton1 =
                 <div>
-                    <Button bsStyle="warning" bsSize="large" onClick={() => this.props.handleChoice('back')}>
-                        <Glyphicon glyph="step-backward" /> Prev
+                    <Button variant="warning" onClick={() => this.props.handleChoice('back')}>
+                        <FontAwesomeIcon icon={faStepBackward} /> Prev
                     </Button>
                 </div>
             navButton2 =
                 <div>
-                    <Button bsStyle="warning" bsSize="large" onClick={() => this.props.handleChoice('forward')}>
-                        Next <Glyphicon glyph="step-forward" />
+                    <Button variant="warning" onClick={() => this.props.handleChoice('forward')}>
+                        Next  <FontAwesomeIcon icon={faStepForward} />
                     </Button>
                 </div>
         }
@@ -39,10 +41,10 @@ class PeriodButtonBar extends Component {
             <div>
                 {/* buttons for the current moment */}
                 <ButtonToolbar>
-                    <Button bsStyle="info" bsSize="large" onClick={() => this.props.handleChoice('this_year')}>YEAR</Button>&nbsp;
-                    <Button bsStyle="info" bsSize="large" onClick={() => this.props.handleChoice('this_month')}>MONTH</Button>&nbsp;
-                    <Button bsStyle="info" bsSize="large" onClick={() => this.props.handleChoice('this_week')}>WEEK</Button>&nbsp;
-                    <Button bsStyle="info" bsSize="large" onClick={() => this.props.handleChoice('today')}>DAY</Button>&nbsp;
+                    <Button variant="info" onClick={() => this.props.handleChoice('this_year')}>YEAR</Button>&nbsp;
+                    <Button variant="info" onClick={() => this.props.handleChoice('this_month')}>MONTH</Button>&nbsp;
+                    <Button variant="info" onClick={() => this.props.handleChoice('this_week')}>WEEK</Button>&nbsp;
+                    <Button variant="info" onClick={() => this.props.handleChoice('today')}>DAY</Button>&nbsp;
                 </ButtonToolbar>
                 &nbsp;
                 <ButtonToolbar>

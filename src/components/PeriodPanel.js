@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
-import { Panel } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import PeriodButtonBar from './PeriodButtonBar';
 
-class PeriodePanel extends Component {
+class PeriodeCard extends Component {
     render() {
-        //alert('periodPanel to='+this.props.to+', from='+this.props.from)
+        //alert('periodCard to='+this.props.to+', from='+this.props.from)
 
         return (
             <div>
-                <Panel bsStyle="info">
-                    <Panel.Heading>
-                        <Panel.Title componentClass="h5">Period</Panel.Title>
-                    </Panel.Heading>
-                    <Panel.Body>
+                <Card border="info" >
+                    <Card.Header>
+                        <Card.Title as="h5">Period</Card.Title>
+                    </Card.Header>
+                    <Card.Body>
                         <PeriodButtonBar
                             from={this.props.from}
                             to={this.props.to}
@@ -21,11 +21,11 @@ class PeriodePanel extends Component {
                             handleChoice={this.props.handleChoice}
                             handleChangeDate={this.props.handleChangeDate}
                         />
-                    </Panel.Body>
-                </Panel>
+                    </Card.Body>
+                </Card>
             </div>
         );
     }
 }
 
-export default PeriodePanel;
+export default PeriodeCard;

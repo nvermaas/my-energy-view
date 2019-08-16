@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { Glyphicon, Button, Modal, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
+import { Button, Modal, FormGroup, FormControl, FormLabel } from 'react-bootstrap';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faWrench } from '@fortawesome/free-solid-svg-icons'
 class Configuration extends Component {
     constructor(props) {
         super(props);
@@ -60,10 +62,10 @@ class Configuration extends Component {
         let renderConfigButton
         let renderConfigDialog
 
-        if (this.state.show=='false') {
+        if (this.state.show==='false') {
             renderConfigButton =
-            <Button bsStyle="info" bsSize="large"
-                    onClick={this.handleShow}><Glyphicon glyph="wrench" />
+            <Button variant="info"
+                    onClick={this.handleShow}><FontAwesomeIcon icon={faWrench} />
                 &nbsp;Config
             </Button>
         } else {
@@ -76,7 +78,7 @@ class Configuration extends Component {
 
                         <form>
                             <FormGroup controlId="qservice_ip" validationState={this.getValidationState()}>
-                                <ControlLabel>Host or IP of MyEnergy Server</ControlLabel>
+                                <FormLabel>Host or IP of MyEnergy Server</FormLabel>
                                 <FormControl
                                     type="text"
                                     value={this.state.ip}
@@ -86,7 +88,7 @@ class Configuration extends Component {
                             </FormGroup>
 
                             <FormGroup controlId="gas_price">
-                                <ControlLabel>Gas price per m3 in EUR</ControlLabel>
+                                <FormLabel>Gas price per m3 in EUR</FormLabel>
                                 <FormControl
                                     type="text"
                                     value={this.state.gp}
@@ -96,7 +98,7 @@ class Configuration extends Component {
                             </FormGroup>
 
                             <FormGroup controlId="electricity_price">
-                                <ControlLabel>Electricity price per kWh in EUR</ControlLabel>
+                                <FormLabel>Electricity price per kWh in EUR</FormLabel>
                                 <FormControl
                                     type="text"
                                     value={this.state.ep}
@@ -109,8 +111,8 @@ class Configuration extends Component {
 
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button bsStyle="primary" onClick={this.handleSaveClose}>OK</Button>
-                        <Button bsStyle="warning" onClick={this.handleClose}>Cancel</Button>
+                        <Button variant="primary" onClick={this.handleSaveClose}>OK</Button>
+                        <Button variant="warning" onClick={this.handleClose}>Cancel</Button>
                     </Modal.Footer>
                 </Modal.Dialog>
         }

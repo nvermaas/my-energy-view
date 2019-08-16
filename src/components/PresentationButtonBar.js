@@ -15,18 +15,18 @@ class PresentationButtonBar extends Component {
             <div>
 
                 <ButtonToolbar>
-                    <Button bsStyle="primary" bsSize="large" onClick={() => this.handleChoice('Gas','Gas')}>GAS</Button>&nbsp;
-                    <Button bsStyle="warning" bsSize="large" onClick={() => this.handleChoice('Net Electric Power','Netto')}>POWER</Button>&nbsp;
-                    <Button bsStyle="warning" bsSize="large" onClick={() => this.handleChoice('Consumption','Consumption')}>Consumed</Button>&nbsp;
-                    <Button bsStyle="warning" bsSize="large" onClick={() => this.handleChoice('Generation','Generation')}>Generated</Button>&nbsp;
+                    <Button variant="primary" onClick={() => this.handleChoice('Gas','Gas')}>GAS</Button>&nbsp;
+                    <Button variant="warning" onClick={() => this.handleChoice('Net Electric Power','Netto')}>POWER</Button>&nbsp;
+                    <Button variant="warning" onClick={() => this.handleChoice('Consumption','Consumption')}>Consumed</Button>&nbsp;
+                    <Button variant="warning" onClick={() => this.handleChoice('Generation','Generation')}>Generated</Button>&nbsp;
 
                 </ButtonToolbar>
 
                 &nbsp;
 
                 <ButtonToolbar>
-                        <Button bsStyle="primary" bsSize="large" onClick={() => this.handleChoice('Meteo','Meteo')}>Rain & Temp</Button>&nbsp;
-                        <Button bsStyle="primary" bsSize="large" onClick={() => this.handleChoice('Wind','Wind')}>Wind</Button>&nbsp;
+                        <Button variant="primary" onClick={() => this.handleChoice('Meteo','Meteo')}>Rain & Temp</Button>&nbsp;
+                        <Button variant="primary" onClick={() => this.handleChoice('Wind','Wind')}>Wind</Button>&nbsp;
                 </ButtonToolbar>
             </div>
 

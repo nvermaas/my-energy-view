@@ -1,22 +1,22 @@
 import React, { Component } from 'react';
-import { Panel  } from 'react-bootstrap';
+import { Card  } from 'react-bootstrap';
 import logo from '../my_energy.jpg';
 
-class HeaderPanel extends Component {
+class HeaderCard extends Component {
 
     render() {
         return (
             <div>
-                <Panel bsStyle="info">
-                    <Panel.Heading>
-                        <Panel.Title componentClass="h2">
-                            <img  src={logo} alt="Logo" width="40" /> MyEnergy View<small> version 1.4.1 - 30 mar 2019</small>
-                        </Panel.Title>
-                    </Panel.Heading>
-                </Panel>
+                <Card border="info">
+                    <Card.Header>
+                        <Card.Title as="h2">
+                            <img  src={logo} alt="Logo" width="40" /> MyEnergy View
+                        </Card.Title>
+                    </Card.Header>
+                </Card>
             </div>
         );
     }
 }
 
-export default HeaderPanel;
+export default HeaderCard;

@@ -67,14 +67,14 @@ class MyDatePicker extends Component {
 
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button bsStyle="success" bsSize="large" onClick={this.handleClose}>OK</Button>
+                        <Button variant="success" onClick={this.handleClose}>OK</Button>
                     </Modal.Footer>
                 </Modal.Dialog>
         }
 
         return (
             <div>
-                <Button bsStyle="info" bsSize="large" onClick={this.handleShow}>
+                <Button variant="info" onClick={this.handleShow}>
                     Choose Period
                 </Button>
                 {periodeDialog}

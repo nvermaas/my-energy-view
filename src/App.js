@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Grid, Jumbotron, Row, Col } from 'react-bootstrap';
+import { Container, Jumbotron, Row, Col } from 'react-bootstrap';
 
 import MainGraph from './components/MainGraph';
 import HeaderPanel from './components/HeaderPanel';
@@ -361,11 +361,11 @@ class App extends Component {
         <div>
 
             <Jumbotron>
-                <Grid>
+                <Container fluid>
                     <Row className="show-grid">
                         <Col xs={4} md={3}>
                             <HeaderPanel/>
-
+                            &nbsp;
                             <PeriodPanel
                                 from={this.state.from}
                                 to={this.state.to}
@@ -374,9 +374,11 @@ class App extends Component {
                                 handleChoice={this.handlePeriodChoice}
                                 handleChangeDate={this.handleChangeDate}
                             />
-
+                            &nbsp;
                             <PresentationPanel handleChoice={this.handlePresentationChoice} />
+                            &nbsp;
                             <LiveView state={this.props.state}></LiveView>
+                            &nbsp;
                             <StatusPanel state={this.state}
                                          url = {API_MY_ENERGY_SERVER}
                                          handleConfigChange={this.handleConfigChange} />
@@ -391,9 +393,9 @@ class App extends Component {
                             }
                         </Col>
                     </Row>
-                </Grid>
+                </Container>
             </Jumbotron>
-            <small> (C) 2019 - Nico Vermaas</small>
+            <small> (C) 2019 - Nico Vermaas - version 1.5.0 - 16 feb 2019</small>
         </div>
         );
     }

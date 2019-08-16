@@ -1,8 +1,10 @@
 
 import React, { Component } from 'react';
-import { Panel, Button, Glyphicon } from 'react-bootstrap';
+import { Card, Button } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCog, faQuestion } from '@fortawesome/free-solid-svg-icons'
 import Configuration from './Configuration';
-class StatusPanel extends Component {
+class StatusCard extends Component {
 
 render() {
     let ip,sn,gp,ep
@@ -14,11 +16,11 @@ render() {
     let help_url = "https://github.com/nvermaas/my_energy/blob/master/README_DOCKER.md"
     return (
         <div>
-            <Panel bsStyle="info">
-                <Panel.Heading>
-                    <Panel.Title componentClass="h5">Status</Panel.Title>
-                </Panel.Heading>
-                <Panel.Body>
+            <Card border="info">
+                <Card.Header>
+                    <Card.Title as="h5">Status</Card.Title>
+                </Card.Header>
+                <Card.Body>
                     <tr><td>
                             <Configuration ip = {ip} sn = {sn} gp={gp} ep = {ep} show="false"
                                            handleConfigChange={this.props.handleConfigChange} />
@@ -26,8 +28,8 @@ render() {
                         &nbsp;
                         <td>
                             <a href={this.props.url} target="_blank">
-                                <Button bsStyle="success" bsSize="large">
-                                    <Glyphicon glyph="cog" />
+                                <Button variant="success" >
+                                    <FontAwesomeIcon icon={faCog} />
                                     &nbsp;Server
                                 </Button>
                             </a>
@@ -35,8 +37,8 @@ render() {
                         &nbsp;
                         <td>
                             <a href={help_url} target="_blank">
-                                <Button bsStyle="info" bsSize="large">
-                                    <Glyphicon glyph="question-sign" />
+                                <Button variant="info" >
+                                    <FontAwesomeIcon icon={faQuestion} />
                                     &nbsp; Help
                                 </Button>
                             </a>
@@ -44,10 +46,10 @@ render() {
 
                     </tr>
 
-                </Panel.Body>
-            </Panel>
+                </Card.Body>
+            </Card>
         </div>
     );
 }
 }
-export default StatusPanel;
+export default StatusCard;

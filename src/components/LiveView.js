@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { Panel } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 
 const MyEnergyServerIP = localStorage.getItem('MyEnergyServerIP');
 const API_URL_LIVE = "http://"+MyEnergyServerIP+"/my_energy/api/getlivedata"
@@ -56,19 +56,18 @@ render() {
 
     let renderLiveInfo
 
-    if (this.state.fetchedLiveData!=undefined) {
+    if (this.state.fetchedLiveData!==undefined) {
         let live_data = this.state.fetchedLiveData
         let PowerData = parseInt(live_data['data'].power_usage) - parseInt(live_data['data'].power_delivery)
         //let GasData = live_data['data'].gas
 
         renderLiveInfo =
             <div>
-                <Panel bsStyle="warning">
-                    <Panel.Heading>
-                        <Panel.Title componentClass="h5">LIVE Power = {PowerData} </Panel.Title>
-
-                    </Panel.Heading>
-                </Panel>
+                <Card border="warning">
+                    <Card.Header>
+                        <Card.Title as="h5">LIVE Power = {PowerData} </Card.Title>
+                    </Card.Header>
+                </Card>
 
             </div>
     }
