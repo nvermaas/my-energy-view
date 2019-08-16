@@ -2,18 +2,19 @@
 import React, {useState, useEffect } from 'react';
 import { Card } from 'react-bootstrap';
 
-const MyEnergyServerIP = localStorage.getItem('MyEnergyServerIP');
-const API_URL_LIVE = "http://"+MyEnergyServerIP+"/my_energy/api/getlivedata"
-
-export default function LifeView() {
+export default function LifeView(props) {
+    // react-hooks!!
     const [data, setData] = useState(undefined)
     const [timer, setTimer] = useState(undefined)
+
+    const url = "http://"+props.host+"/my_energy/api/getlivedata"
 
     // Similar to componentDidMount and componentDidUpdate:
     useEffect(() => {
             doPolling()
             setTimer(setInterval(() => doPolling(), 10000))
 
+            // this function is automatically called when the component unmounts
             return function cleanup() {
                 clearInterval(timer);
             }
@@ -21,7 +22,7 @@ export default function LifeView() {
     );
 
     function doPolling() {
-        fetchLiveData(API_URL_LIVE)
+        fetchLiveData(url)
     }
 
     // get the data from the api

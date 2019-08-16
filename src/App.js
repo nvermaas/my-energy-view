@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import { Container, Jumbotron, Row, Col } from 'react-bootstrap';
 
+import './MyHandlers'
 import MainGraph from './components/MainGraph';
 import HeaderPanel from './components/HeaderPanel';
 import LiveView from './components/LiveView';
@@ -10,46 +11,13 @@ import PresentationPanel from './components/PresentationPanel';
 import StatusPanel from './components/StatusPanel';
 import LoadingSpinner from './components/LoadingSpinner';
 import {pad, getYearStart, getYearEnd, getMonthStart, getMonthEnd, getWeekStart, getWeekEnd, getYear, getMonth,
-    addDays, getDayStart, getDayEnd, goBackInTime, goForwardInTime, getDaysBetween} from './utils/DateUtils'
+    addDays, getDayStart, getDayEnd, goBackInTime, goForwardInTime } from './utils/DateUtils'
+import { tickValues, createCustomTickvalues } from './utils/common';
 
 var MyEnergyServerIP = "192.168.178.64"
 var API_MY_ENERGY_SERVER = "http://"+MyEnergyServerIP+"/my_energy/"
 var API_BASE = API_MY_ENERGY_SERVER + "api/getseries"
 var API_URL
-
-const tickValues = {
-    "hour" : ["00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11",
-              "12", "13", "14", "15", "16", "17","18", "19", "20", "21", "22", "23"],
-    "day" : ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-    "month" : ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-}
-
-export function createCustomTickvalues(from,to,resolution) {
-    let tv=null
-    if (resolution=='Day') {
-        let days = getDaysBetween(from,to)
-        tv = new Array(days)
-        for (var i = 0; i < tv.length; i++) {
-            tv[i] = i + 1
-        }
-    }
-
-    if (resolution=='15MINUTES') {
-        tv = new Array(24*4)
-        for (var i = 0; i < tv.length; i++) {
-            tv[i] = i + 1
-        }
-    }
-
-    if (resolution=='5MINUTES') {
-        tv = new Array(24*12)
-        for (var i = 0; i < tv.length; i++) {
-            tv[i] = i + 1
-        }
-    }
-
-    return tv
-}
 
 class App extends Component {
 
@@ -275,14 +243,6 @@ class App extends Component {
             }
         }
 
-        if (period==='live') {
-            from = getDayStart(new Date())
-            to   = getDayEnd(new Date())
-            range = "Dag"
-            resolution = "Hour"
-            tv = tickValues["hour"]
-        }
-
         API_URL = API_BASE + "?from=" + from + "&to=" + to + "&resolution=" + resolution
 
         this.fetchData(API_URL)
@@ -373,7 +333,7 @@ class App extends Component {
                             &nbsp;
                             <PresentationPanel handleChoice={this.handlePresentationChoice} />
                             &nbsp;
-                            <LiveView state={this.props.state}></LiveView>
+                            <LiveView host={MyEnergyServerIP} />
                             &nbsp;
                             <StatusPanel state={this.state}
                                          url = {API_MY_ENERGY_SERVER}
