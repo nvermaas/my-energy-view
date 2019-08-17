@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { svg, g, VictoryBar, VictoryLine, VictoryChart, VictoryAxis, VictoryTheme, VictoryLabel  } from 'victory';
+import { svg, g, VictoryBar, VictoryLine, VictoryAxis, VictoryTheme, VictoryLabel } from 'victory';
 
 
 
@@ -14,7 +14,6 @@ class MeteoGraph extends Component {
     render() {
         //alert(this.props.tickValues)
         let y_label = "Rain in mm"
-        let x_label = this.props.subTitle
 
         let itemsTemperature = this.props.itemsTemperature
         let itemsRain = this.props.itemsRain

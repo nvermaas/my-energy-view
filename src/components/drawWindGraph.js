@@ -1,19 +1,18 @@
 import React from 'react';
 import WindGraph from './WindGraph';
-import {fillYAxis, getMax, getScale, constructTitle, constructSubTitle} from './GraphUtils'
+import {fillYAxis, constructTitle } from './GraphUtils'
 
 export default function drawWindGraph(props, dataTypes) {
 
     // this is all the fetched data in a json structure
-    let all_data=props.state.fetchedData
-    let title = constructTitle(props.state,'Wind')
+    let all_data=props.fetchedData
+    let title = constructTitle(props,'Wind')
     let subTitle = ''
 
     let scaleWindSpeed = 1
     let itemsWindSpeed
     let domainWindSpeed = []
     try {
-        let averageWindSpeed = all_data.data[dataTypes['Wind Speed']]["average"]
         let minWindSpeed = all_data.data[dataTypes['Wind Speed']]["min"]
         let maxWindSpeed = all_data.data[dataTypes['Wind Speed']]["max"]
         domainWindSpeed.push(parseInt(minWindSpeed))
@@ -47,7 +46,7 @@ export default function drawWindGraph(props, dataTypes) {
         y={"value"}
         itemsWindSpeed={itemsWindSpeed}
         itemsWindGust={itemsWindGust}
-        tickValues={props.state.tickValues}
+        tickValues={props.tickValues}
         handleZoom={props.handleZoom}
         scaleWindSpeed={scaleWindSpeed}
         domainWindSpeed={domainWindSpeed}

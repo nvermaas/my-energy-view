@@ -16,10 +16,7 @@ class ElectricityGraph extends Component {
         let items3 = this.props.items3;
         let items4 = this.props.items4;
 
-        let title = this.props.title
-
         let y_label = "kWh"
-        let x_label = "Klik op een balk voor details"
 
         let myFirstBar
         if (items1!==undefined) {

@@ -12,24 +12,24 @@ export const tickValues = {
 
 export function createCustomTickvalues(from,to,resolution) {
     let tv=null
-    if (resolution=='Day') {
+    if (resolution==='Day') {
         let days = getDaysBetween(from,to)
         tv = new Array(days)
-        for (var i = 0; i < tv.length; i++) {
+        for (let i = 0; i < tv.length; i++) {
             tv[i] = i + 1
         }
     }
 
-    if (resolution=='15MINUTES') {
+    if (resolution==='15MINUTES') {
         tv = new Array(24*4)
-        for (var i = 0; i < tv.length; i++) {
+        for (let i = 0; i < tv.length; i++) {
             tv[i] = i + 1
         }
     }
 
-    if (resolution=='5MINUTES') {
+    if (resolution==='5MINUTES') {
         tv = new Array(24*12)
-        for (var i = 0; i < tv.length; i++) {
+        for (let i = 0; i < tv.length; i++) {
             tv[i] = i + 1
         }
     }

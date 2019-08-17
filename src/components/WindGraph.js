@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { svg, g, VictoryBar, VictoryLine, VictoryChart, VictoryAxis, VictoryTheme, VictoryLabel  } from 'victory';
+import { VictoryBar, VictoryLine, VictoryChart, VictoryAxis, VictoryTheme, VictoryLabel  } from 'victory';
 
 
 
@@ -14,7 +14,6 @@ class WindGraph extends Component {
     render() {
         //alert(this.props.tickValues)
         let y_label = "Wind Speed in km/h"
-        let x_label = this.props.subTitle
 
         let itemsWindSpeed = this.props.itemsWindSpeed
         let itemsWindGust = this.props.itemsWindGust
@@ -93,7 +92,7 @@ class WindGraph extends Component {
 
         // configure the WindGust line
         let myWindGustLine
-        let myWindGustAxis
+
         if (itemsWindGust!==undefined) {
             myWindGustLine =
                 <VictoryLine
@@ -129,28 +128,7 @@ class WindGraph extends Component {
                             }}
                     ]}
                 />
-            myWindGustAxis =
-                <VictoryAxis
-                    dependentAxis
-                    standalone={false}
-                    tickFormat={(temp) => (`${Math.round(temp/this.props.scaleWindGust)}`)}
-                    domain = {{y: this.props.domainWindGust}}
-                    tickCount = {5}
-
-                    animate={{
-                        duration: 1000,
-                        easing: "bounce"
-                    }}
-                    label="Wind Gust in km/h"
-
-                    orientation = "right"
-                    style={{
-                        axisLabel: {fontSize: 10, fill: "#1315c4", padding: 30},
-                        tickLabels: {fontSize: 9, fill: "#1315c4", padding: 17, textAnchor: "end"}
-                    }}
-                />
-        }
-
+            }
 
         return (
             <div style={{ parent: { maxWidth: "100%" } }}>

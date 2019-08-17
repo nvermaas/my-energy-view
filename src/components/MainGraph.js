@@ -22,10 +22,10 @@ const dataTypes = {
 
 export default function MainGraph(props) {
 
-    let presentation = props.state.presentation
+    let presentation = props.presentation
 
     // contruct the title based on the properties in the state
-    let title = constructTitle(props.state)
+    let title = constructTitle(props)
 
     // initialize the drawGraph
     let drawGraph

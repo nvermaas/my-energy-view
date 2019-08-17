@@ -3,9 +3,9 @@ import GasGraph from './GasGraph';
 import {fillYAxis, getMax, getScale, constructTitle, constructSubTitle} from './GraphUtils'
 
 export default function drawGasGraph(props, dataTypes) {
-
+    console.log('drawGasGraph()')
     // this is all the fetched data in a json structure
-    let all_data=props.state.fetchedData
+    let all_data=props.fetchedData
 
     let total = all_data.data[dataTypes['Gas']]["total"]
     let data = all_data.data[dataTypes['Gas']]["data"]
@@ -15,17 +15,8 @@ export default function drawGasGraph(props, dataTypes) {
     let scale = getScale(data, range)
 
     // contruct the title based on the properties in the state
-    let title = constructTitle(props.state)
-    let subTitle = constructSubTitle(props.state)
-
-    let averageTemperature = all_data.data[dataTypes['Temperature']]["average"]
-
-    let itemsTemperature
-    try {
-        let dataTemperature = all_data.data[dataTypes['Temperature']]["data"]
-        itemsTemperature = fillYAxis(dataTemperature, false, scale)
-    } catch (e) {
-    }
+    let title = constructTitle(props)
+    let subTitle = constructSubTitle(props)
 
     subTitle = subTitle + ' ('+total/1000 + ' m3)'
 
@@ -35,15 +26,14 @@ export default function drawGasGraph(props, dataTypes) {
         let costs = Math.round(gasPrice * total / 1000 * 100) / 100
         subTitle = subTitle + ' = € ' + costs
     }
-
+    console.log('drawGasGraph: return GasGraph')
     return <GasGraph
         title={title}
         subTitle={subTitle}
         x={"x"}
         y={"value"}
         items={items}
-        itemsTemperature={itemsTemperature}
-        tickValues={props.state.tickValues}
+        tickValues={props.tickValues}
         handleZoom={props.handleZoom}
         scale={scale}
     />

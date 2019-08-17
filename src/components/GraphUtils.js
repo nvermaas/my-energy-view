@@ -25,8 +25,6 @@ export function getScale(data, range) {
         scale = 100
     }
 
-    let scale_calc = (Math.round(range / 300)+1) * 10
-
     if (range <1000) {
         scale = 20
     } else
@@ -58,7 +56,7 @@ export function fillYAxis(data, negative, factor) {
     for (var i = 0; i < data.length; i++) {
         let item = {}
         item.x = i+1;
-        if (negative==true) {
+        if (negative===true) {
             item.value = parseInt(data[i]) * -1
         } else {
             item.value = data[i]

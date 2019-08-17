@@ -19,7 +19,7 @@ export default function StatusPanel(props) {
         <div>
             <Card border="info">
                 <Card.Header>
-                    <Card.Title as="h5">Status</Card.Title>
+                    <Card.Title as="h5">Status ({props.status})</Card.Title>
                 </Card.Header>
                 <Card.Body>
                     <tr><td>
@@ -45,6 +45,7 @@ export default function StatusPanel(props) {
                             </a>
                         </td>
                     </tr>
+
                 </Card.Body>
             </Card>
         </div>

@@ -1,11 +1,11 @@
 import React from 'react';
 import ElectricityGraph from './ElectricityGraph';
-import {fillYAxis, getMax, getScale, constructTitle, constructSubTitle} from './GraphUtils'
+import {fillYAxis, constructTitle, constructSubTitle} from './GraphUtils'
 
 export default function drawElecticityGraph(props, dataTypes, kind) {
-    let title = constructTitle(props.state)
-    let subTitle = constructSubTitle(props.state)
-    let all_data=props.state.fetchedData
+    let title = constructTitle(props)
+    let subTitle = constructSubTitle(props)
+    let all_data=props.fetchedData
 
     if (kind === 'combined') {
 
@@ -33,7 +33,7 @@ export default function drawElecticityGraph(props, dataTypes, kind) {
         let electricityPrice = localStorage.getItem('QboxElectricityPrice')
         if (electricityPrice!=null) {
             let costs = Math.round(electricityPrice * total/1000 * 100)/100
-            let subTitle = subTitle + ' = € '+costs
+            subTitle = subTitle + ' = € '+costs
         }
 
         return <ElectricityGraph
@@ -45,13 +45,13 @@ export default function drawElecticityGraph(props, dataTypes, kind) {
             items2={items2}
             items3={items3}
             items4={items4}
-            tickValues={props.state.tickValues}
+            tickValues={props.tickValues}
             handleZoom={props.handleZoom}
         />
 
     } else {
         // draw a single bar diagram
-        let dataset = props.state.dataset
+        let dataset = props.dataset
 
         let data = all_data.data[dataTypes[dataset]]["data"]
         let total = all_data.data[dataTypes[dataset]]["total"]
@@ -68,7 +68,7 @@ export default function drawElecticityGraph(props, dataTypes, kind) {
             x={"x"}
             y={"value"}
             items1={items}
-            tickValues={props.state.tickValues}
+            tickValues={props.tickValues}
             handleZoom={props.handleZoom}
         />
     }
