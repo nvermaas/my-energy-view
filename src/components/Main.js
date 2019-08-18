@@ -32,10 +32,16 @@ export default function Main(props) {
     const [fetchedData, setFetchedData] = useState('underfined')
     const [timer, setTimer] = useState(undefined)
 
+    // the '[url]' parameter means that this effect will be executed whenever the 'url' state changes.
+    // This effectivly means the data is fetched when setUrl(..) is called
+    useEffect(() => {
+            fetchData(url)
+        },[url]
+    );
+
     // Similar to componentDidMount and componentDidUpdate:
     useEffect(() => {
-            doPolling()
-            setTimer(setInterval(() => doPolling(), 300000))
+            setTimer(setInterval(() => fetchData(url), 300000))
 
             // this function is automatically called when the component unmounts
             return function cleanup() {
@@ -44,9 +50,6 @@ export default function Main(props) {
         },[]
     );
 
-    function doPolling() {
-        fetchData(url)
-    }
 
     // get the data from the api
     const fetchData = (url) => {
@@ -72,10 +75,9 @@ export default function Main(props) {
     // this function is called when the IP address is changed in the configuration screen
     const handleConfigChange = (newHost) => {
         let newUrl = "http://"+newHost+"/my_energy/api/getseries?from=" + from + "&to=" + to + "&resolution=" + resolution
-        setUrl(newUrl)
         setHost(newHost)
         setStatus("ready")
-        fetchData(newUrl)
+        setUrl(newUrl)
     }
 
     // this function is called when the presentation choice changes (gas, power, etc)
@@ -146,17 +148,15 @@ export default function Main(props) {
             newResolution = "Hour"
         }
 
-
-        let newUrl = "http://"+host+"/my_energy/api/getseries?from=" + newFrom + "&to=" + newTo + "&resolution=" + newResolution
-        setUrl(newUrl)
-        fetchData(newUrl)
-
         setFrom(newFrom)
         setTo(newTo)
         setResolution(newResolution)
         setTicks(newTicks)
         setRange(newRange)
 
+        let newUrl = "http://"+host+"/my_energy/api/getseries?from=" + newFrom + "&to=" + newTo + "&resolution=" + newResolution
+        // this triggers a new fetch
+        setUrl(newUrl)
     }
 
 
@@ -172,8 +172,8 @@ export default function Main(props) {
         setRange("custom")
         setTicks(createCustomTickvalues(from,to,resolution))
 
+        // this triggers a new fetch because the 'url' state is mapped to an effect hook that fetches teh data
         setUrl("http://"+host+"/my_energy/api/getseries?from=" + from + "&to=" + to + "&resolution=" + resolution)
-        fetchData(url)
     }
 
 
@@ -181,6 +181,14 @@ export default function Main(props) {
     // it then also does a new fetch of the data.
     const handlePeriodChoice = (newPeriod) => {
         // load the state in temp variables
+        //alert('(1) '+url)
+        if (newPeriod==='test') {
+            setUrl('')
+            const my_url = "http://"+host+"/my_energy/api/getseries?from=" + from + "&to=" + to + "&resolution=" + resolution
+            setUrl(my_url)
+            return
+        }
+
         let _from = from
         let _to = to
         let _range = range
@@ -249,8 +257,8 @@ export default function Main(props) {
         setTicks(_tv)
 
         let newUrl = "http://"+host+"/my_energy/api/getseries?from=" + _from + "&to=" + _to + "&resolution=" + _resolution
+        // this triggers a new fetch because the 'url' state is mapped to an effect hook that fetches teh data
         setUrl(newUrl)
-        fetchData(newUrl)
     }
 
     let renderGraph
@@ -279,6 +287,7 @@ export default function Main(props) {
                     <Row className="show-grid">
                         <Col lg={true}>
                             <HeaderPanel/>
+
                             &nbsp;
                             <PeriodPanel
                                 from={from}

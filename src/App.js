@@ -7,6 +7,8 @@ class App extends Component {
     constructor(props) {
         super(props);
         let my_status = "ready"
+
+        // check of the host value is stored in the browser, if not, notify the user to configure it.
         let my_host = localStorage.getItem('MyEnergyServerIP');
         if (my_host==null) {
             alert("IP address of MyEnergyServer has not been set yet. Use 'configuration' button.")

@@ -26,7 +26,6 @@ export default function drawGasGraph(props, dataTypes) {
         let costs = Math.round(gasPrice * total / 1000 * 100) / 100
         subTitle = subTitle + ' = € ' + costs
     }
-    console.log('drawGasGraph: return GasGraph')
     return <GasGraph
         title={title}
         subTitle={subTitle}

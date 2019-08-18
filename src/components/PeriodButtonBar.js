@@ -46,12 +46,11 @@ export default function PeriodButtonBar(props) {
                 <Button variant="info" onClick={() => props.handleChoice('today')}>DAY</Button>&nbsp;
             </ButtonToolbar>
             &nbsp;
-            <ButtonToolbar>
 
+            <ButtonToolbar>
                 {/* navigiation and period buttons */}
                 {navButton1}&nbsp;{navButton2}
                 {periodSelection}
-
             </ButtonToolbar>
         </div>
 

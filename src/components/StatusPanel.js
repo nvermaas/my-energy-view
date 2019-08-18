@@ -22,30 +22,33 @@ export default function StatusPanel(props) {
                     <Card.Title as="h5">Status ({props.status})</Card.Title>
                 </Card.Header>
                 <Card.Body>
-                    <tr><td>
-                            <Configuration ip = {ip} sn = {sn} gp={gp} ep = {ep} show="false"
-                                           handleConfigChange={props.handleConfigChange} />
-                        </td>
-                        &nbsp;
-                        <td>
-                            <a href={props.url} target="_blank">
-                                <Button variant="success" >
-                                    <FontAwesomeIcon icon={faCog} />
-                                    &nbsp;Server
-                                </Button>
-                            </a>
-                        </td>
-                        &nbsp;
-                        <td>
-                            <a href={help_url} target="_blank">
-                                <Button variant="info" >
-                                    <FontAwesomeIcon icon={faQuestion} />
-                                    &nbsp; Help
-                                </Button>
-                            </a>
-                        </td>
-                    </tr>
-
+                    <table>
+                        <tbody>
+                            <tr><td>
+                                <Configuration ip = {ip} sn = {sn} gp={gp} ep = {ep} show="false"
+                                               handleConfigChange={props.handleConfigChange} />
+                                </td>
+                            &nbsp;
+                            <td>
+                                <a href={props.url} target="_blank">
+                                    <Button variant="success" >
+                                        <FontAwesomeIcon icon={faCog} />
+                                        &nbsp;Server
+                                    </Button>
+                                </a>
+                            </td>
+                            &nbsp;
+                            <td>
+                                <a href={help_url} target="_blank">
+                                    <Button variant="info" >
+                                        <FontAwesomeIcon icon={faQuestion} />
+                                        &nbsp; Help
+                                    </Button>
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </Card.Body>
             </Card>
         </div>
