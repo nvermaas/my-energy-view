@@ -9,8 +9,8 @@ export const SET_RESOLUTION = 'SET_RESOLUTION'
 
 // the initial state
 export const initialState = {
-    presentation: "Gas",
-    dataset: "Gas",
+    presentation: "Net Electric Power",
+    dataset: "Netto",
     period: "today",
     resolution: "Hour",
     from : getDayStart(new Date()),
