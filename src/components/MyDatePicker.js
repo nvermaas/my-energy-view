@@ -48,7 +48,7 @@ class MyDatePicker extends Component {
         let periodeDialog
         if (this.state.show) {
             periodeDialog =
-                <Modal.Dialog show={this.state.show} onHide={this.handleClose}>
+                <Modal show={this.state.show} onHide={this.handleClose}>
                     <Modal.Header>
                         <Modal.Title>Period</Modal.Title>
                     </Modal.Header>
@@ -69,7 +69,7 @@ class MyDatePicker extends Component {
                     <Modal.Footer>
                         <Button variant="success" onClick={this.handleClose}>OK</Button>
                     </Modal.Footer>
-                </Modal.Dialog>
+                </Modal>
         }
 
         return (

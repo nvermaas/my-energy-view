@@ -71,7 +71,7 @@ class Configuration extends Component {
             </Button>
         } else {
             renderConfigDialog =
-                <Modal.Dialog show={this.state.show} onHide={this.handleClose}>
+                <Modal show={this.state.show} onHide={this.handleClose}>
                     <Modal.Header>
                         <Modal.Title>Configuration</Modal.Title>
                     </Modal.Header>
@@ -115,7 +115,7 @@ class Configuration extends Component {
                         <Button variant="primary" onClick={this.handleSaveClose}>OK</Button>
                         <Button variant="warning" onClick={this.handleClose}>Cancel</Button>
                     </Modal.Footer>
-                </Modal.Dialog>
+                </Modal>
         }
 
         return (
