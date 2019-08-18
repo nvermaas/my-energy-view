@@ -44,6 +44,7 @@ export default function PeriodButtonBar(props) {
                 <Button variant="info" onClick={() => props.handleChoice('this_month')}>MONTH</Button>&nbsp;
                 <Button variant="info" onClick={() => props.handleChoice('this_week')}>WEEK</Button>&nbsp;
                 <Button variant="info" onClick={() => props.handleChoice('today')}>DAY</Button>&nbsp;
+
             </ButtonToolbar>
             &nbsp;
 

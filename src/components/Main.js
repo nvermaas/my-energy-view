@@ -1,6 +1,11 @@
-import React, {useState, useEffect }  from 'react';
-
+import React, {useState, useEffect, useReducer }  from 'react';
 import { Container, Jumbotron, Row, Col } from 'react-bootstrap';
+
+import { MainReducer, initialState,
+    SET_PERIOD,
+    SET_PRESENTATION,
+    SET_MY_STATE }
+    from '../reducers/MainReducer'
 
 import MainGraph from './MainGraph';
 import HeaderPanel from './HeaderPanel';
@@ -15,22 +20,20 @@ import { tickValues, createCustomTickvalues } from '../utils/common';
 
 
 export default function Main(props) {
-    // state in hoooks
-    const [presentation, setPresentation] = useState('Gas')
-    const [dataset, setDataset] = useState('Gas')
-    const [period, setPeriod] = useState('today')
-    const [from, setFrom] = useState(getDayStart(new Date()))
-    const [to, setTo] = useState(getDayEnd(new Date()))
-    const [range, setRange] = useState("Dag")
-    const [resolution, setResolution] = useState("Hour")
-    const [ticks, setTicks] = useState(tickValues["hour"])
-    const [status, setStatus] = useState(props.status)
+    // state in hooks
 
+    // my_state is the object that contains all the props that are maintained by my MainReducer
+    // my_dispatch is the function that sends actions to the MainReducer
+    const [my_state, my_dispatch] = useReducer(MainReducer, initialState)
+
+    // these pieces of state come from the App
+    const [status, setStatus] = useState(props.status)
     const [host, setHost] = useState(props.host)
-    const [url, setUrl] = useState("http://"+host+"/my_energy/api/getseries?from=" + from + "&to=" + to + "&resolution=" + resolution)
+    const [url, setUrl] = useState("http://"+host+"/my_energy/api/getseries?from=" + my_state.from + "&to=" + my_state.to + "&resolution=" + my_state.resolution)
 
     const [fetchedData, setFetchedData] = useState('underfined')
     const [timer, setTimer] = useState(undefined)
+
 
     // the '[url]' parameter means that this effect will be executed whenever the 'url' state changes.
     // This effectivly means the data is fetched when setUrl(..) is called
@@ -40,6 +43,7 @@ export default function Main(props) {
     );
 
     // Similar to componentDidMount and componentDidUpdate:
+    // executed only once (thanks to the empty [] argument
     useEffect(() => {
             setTimer(setInterval(() => fetchData(url), 300000))
 
@@ -74,7 +78,7 @@ export default function Main(props) {
 
     // this function is called when the IP address is changed in the configuration screen
     const handleConfigChange = (newHost) => {
-        let newUrl = "http://"+newHost+"/my_energy/api/getseries?from=" + from + "&to=" + to + "&resolution=" + resolution
+        let newUrl = "http://"+newHost+"/my_energy/api/getseries?from=" + my_state.from + "&to=" + my_state.to + "&resolution=" + my_state.resolution
         setHost(newHost)
         setStatus("ready")
         setUrl(newUrl)
@@ -82,28 +86,26 @@ export default function Main(props) {
 
     // this function is called when the presentation choice changes (gas, power, etc)
     const handlePresentationChoice = (presentation, dataset) => {
-        setPresentation(presentation)
-        setDataset(dataset)
+        my_dispatch({type: SET_PRESENTATION, presentation: presentation, dataset: dataset})
     }
-
 
     // this function is called when a bar n the graph is clicked
     // depending on the 'range' it will zoom into the next range (year, month, day)
     function handleZoom(i) {
-        let newRange = range
-        let newFrom = from
-        let newTo = to
-        let newResolution = resolution
-        let newTicks = ticks
+        let newRange = my_state.range
+        let newFrom = my_state.from
+        let newTo = my_state.to
+        let newResolution = my_state.resolution
+        let newTicks = my_state.ticks
 
         // only range year, month and day are valid, because for custom ranges it is not known
         // to which month, day the 'index' points when clicking a bar
-        if (range === 'custom') {
+        if (my_state.range === 'custom') {
             return
         }
 
         // clicked on a month bar in a Year overview
-        if (resolution === 'Month') {
+        if (my_state.resolution === 'Month') {
             newRange = "Maand"
 
             let month = i+1
@@ -114,9 +116,8 @@ export default function Main(props) {
             newTicks = createCustomTickvalues(newFrom, newTo, newResolution)
         } else
 
-        if (resolution === 'Day') {
-
-            if (range==='Week') {
+        if (my_state.resolution === 'Day') {
+            if (my_state.range==='Week') {
                 // clicked on a day bar in a week overview
                 newFrom = addDays(newFrom,i)
                 newTo = addDays(newFrom,1)
@@ -124,8 +125,8 @@ export default function Main(props) {
             } else {
                 // clicked on a day bar in a month overview
                 let day = i+1
-                let year = getYear(from).toString()
-                let month = pad(getMonth(from).toString(),2)
+                let year = getYear(my_state.from).toString()
+                let month = pad(getMonth(my_state.from).toString(),2)
                 newFrom = year + '-' + month+ '-'+pad((day).toString(), 2)
                 newTo = year + '-' + month+ '-'+pad((day+1).toString(), 2)
 
@@ -136,127 +137,129 @@ export default function Main(props) {
         }
 
         // clicked on a day bar in a month overview
-        if (resolution === 'Hour') {
-            //alert('Dieper inzoomen is nog niet mogelijk.')
+        if (my_state.resolution === 'Hour') {
             newResolution = "15MINUTES"
         }
 
         // clicked on a day bar in a month overview
-        if (resolution === '15MINUTES') {
-            //alert('Dieper inzoomen is nog niet mogelijk.')
+        if (my_state.resolution === '15MINUTES') {
             newTicks = tickValues["hour"]
             newResolution = "Hour"
         }
 
-        setFrom(newFrom)
-        setTo(newTo)
-        setResolution(newResolution)
-        setTicks(newTicks)
-        setRange(newRange)
+        my_dispatch({type: SET_MY_STATE,
+            presentation: my_state.presentation,
+            period: "custom",
+            resolution : newResolution,
+            from : newFrom,
+            to : newTo,
+            range : newRange,
+            ticks : newTicks
+        })
 
+        // this triggers a new fetch because the 'url' state is mapped to an effect hook that fetches the data
         let newUrl = "http://"+host+"/my_energy/api/getseries?from=" + newFrom + "&to=" + newTo + "&resolution=" + newResolution
-        // this triggers a new fetch
         setUrl(newUrl)
     }
 
-
-    // this function is called when the period choices change
+    // this function is called when a custom specific period choice is made
     const handleChangeDate = (from, to) => {
-        //alert('app.handleChangeDate:' +from+','+to)
+        my_dispatch({type: SET_MY_STATE,
+            presentation: my_state.presentation,
+            period: "custom",
+            resolution : "Day",
+            from : from,
+            to : to,
+            range : "custom",
+            ticks : createCustomTickvalues(from,to,my_state.resolution)
+        })
 
-        // make this changable later
-        setResolution("Day")
-        setFrom(from)
-        setTo(to)
-        setPeriod("custom")
-        setRange("custom")
-        setTicks(createCustomTickvalues(from,to,resolution))
-
-        // this triggers a new fetch because the 'url' state is mapped to an effect hook that fetches teh data
-        setUrl("http://"+host+"/my_energy/api/getseries?from=" + from + "&to=" + to + "&resolution=" + resolution)
+        // this triggers a new fetch because the 'url' state is mapped to an effect hook that fetches the data
+        setUrl("http://"+host+"/my_energy/api/getseries?from=" + from + "&to=" + to + "&resolution=" + my_state.resolution)
     }
 
 
     // this function is called when a different time period is selected.
     // it then also does a new fetch of the data.
     const handlePeriodChoice = (newPeriod) => {
-        // load the state in temp variables
-        //alert('(1) '+url)
+
         if (newPeriod==='test') {
-            setUrl('')
-            const my_url = "http://"+host+"/my_energy/api/getseries?from=" + from + "&to=" + to + "&resolution=" + resolution
-            setUrl(my_url)
+            my_dispatch({type: SET_PERIOD, period: 'test'})
             return
         }
 
-        let _from = from
-        let _to = to
-        let _range = range
-        let _resolution = resolution
-        let _tv
+        let newFrom = my_state.from
+        let newTo = my_state.to
+        let newRange = my_state.range
+        let newResolution = my_state.resolution
+        let newTicks
 
         if (newPeriod==='this_year') {
-            _from = getYearStart(new Date())
-            _to = getYearEnd(new Date())
-            _range = "Jaar"
-            _resolution = "Month"
-            _tv = tickValues["month"]
+            newFrom = getYearStart(new Date())
+            newTo = getYearEnd(new Date())
+            newRange = "Jaar"
+            newResolution = "Month"
+            newTicks = tickValues["month"]
         }
 
         if (newPeriod==='this_month') {
-            _from = getMonthStart(new Date())
-            _to   = getMonthEnd(new Date())
-            _range = "Maand"
-            _resolution = "Day"
-            _tv = null
-            _tv = createCustomTickvalues(_from, _to, _resolution)
+            newFrom = getMonthStart(new Date())
+            newTo   = getMonthEnd(new Date())
+            newRange = "Maand"
+            newResolution = "Day"
+            newTicks = null
+            newTicks = createCustomTickvalues(newFrom, newTo, newResolution)
         }
 
         if (newPeriod==='this_week') {
-            _from = getWeekStart(new Date())
-            _to   = getWeekEnd(new Date())
-            _range = "Week"
-            _resolution = "Day"
-            _tv = tickValues["day"]
+            newFrom = getWeekStart(new Date())
+            newTo   = getWeekEnd(new Date())
+            newRange = "Week"
+            newResolution = "Day"
+            newTicks = tickValues["day"]
         }
 
         if (newPeriod==='today') {
-            _from = getDayStart(new Date())
-            _to   = getDayEnd(new Date())
-            _range = "Dag"
-            _resolution = "Hour"
-            _tv = tickValues["hour"]
+            newFrom = getDayStart(new Date())
+            newTo   = getDayEnd(new Date())
+            newRange = "Dag"
+            newResolution = "Hour"
+            newTicks = tickValues["hour"]
         }
 
         // depending go back 1 '_resolution
         if (newPeriod==='back') {
-            _from = goBackInTime(from,range)
-            _to   = goBackInTime(to,range)
-            _tv = ticks
-            if (range==='Maand') {
-                _to = getMonthStart(from)
-                _tv = createCustomTickvalues(_from, _to, resolution)
+            newFrom = goBackInTime(my_state.from,my_state.range)
+            newTo   = goBackInTime(my_state.to,my_state.range)
+            newTicks = my_state.ticks
+            if (my_state.range==='Maand') {
+                newTo = getMonthStart(my_state.from)
+                newTicks = createCustomTickvalues(newFrom, newTo, my_state.resolution)
             }
         }
 
         // depending go back 1 '_resolution
         if (newPeriod==='forward') {
-            _from = goForwardInTime(from,range)
-            _to   = goForwardInTime(to,range)
-            _tv = ticks
-            if (range==='Maand') {
-                _tv = createCustomTickvalues(_from, _to, resolution)
+            newFrom = goForwardInTime(my_state.from,my_state.range)
+            newTo   = goForwardInTime(my_state.to,my_state.range)
+            newTicks = my_state.ticks
+            if (my_state.range==='Maand') {
+                newTicks = createCustomTickvalues(newFrom, newTo, my_state.resolution)
             }
         }
 
-        setFrom(_from)
-        setTo(_to)
-        setPeriod(newPeriod)
-        setRange(_range)
-        setResolution(_resolution)
-        setTicks(_tv)
+        // dispatch the new settings to the reducer
+        my_dispatch({type: SET_MY_STATE,
+            presentation: my_state.presentation,
+            period: newPeriod,
+            resolution : newResolution,
+            from : newFrom,
+            to : newTo,
+            range : newRange,
+            ticks : newTicks
+        })
 
-        let newUrl = "http://"+host+"/my_energy/api/getseries?from=" + _from + "&to=" + _to + "&resolution=" + _resolution
+        let newUrl = "http://"+host+"/my_energy/api/getseries?from=" + newFrom + "&to=" + newTo + "&resolution=" + newResolution
         // this triggers a new fetch because the 'url' state is mapped to an effect hook that fetches teh data
         setUrl(newUrl)
     }
@@ -266,13 +269,13 @@ export default function Main(props) {
 
     // conditional render, only render the GUI when there is data fetched.
     if (status==='fetched') {
-        renderGraph = <MainGraph presentation = {presentation}
-                                 range = {range}
-                                 from = {from}
-                                 to = {to}
+        renderGraph = <MainGraph presentation = {my_state.presentation}
+                                 range = {my_state.range}
+                                 from = {my_state.from}
+                                 to = {my_state.to}
                                  fetchedData = {fetchedData}
-                                 tickValues = {ticks}
-                                 dataset = {dataset}
+                                 tickValues = {my_state.ticks}
+                                 dataset = {my_state.dataset}
                                  handleZoom={handleZoom}/>
     }
 
@@ -290,10 +293,10 @@ export default function Main(props) {
 
                             &nbsp;
                             <PeriodPanel
-                                from={from}
-                                to={to}
-                                range={range}
-                                resolution={resolution}
+                                from={my_state.from}
+                                to={my_state.to}
+                                range={my_state.range}
+                                resolution={my_state.resolution}
                                 handleChoice={handlePeriodChoice}
                                 handleChangeDate={handleChangeDate}
                             />
@@ -303,12 +306,14 @@ export default function Main(props) {
                             <LiveView host={host} />
                             &nbsp;
                             <StatusPanel url = {url}
+                                         presentation = {my_state.presentation}
+                                         dataset = {my_state.dataset}
                                          status = {status}
-                                         to = {to}
-                                         from = {from}
-                                         resolution = {resolution}
-                                         period = {period}
-                                         range = {range}
+                                         to = {my_state.to}
+                                         from = {my_state.from}
+                                         resolution = {my_state.resolution}
+                                         period = {my_state.period}
+                                         range = {my_state.range}
                                          handleConfigChange={handleConfigChange}
                                         />
 
@@ -324,7 +329,7 @@ export default function Main(props) {
                     </Row>
                 </Container>
             </Jumbotron>
-            <small> (C) 2019 - Nico Vermaas - version 1.5.0 - 17 feb 2019</small>
+            <small> (C) 2019 - Nico Vermaas - version 1.5.0 - 18 aug 2019</small>
         </div>
     );
 }

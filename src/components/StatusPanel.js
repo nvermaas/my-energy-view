@@ -47,6 +47,10 @@ export default function StatusPanel(props) {
                                 </a>
                             </td>
                         </tr>
+                            <tr><td>Presentation : </td><td>{props.presentation}</td></tr>
+                            <tr><td>Dataset : </td><td>{props.dataset}</td></tr>
+                            <tr><td>Period : </td><td>{props.period}</td></tr>
+                            <tr><td>Resolution : </td><td>{props.resolution}</td></tr>
                         </tbody>
                     </table>
                 </Card.Body>
