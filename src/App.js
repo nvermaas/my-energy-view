@@ -2,32 +2,28 @@ import React, { Component } from 'react';
 import './App.css';
 import Main from './components/Main';
 
-class App extends Component {
-
-    constructor(props) {
-        super(props);
-        let my_status = "ready"
-
-        // check of the host value is stored in the browser, if not, notify the user to configure it.
-        let my_host = localStorage.getItem('MyEnergyServerIP');
-        if (my_host==null) {
-            alert("IP address of MyEnergyServer has not been set yet. Use 'configuration' button.")
-            my_status = "do_config"
-        }
-
-        this.state = {
-            host: my_host,
-            status : my_status,
-        }
+// conditionally set some initial state
+const initialState = () => {
+    let my_status = "ready"
+    // check of the host value is stored in the browser, if not, notify the user to configure it.
+    let my_host = localStorage.getItem('MyEnergyServerIP');
+    if (my_host == null) {
+        alert("IP address of MyEnergyServer has not been set yet. Use 'configuration' button.")
+        my_status = "do_config"
     }
 
-    render() {
-
-        return (
-        <div>
-            <Main host={this.state.host} status = {this.state.status} />
-        </div>
-     )}
+    return {
+        host: my_host,
+        status: my_status
+    }
 }
 
-export default App;
+export default function App() {
+    let my_state = initialState()
+
+    return (
+        <div>
+            <Main host={my_state.host} status = {my_state.status} />
+        </div>
+     )
+}
