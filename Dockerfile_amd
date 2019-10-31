@@ -1,5 +1,6 @@
 # production environment
-FROM tobi312/rpi-nginx:latest
-COPY build /var/www/html
+FROM nginx:latest
+#COPY build /var/www/html
+COPY build /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]

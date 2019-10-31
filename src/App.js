@@ -1,29 +1,38 @@
-import React from 'react';
+import React, {createContext, useContext, useReducer} from 'react';
 import './App.css';
 import Main from './components/Main';
+import { StateProvider  } from './MyGlobalStateProvider';
+import { reducer } from './reducers/MyReducer';
 
 // conditionally set some initial state
-const initialState = () => {
+const myInitialState = () => {
     let my_status = "ready"
     // check of the host value is stored in the browser, if not, notify the user to configure it.
     let my_host = localStorage.getItem('MyEnergyServerIP');
+
     if (my_host == null) {
         alert("IP address of MyEnergyServer has not been set yet. Use 'configuration' button.")
         my_status = "do_config"
     }
 
     return {
-        host: my_host,
-        status: my_status
+        my_state : {
+            host: my_host,
+            status: my_status
+        },
+        presentation: "Net Electric Power",
+        dataset: "Netto",
     }
 }
 
+
 export default function App() {
-    let my_state = initialState()
+    alert('app')
+    const initialState = myInitialState()
 
     return (
-        <div>
-            <Main host={my_state.host} status = {my_state.status} />
-        </div>
-     )
+        <StateProvider initialState={initialState} reducer={reducer}>
+            <Main host={initialState.my_state.host} status = {initialState.my_state.status} />
+        </StateProvider>
+    );
 }

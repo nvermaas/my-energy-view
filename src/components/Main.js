@@ -31,7 +31,7 @@ export default function Main(props) {
     const [host, setHost] = useState(props.host)
     const [url, setUrl] = useState("http://"+host+"/my_energy/api/getseries?from=" + my_state.from + "&to=" + my_state.to + "&resolution=" + my_state.resolution)
 
-    const [fetchedData, setFetchedData] = useState('underfined')
+    const [fetchedData, setFetchedData] = useState('ready')
     const [timer, setTimer] = useState(undefined)
 
 
@@ -86,12 +86,13 @@ export default function Main(props) {
 
     // this function is called when the presentation choice changes (gas, power, etc)
     const handlePresentationChoice = (presentation, dataset) => {
+        // dispatch to the (local) reducer)
         my_dispatch({type: SET_PRESENTATION, presentation: presentation, dataset: dataset})
     }
 
     // this function is called when a bar n the graph is clicked
     // depending on the 'range' it will zoom into the next range (year, month, day)
-    function handleZoom(i) {
+    const handleZoom = (i) => {
         let newRange = my_state.range
         let newFrom = my_state.from
         let newTo = my_state.to
