@@ -15,6 +15,7 @@ class ElectricityGraph extends Component {
         let items2 = this.props.items2;
         let items3 = this.props.items3;
         let items4 = this.props.items4;
+        let barColor1 = this.props.barColor1;
 
         let y_label = "kWh"
 
@@ -24,7 +25,7 @@ class ElectricityGraph extends Component {
                 <VictoryBar
                     style={{
                         data: {
-                            fill: "#9C8908",
+                            fill: barColor1,
                             fillOpacity: 0.7,
                         },
                         labels: {
@@ -95,7 +96,7 @@ class ElectricityGraph extends Component {
                         data: {
                             stroke: "#c43a31",
                             // stroke: "#C0C0C0",
-                            strokeWidth: 0.7,
+                            strokeWidth: 1.5,
                             fillOpacity: 0.7,
                         },
                         labels: {
@@ -131,9 +132,9 @@ class ElectricityGraph extends Component {
                         data: {
                             stroke: "#008000",
                             //stroke: "#C0C0C0",
-                            strokeWidth: 0.7,
+                            strokeWidth: 1.5,
                             strokeLinecap: "round",
-                            parent: { border: "1px solid #ccc"}
+                            parent: { border: "2px solid #ccc"}
                         },
                         labels: {
                             fontSize: 10,
@@ -172,6 +173,7 @@ class ElectricityGraph extends Component {
                     {/* Define labels */}
                     <VictoryLabel x={150} y={5}  style={{fontSize: 15}} text={this.props.title}/>
                     <VictoryLabel x={150} y={25} style={{fontSize: 12}} text={this.props.subTitle}/>
+                    <VictoryLabel x={150} y={330} style={{fontSize: 12, color: "#008000"}} text={this.props.footer}/>
                     <VictoryAxis
                         tickValues={this.props.tickValues}
                         //label={x_label}

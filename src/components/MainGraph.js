@@ -18,6 +18,7 @@ const dataTypes = {
     "Wind Speed" : 7,
     "Wind Gust" : 8,
     "Wind Direction" : 9,
+    "Solar Panels" : 10,
 }
 
 export default function MainGraph(props) {
@@ -48,9 +49,15 @@ export default function MainGraph(props) {
         drawGraph = drawElectricityGraph(props, dataTypes, 'combined')
     } else
 
-    if (presentation==='Consumption' || presentation==='Generation') {
+    if (presentation==='Consumption') {
       drawGraph = drawElectricityGraph(props, dataTypes, 'single')
     }
+
+    if (presentation==='Solar Panels') {
+        let barColor1 = "#008000"
+        drawGraph = drawElectricityGraph(props, dataTypes, 'single',barColor1)
+    }
+
 
     return (
         <div>

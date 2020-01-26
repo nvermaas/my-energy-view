@@ -27,7 +27,6 @@ const myInitialState = () => {
 
 
 export default function App() {
-    alert('app')
     const initialState = myInitialState()
 
     return (

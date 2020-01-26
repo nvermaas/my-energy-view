@@ -38,8 +38,8 @@ export default function PresentationButtonBar(props) {
                 <Button variant="primary" onClick={() => handleChoice('Gas', 'Gas')}>GAS</Button>&nbsp;
                 <Button variant="warning" onClick={() => handleChoice('Net Electric Power', 'Netto')}>POWER</Button>&nbsp;
                 <Button variant="warning" onClick={() => handleChoice('Consumption', 'Consumption')}>Consumed</Button>&nbsp;
-                <Button variant="warning" onClick={() => handleChoice('Generation', 'Generation')}>Generated</Button>&nbsp;
-                <Button variant="warning" onClick={() => handleChoice('Generation', 'Generation')}>Generated</Button>&nbsp;
+                <Button variant="success" onClick={() => handleChoice('Solar Panels', 'Solar Panels')}>Solar Panels</Button>&nbsp;
+
             </ButtonToolbar>
 
             &nbsp;
