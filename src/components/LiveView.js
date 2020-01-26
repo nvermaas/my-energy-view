@@ -39,13 +39,15 @@ export default function LifeView(props) {
     let renderLiveInfo
     if (data!==undefined) {
         let PowerData = parseInt(data['data'].power_usage) - parseInt(data['data'].power_delivery)
-
+        let CurrentSolar = (data['data'].current_power_growatt_label)
+        let CurrentUsage = (data['data'].real_power_usage)
         renderLiveInfo =
             <div>
                 <Card border="warning">
                     <Card.Header>
-                        <Card.Title as="h5">LIVE Power = {PowerData} </Card.Title>
-                    </Card.Header>
+                        <Card.Title as="h5">LIVE - NET Power = {PowerData} W </Card.Title>
+                        <div>Solar Panels = {CurrentSolar}, Consuming = {CurrentUsage} W</div>
+                      </Card.Header>
                 </Card>
 
             </div>
