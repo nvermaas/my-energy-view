@@ -39,7 +39,7 @@ export default function LifeView(props) {
     let renderLiveInfo
     if (data!==undefined) {
         let PowerData = parseInt(data['data'].power_usage) - parseInt(data['data'].power_delivery)
-        let CurrentSolar = Math.round(data['data'].current_power_growatt_label)
+        let CurrentSolar = (data['data'].current_power_growatt_label)
         let CurrentUsage = Math.round(data['data'].real_power_usage)
 
         renderLiveInfo =
