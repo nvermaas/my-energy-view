@@ -10,8 +10,8 @@ export default function StatusPanel(props) {
     let ip,sn,gp,ep
     // condition ? exprT : exprF
     localStorage.getItem('MyEnergyServerIP') == null ? ip = '192.168.178.64' : ip = localStorage.getItem('MyEnergyServerIP')
-    localStorage.getItem('QboxGasPrice') == null ? gp = '0.63' : gp = localStorage.getItem('QboxGasPrice')
-    localStorage.getItem('QboxElectricityPrice') == null ? ep = '0.20' : ep = localStorage.getItem('QboxElectricityPrice')
+    localStorage.getItem('QboxGasPrice') == null ? gp = '0.78' : gp = localStorage.getItem('QboxGasPrice')
+    localStorage.getItem('QboxElectricityPrice') == null ? ep = '0.24' : ep = localStorage.getItem('QboxElectricityPrice')
 
     let help_url = "https://github.com/nvermaas/my_energy/blob/master/README_DOCKER.md"
 
