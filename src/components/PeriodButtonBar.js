@@ -40,10 +40,12 @@ export default function PeriodButtonBar(props) {
         <div>
             {/* buttons for the current moment */}
             <ButtonToolbar>
-                <Button variant="info" onClick={() => props.handleChoice('this_year')}>YEAR</Button>&nbsp;
-                <Button variant="info" onClick={() => props.handleChoice('this_month')}>MONTH</Button>&nbsp;
-                <Button variant="info" onClick={() => props.handleChoice('this_week')}>WEEK</Button>&nbsp;
-                <Button variant="info" onClick={() => props.handleChoice('today')}>DAY</Button>&nbsp;
+                <Button variant="info" onClick={() => props.handleChoice('years')}>Years</Button>&nbsp;
+                <Button variant="info" onClick={() => props.handleChoice('all_months')}>Months</Button>&nbsp;
+                <Button variant="info" onClick={() => props.handleChoice('this_year')}>Year</Button>&nbsp;
+                <Button variant="info" onClick={() => props.handleChoice('this_month')}>Month</Button>&nbsp;
+                <Button variant="info" onClick={() => props.handleChoice('this_week')}>Week</Button>&nbsp;
+                <Button variant="info" onClick={() => props.handleChoice('today')}>Day</Button>&nbsp;
 
             </ButtonToolbar>
             &nbsp;

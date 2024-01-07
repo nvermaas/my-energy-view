@@ -11,8 +11,8 @@ export default function LifeView(props) {
 
     // Similar to componentDidMount and componentDidUpdate:
     useEffect(() => {
-            doPolling()
-            setTimer(setInterval(() => doPolling(), 10000))
+            //doPolling()
+            //setTimer(setInterval(() => doPolling(), 10000))
 
             // this function is automatically called when the component unmounts
             return function cleanup() {
@@ -33,6 +33,10 @@ export default function LifeView(props) {
             })
             .then(data => {
                 setData(data)
+            })
+            .catch(function () {
+                alert("fetch to " + url + " failed.");
+                return null
             })
     }
 
