@@ -76,6 +76,12 @@ export function constructSubTitle(props) {
 export function constructTitle(props, extra_title='') {
     let title = extra_title + props.from + ' - ' + props.to
 
+    if (props.range === 'years') {
+        let year1 = getYear(props.from)
+        let year2 = getYear(props.to)
+        title = year1 + ' - ' + year2
+    }
+
     if (props.range === 'Jaar') {
         let year = getYear(props.from)
         title = year

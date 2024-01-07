@@ -29,7 +29,7 @@ export default function Main(props) {
     // these pieces of state come from the App
     const [status, setStatus] = useState(props.status)
     const [host, setHost] = useState(props.host)
-    const [url, setUrl] = useState("https://"+host+"/my_energy/api/getseries?from=" + my_state.from + "&to=" + my_state.to + "&resolution=" + my_state.resolution)
+    const [url, setUrl] = useState("http://"+host+"/my_energy/api/getseries?from=" + my_state.from + "&to=" + my_state.to + "&resolution=" + my_state.resolution)
 
     const [fetchedData, setFetchedData] = useState('ready')
     const [timer, setTimer] = useState(undefined)
@@ -104,6 +104,19 @@ export default function Main(props) {
         if (my_state.range === 'custom') {
             return
         }
+
+
+        // clicked on a month bar in a Year overview
+        if (my_state.resolution === 'Month') {
+            newRange = "Maand"
+
+            let month = i+1
+            let year = getYear(newFrom).toString()
+            newFrom = getMonthStart(year + '-' + pad((month).toString(), 2) + '-01')
+            newTo = getMonthEnd(newFrom)
+            newResolution = "Day"
+            newTicks = createCustomTickvalues(newFrom, newTo, newResolution)
+        } else
 
         // clicked on a month bar in a Year overview
         if (my_state.resolution === 'Month') {
@@ -194,6 +207,27 @@ export default function Main(props) {
         let newRange = my_state.range
         let newResolution = my_state.resolution
         let newTicks
+
+        if (newPeriod==='years') {
+            newFrom = getYearStart(new Date("01-01-2018"))
+            console.info(newFrom)
+            newTo = getYearEnd(new Date())
+            newRange = "years"
+            newResolution = "Year"
+            //newTicks = tickValues["years"]
+
+            //newTicks = null
+            newTicks = createCustomTickvalues(newFrom, newTo, newResolution)
+        }
+
+        if (newPeriod==='all_months') {
+            newFrom = getYearStart(new Date("01-01-2018"))
+            console.info(newFrom)
+            newTo = getYearEnd(new Date())
+            newRange = "years"
+            newResolution = "Month"
+            newTicks = tickValues["year"]
+        }
 
         if (newPeriod==='this_year') {
             newFrom = getYearStart(new Date())
@@ -330,7 +364,7 @@ export default function Main(props) {
                     </Row>
                 </Container>
             </Jumbotron>
-            <small> (C) 2019 - Nico Vermaas - version 1.7.0 - 30 aug 2020</small>
+            <small> (C) 2019 - Nico Vermaas - version 7 jan 2024</small>
         </div>
     );
 }
