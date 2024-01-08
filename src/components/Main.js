@@ -364,7 +364,7 @@ export default function Main(props) {
                     </Row>
                 </Container>
             </Jumbotron>
-            <small> (C) 2019 - Nico Vermaas - version 7 jan 2024</small>
+            <small> (C) 2019 - Nico Vermaas - version 8 jan 2024</small>
         </div>
     );
 }
