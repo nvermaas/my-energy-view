@@ -7,12 +7,12 @@ export default function LifeView(props) {
     const [data, setData] = useState(undefined)
     const [timer, setTimer] = useState(undefined)
 
-    const url = "http://"+props.host+"/my_energy/api/getlivedata"
+    const url = "http://uilennest.net/my_energy/api/getlivedata"
 
     // Similar to componentDidMount and componentDidUpdate:
     useEffect(() => {
-            doPolling()
-            setTimer(setInterval(() => doPolling(), 10000))
+            //doPolling()
+            //setTimer(setInterval(() => doPolling(), 10000))
 
             // this function is automatically called when the component unmounts
             return function cleanup() {
@@ -35,7 +35,7 @@ export default function LifeView(props) {
                 setData(data)
             })
             .catch(function () {
-                alert("fetch to " + url + " failed.");
+                //alert("fetch to " + url + " failed.");
                 return null
             })
     }

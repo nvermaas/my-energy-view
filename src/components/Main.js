@@ -29,7 +29,8 @@ export default function Main(props) {
     // these pieces of state come from the App
     const [status, setStatus] = useState(props.status)
     const [host, setHost] = useState(props.host)
-    const [url, setUrl] = useState("http://"+host+"/my_energy/api/getseries?from=" + my_state.from + "&to=" + my_state.to + "&resolution=" + my_state.resolution)
+//    const [url, setUrl] = useState("http://"+host+"/my_energy/api/getseries?from=" + my_state.from + "&to=" + my_state.to + "&resolution=" + my_state.resolution)
+    const [url, setUrl] = useState("http://"+host+"/my_energy/api2/getseries?start=" + my_state.from + "&end=" + my_state.to + "&interval=" + my_state.resolution)
 
     const [fetchedData, setFetchedData] = useState('ready')
     const [timer, setTimer] = useState(undefined)
@@ -78,7 +79,9 @@ export default function Main(props) {
 
     // this function is called when the IP address is changed in the configuration screen
     const handleConfigChange = (newHost) => {
-        let newUrl = "http://"+newHost+"/my_energy/api/getseries?from=" + my_state.from + "&to=" + my_state.to + "&resolution=" + my_state.resolution
+        //let newUrl = "http://"+newHost+"/my_energy/api/getseries?from=" + my_state.from + "&to=" + my_state.to + "&resolution=" + my_state.resolution
+        let newUrl = "http://"+newHost+"/my_energy/api2/getseries?start=" + my_state.from + "&end=" + my_state.to + "&interval=" + my_state.resolution
+
         setHost(newHost)
         setStatus("ready")
         setUrl(newUrl)
@@ -172,7 +175,9 @@ export default function Main(props) {
         })
 
         // this triggers a new fetch because the 'url' state is mapped to an effect hook that fetches the data
-        let newUrl = "http://"+host+"/my_energy/api/getseries?from=" + newFrom + "&to=" + newTo + "&resolution=" + newResolution
+        //let newUrl = "http://"+host+"/my_energy/api/getseries?from=" + newFrom + "&to=" + newTo + "&resolution=" + newResolution
+        let newUrl = "http://"+host+"/my_energy/api2/getseries?start=" + newFrom + "&end=" + newTo + "&interval=" + newResolution
+
         setUrl(newUrl)
     }
 
@@ -294,7 +299,7 @@ export default function Main(props) {
             ticks : newTicks
         })
 
-        let newUrl = "http://"+host+"/my_energy/api/getseries?from=" + newFrom + "&to=" + newTo + "&resolution=" + newResolution
+        let newUrl = "http://"+host+"/my_energy/api2/getseries?start=" + newFrom + "&end=" + newTo + "&interval=" + newResolution
         // this triggers a new fetch because the 'url' state is mapped to an effect hook that fetches teh data
         setUrl(newUrl)
     }
@@ -364,7 +369,7 @@ export default function Main(props) {
                     </Row>
                 </Container>
             </Jumbotron>
-            <small> (C) 2019 - Nico Vermaas - version 1 Jun 2024</small>
+            <small> (C) 2019 - Nico Vermaas - version 24 Aug 2024</small>
         </div>
     );
 }

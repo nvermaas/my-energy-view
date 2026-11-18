@@ -42,12 +42,6 @@ export default function PresentationButtonBar(props) {
 
             </ButtonToolbar>
 
-            &nbsp;
-
-            <ButtonToolbar>
-                <Button variant="primary" onClick={() => handleChoice('Meteo', 'Meteo')}>Rain & Temp</Button>&nbsp;
-                <Button variant="primary" onClick={() => handleChoice('Wind', 'Wind')}>Wind</Button>&nbsp;
-            </ButtonToolbar>
         </div>
 
     );

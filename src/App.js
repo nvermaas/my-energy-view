@@ -9,6 +9,7 @@ const myInitialState = () => {
     let my_status = "ready"
     // check of the host value is stored in the browser, if not, notify the user to configure it.
     let my_host = localStorage.getItem('MyEnergyServerIP');
+    my_host = "middle-earth:8015"
 
     if (my_host == null) {
         alert("IP address of MyEnergyServer has not been set yet. Use 'configuration' button.")

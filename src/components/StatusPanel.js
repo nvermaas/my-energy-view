@@ -18,9 +18,6 @@ export default function StatusPanel(props) {
     return (
         <div>
             <Card border="info">
-                <Card.Header>
-                    <Card.Title as="h5">Status ({props.status})</Card.Title>
-                </Card.Header>
                 <Card.Body>
                     <table>
                         <tbody>
