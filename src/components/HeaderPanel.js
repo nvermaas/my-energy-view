@@ -10,7 +10,7 @@ export default function HeaderPanel() {
                     <Card.Title as="h2">
                         <img  src={logo} alt="Logo" width="40" /> MyEnergy
                     </Card.Title>
-                    <Card.Subtitle className="mb-2 text-muted">Version - 22 Jul 2024</Card.Subtitle>
+                    <Card.Subtitle className="mb-2 text-muted">Version - 20 Nov 2026</Card.Subtitle>
                 </Card.Header>
             </Card>
         </div>
