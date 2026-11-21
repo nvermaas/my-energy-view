@@ -80,7 +80,7 @@ export default function Main(props) {
     // this function is called when the IP address is changed in the configuration screen
     const handleConfigChange = (newHost) => {
         //let newUrl = "http://"+newHost+"/my_energy/api/getseries?from=" + my_state.from + "&to=" + my_state.to + "&resolution=" + my_state.resolution
-        let newUrl = "http://"+newHost+"/my_energy/api2/getseries?start=" + my_state.from + "&end=" + my_state.to + "&interval=" + my_state.resolution
+        let newUrl = "http://"+newHost+"/my_energy/api2/getseries/?start=" + my_state.from + "&end=" + my_state.to + "&interval=" + my_state.resolution
 
         setHost(newHost)
         setStatus("ready")
