@@ -30,7 +30,7 @@ export default function Main(props) {
     const [status, setStatus] = useState(props.status)
     const [host, setHost] = useState(props.host)
 //    const [url, setUrl] = useState("http://"+host+"/my_energy/api/getseries?from=" + my_state.from + "&to=" + my_state.to + "&resolution=" + my_state.resolution)
-    const [url, setUrl] = useState("http://"+host+"/my_energy/api2/getseries?start=" + my_state.from + "&end=" + my_state.to + "&interval=" + my_state.resolution)
+    const [url, setUrl] = useState("http://"+host+"/my_energy/api2/getseries/?start=" + my_state.from + "&end=" + my_state.to + "&interval=" + my_state.resolution)
 
     const [fetchedData, setFetchedData] = useState('ready')
     const [timer, setTimer] = useState(undefined)
@@ -369,7 +369,7 @@ export default function Main(props) {
                     </Row>
                 </Container>
             </Jumbotron>
-            <small> (C) 2026 - Nico Vermaas - version 20 Nov 2026</small>
+            <small> (C) 2026 - Nico Vermaas - version 21 Nov 2026</small>
         </div>
     );
 }
